@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cat resources/js/Pages/Core/Users/Index.tsx)",
+      "Bash(cat package.json)",
+      "Bash(cat resources/js/types/index.d.ts)",
+      "Read(//tmp/**)",
+      "Bash(grep '\"Dashboard\"' \"e:\\\\web-project\\\\laravel-react\\\\lang\"/*.json)",
+      "Bash(grep '\"Profile\"' \"e:\\\\web-project\\\\laravel-react\\\\lang\"/*.json)",
+      "Bash(grep '\"Users\"' \"e:\\\\web-project\\\\laravel-react\\\\lang\"/*.json)",
+      "Bash(grep '\"Welcome back\"' \"e:\\\\web-project\\\\laravel-react\\\\lang\"/*.json)",
+      "Bash(grep -E '\"\\(Light Mode|Dark Mode|Toggle theme|Color Theme\\)\"' \"e:\\\\web-project\\\\laravel-react\\\\lang\"/*.json)",
+      "Bash(grep '\"Search' \"e:\\\\web-project\\\\laravel-react\\\\lang\"/*.json)",
+      "Bash(php artisan:*)",
+      "Bash(composer show:*)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(d.get\\('version','?'\\), d.get\\('require',{}\\).get\\('laravel/framework','?'\\)\\)\")",
+      "Bash(composer update:*)",
+      "Bash(where composer.bat)",
+      "Bash(where composer:*)",
+      "Read(//c/ProgramData/ComposerSetup/**)",
+      "Read(//c/Users/Iztok/.config/**)",
+      "Bash(/c/Users/Iztok/.config/herd/bin/composer.bat update:*)",
+      "Bash(/c/Users/Iztok/.config/herd/bin/composer.bat install:*)",
+      "mcp__laravel-boost__database-schema",
+      "Bash(npm install:*)",
+      "Bash(composer require:*)",
+      "Bash(php \"e:/web-project/laravel-react/vendor/bin/../../../composer.phar\" require spatie/laravel-medialibrary)",
+      "Bash(/c/ProgramData/ComposerSetup/bin/composer.bat require:*)",
+      "Read(//c/Users/Iztok/AppData/Roaming/Composer//**)",
+      "Bash(find /c -name \"composer*\" -maxdepth 5)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
