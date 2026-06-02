@@ -27,7 +27,8 @@
       "Bash(php \"e:/web-project/laravel-react/vendor/bin/../../../composer.phar\" require spatie/laravel-medialibrary)",
       "Bash(/c/ProgramData/ComposerSetup/bin/composer.bat require:*)",
       "Read(//c/Users/Iztok/AppData/Roaming/Composer//**)",
-      "Bash(find /c -name \"composer*\" -maxdepth 5)"
+      "Bash(find /c -name \"composer*\" -maxdepth 5)",
+      "mcp__playwright__browser_file_upload"
     ],
     "deny": [],
     "ask": []

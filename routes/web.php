@@ -102,6 +102,35 @@ Route::middleware('auth')->group(function () {
         Route::delete('articles/{article}', [\App\Http\Controllers\Core\ArticlesController::class, 'destroy'])->name('articles.destroy');
     });
 
+    // Galleries routes with permission middleware
+    Route::middleware('permission:galleries.view')->group(function () {
+        Route::get('galleries', [\App\Http\Controllers\Core\GalleriesController::class, 'index'])->name('galleries.index');
+    });
+    Route::middleware('permission:galleries.create')->group(function () {
+        Route::post('galleries', [\App\Http\Controllers\Core\GalleriesController::class, 'store'])->name('galleries.store');
+    });
+    Route::middleware('permission:galleries.edit')->group(function () {
+        Route::put('galleries/{gallery}', [\App\Http\Controllers\Core\GalleriesController::class, 'update'])->name('galleries.update');
+        Route::patch('galleries/{gallery}', [\App\Http\Controllers\Core\GalleriesController::class, 'update']);
+        Route::post('galleries/{gallery}/photos', [\App\Http\Controllers\Core\GalleriesController::class, 'uploadPhotos'])->name('galleries.photos.upload');
+        Route::delete('galleries/{gallery}/photos/{mediaId}', [\App\Http\Controllers\Core\GalleriesController::class, 'deletePhoto'])->name('galleries.photos.delete');
+        Route::post('galleries/{gallery}/photos/reorder', [\App\Http\Controllers\Core\GalleriesController::class, 'reorderPhotos'])->name('galleries.photos.reorder');
+        Route::post('galleries/{gallery}/cover', [\App\Http\Controllers\Core\GalleriesController::class, 'setCover'])->name('galleries.cover.set');
+    });
+    Route::middleware('permission:galleries.delete')->group(function () {
+        Route::delete('galleries/{gallery}', [\App\Http\Controllers\Core\GalleriesController::class, 'destroy'])->name('galleries.destroy');
+    });
+
+    // Settings routes
+    Route::middleware('permission:settings.view')->group(function () {
+        Route::get('settings', [\App\Http\Controllers\Core\SettingsController::class, 'index'])->name('settings.index');
+    });
+    Route::middleware('permission:settings.edit')->group(function () {
+        Route::patch('settings/{key}', [\App\Http\Controllers\Core\SettingsController::class, 'update'])->name('settings.update');
+        Route::post('settings/watermark', [\App\Http\Controllers\Core\SettingsController::class, 'storeWatermark'])->name('settings.watermark.store');
+        Route::delete('settings/watermark', [\App\Http\Controllers\Core\SettingsController::class, 'deleteWatermark'])->name('settings.watermark.delete');
+    });
+
     Route::get('user/config', [\App\Http\Controllers\UserConfigController::class, 'show'])->name('user.config.show');
     Route::post('user/config', [\App\Http\Controllers\UserConfigController::class, 'update'])->name('user.config.update');
     Route::post('user/config/batch', [\App\Http\Controllers\UserConfigController::class, 'updateBatch'])->name('user.config.batch');

@@ -1,0 +1,217 @@
+- generic:
+  - generic:
+    - generic:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - list:
+                - listitem:
+                  - button:
+                    - generic:
+                      - img
+                    - generic:
+                      - generic: Acme Inc
+                      - generic: Enterprise
+            - generic:
+              - generic:
+                - generic: Delo
+                - list:
+                  - listitem:
+                    - link:
+                      - /url: /galleries
+                      - img
+                      - generic: Galerija
+                  - listitem:
+                    - link:
+                      - /url: /notifications
+                      - img
+                      - generic: Obveščanje
+              - generic:
+                - generic: Administracija
+                - list:
+                  - listitem:
+                    - link:
+                      - /url: /users
+                      - img
+                      - generic: Uporabniki
+                  - listitem:
+                    - link:
+                      - /url: /roles-permissions
+                      - img
+                      - generic: Pravice uporabniških skupin
+                  - listitem:
+                    - link:
+                      - /url: /roles-group
+                      - img
+                      - generic: Uporabniške skupine
+                  - listitem:
+                    - button:
+                      - img
+                      - generic: Ureja SuperAdmin
+                      - img
+            - generic:
+              - list:
+                - listitem:
+                  - button:
+                    - generic:
+                      - generic:
+                        - generic: CN
+                    - generic:
+                      - generic: Iztok Vozlič
+                      - generic: iztok.vozlic@gmail.com
+                    - img
+            - button
+      - main:
+        - generic:
+          - generic:
+            - button:
+              - img
+              - generic: Toggle Sidebar
+            - navigation:
+              - list:
+                - listitem:
+                  - link [disabled]:
+                    - heading [level=2]: Galleries
+          - generic:
+            - generic:
+              - generic:
+                - switch [checked]
+                - img
+                - img
+            - generic:
+              - generic:
+                - generic:
+                  - button:
+                    - img
+                    - text: sl
+                    - img
+        - main:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic: Gallery management
+                  - generic:
+                    - generic:
+                      - img
+                      - textbox:
+                        - /placeholder: Search galleries...
+                    - combobox:
+                      - img
+                      - generic: Vsi statusi
+                      - img
+                    - generic:
+                      - button:
+                        - img
+                      - button:
+                        - img
+                    - button:
+                      - img
+                      - text: Add Gallery
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                        - generic:
+                          - generic: Osnutek
+                        - generic:
+                          - button:
+                            - img
+                      - generic:
+                        - generic:
+                          - heading [level=3]: Jakov
+                          - generic:
+                            - img
+                            - text: Javno
+                        - paragraph: Jakov koncert v stožicah 2026
+                        - generic:
+                          - generic: Iztok Vozlič
+                          - generic: 01. 06. 2026
+  - dialog "Edit Gallery" [active] [ref=e199]:
+    - button "Close" [ref=e200] [cursor=pointer]:
+      - img [ref=e201]
+      - generic [ref=e204]: Close
+    - heading "Edit Gallery" [level=2] [ref=e206]
+    - generic [ref=e208]:
+      - generic [ref=e209]:
+        - generic [ref=e210]: Naslov *
+        - textbox "Naslov *" [ref=e211]:
+          - /placeholder: Gallery title
+          - text: Jakov
+      - generic [ref=e212]:
+        - generic [ref=e213]:
+          - text: Slug
+          - generic [ref=e214]: (samodejno generirano iz naslova)
+        - textbox "Slug(samodejno generirano iz naslova)" [ref=e215]:
+          - /placeholder: npr. porocna-fotografija-2024
+          - text: jakov-koncert-stožice-2026
+      - generic [ref=e216]:
+        - text: Opis
+        - textbox "Opis" [ref=e217]:
+          - /placeholder: Short description of the gallery
+          - text: Jakov koncert v stožicah 2026
+      - generic [ref=e218]:
+        - generic [ref=e219]:
+          - text: Status
+          - combobox [ref=e220] [cursor=pointer]:
+            - generic:
+              - generic: Osnutek
+            - img [ref=e221]
+          - combobox [ref=e223]
+        - generic [ref=e224]:
+          - text: Order
+          - spinbutton "Order" [ref=e225]: "0"
+      - generic [ref=e226]:
+        - generic [ref=e227]:
+          - text: Javni dostop
+          - paragraph [ref=e228]: Vidno brez prijave
+        - generic [ref=e229]:
+          - img [ref=e230]
+          - switch [checked] [ref=e233] [cursor=pointer]
+          - checkbox [checked]
+      - generic [ref=e234]:
+        - text: Cover image
+        - button [ref=e237] [cursor=pointer]:
+          - img [ref=e238]
+      - button "Update Gallery" [ref=e242] [cursor=pointer]
+      - generic [ref=e243]:
+        - generic [ref=e244]:
+          - img [ref=e245]
+          - generic [ref=e250]: Photos
+          - generic [ref=e251]: (0)
+        - generic [ref=e252]:
+          - generic [ref=e253] [cursor=pointer]:
+            - img [ref=e254]
+            - paragraph [ref=e258]: Drag & drop photos here, or click to select
+            - paragraph [ref=e259]: JPG, PNG, WEBP · max 20 MB / foto
+          - generic [ref=e260]:
+            - paragraph [ref=e261]: 5 photos
+            - generic [ref=e262]:
+              - generic [ref=e263]:
+                - img "vozlich-5.jpg" [ref=e264]
+                - generic [ref=e266]: Upload failed
+                - button [ref=e267] [cursor=pointer]:
+                  - img [ref=e268]
+              - generic [ref=e271]:
+                - img "vozlich-1.jpg" [ref=e272]
+                - generic [ref=e274]: Upload failed
+                - button [ref=e275] [cursor=pointer]:
+                  - img [ref=e276]
+              - generic [ref=e279]:
+                - img "vozlich-2.jpg" [ref=e280]
+                - generic [ref=e282]: Upload failed
+                - button [ref=e283] [cursor=pointer]:
+                  - img [ref=e284]
+              - generic [ref=e287]:
+                - img "vozlich-3.jpg" [ref=e288]
+                - generic [ref=e290]: Upload failed
+                - button [ref=e291] [cursor=pointer]:
+                  - img [ref=e292]
+              - generic [ref=e295]:
+                - img "vozlich-4.jpg" [ref=e296]
+                - generic [ref=e298]: Upload failed
+                - button [ref=e299] [cursor=pointer]:
+                  - img [ref=e300]
+            - status [ref=e303]

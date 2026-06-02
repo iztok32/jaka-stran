@@ -49,6 +49,37 @@ export interface Article {
     gallery: ArticleMedia[];
 }
 
+export interface GalleryPhoto {
+    id: number;
+    url: string;
+    thumb: string;
+    preview: string;
+    name: string;
+    order: number;
+}
+
+export interface Gallery {
+    id: number;
+    title: string;
+    slug: string;
+    description?: string | null;
+    status: 'draft' | 'published' | 'archived';
+    is_public: boolean;
+    gallery_date?: string | null;
+    cover_photo_id?: number | null;
+    created_at: string;
+    updated_at: string;
+    deleted_at?: string | null;
+    author: {
+        id: number;
+        name: string;
+    };
+    cover?: string;
+    cover_thumb?: string;
+    photos: GalleryPhoto[];
+    photos_count: number;
+}
+
 export interface NavigationItem {
     id: number;
     parent_id?: number | null;

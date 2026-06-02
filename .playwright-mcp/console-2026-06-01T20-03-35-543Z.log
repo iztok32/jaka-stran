@@ -1,0 +1,12 @@
+[     482ms] [LOG] 🔍 Browser logger active (MCP server detected). Posting to: http://jaka-stran.test/_boost/browser-logs @ http://jaka-stran.test/login:61
+[   31562ms] [ERROR] Failed to load resource: the server responded with a status of 403 (Forbidden) @ http://jaka-stran.test/storage/avatars/I1gEQT6m5ogfB3bli9IV0eD6s1nz6mLlFdvGhtki.png:0
+[   65603ms] [WARNING] Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}. @ http://jaka-stran.test/login:120
+[  100071ms] [ERROR] Failed to load resource: the server responded with a status of 413 (Request Entity Too Large) @ http://jaka-stran.test/galleries/1/photos:0
+[  148669ms] [ERROR] Failed to load resource: the server responded with a status of 419 (unknown status) @ http://jaka-stran.test/galleries/1/photos:0
+[  413514ms] [LOG] 🔍 Browser logger active (MCP server detected). Posting to: http://jaka-stran.test/_boost/browser-logs @ http://jaka-stran.test/galleries:61
+[  413741ms] [ERROR] Failed to load resource: the server responded with a status of 403 (Forbidden) @ http://jaka-stran.test/storage/avatars/I1gEQT6m5ogfB3bli9IV0eD6s1nz6mLlFdvGhtki.png:0
+[  423255ms] [WARNING] Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}. @ http://jaka-stran.test/galleries:120
+[  463395ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://jaka-stran.test/galleries/1/photos:0
+[  698877ms] [LOG] 🔍 Browser logger active (MCP server detected). Posting to: http://jaka-stran.test/_boost/browser-logs @ http://jaka-stran.test/galleries:61
+[  699062ms] [ERROR] Failed to load resource: the server responded with a status of 403 (Forbidden) @ http://jaka-stran.test/storage/avatars/I1gEQT6m5ogfB3bli9IV0eD6s1nz6mLlFdvGhtki.png:0
+[  722407ms] [WARNING] Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}. @ http://jaka-stran.test/galleries:120
