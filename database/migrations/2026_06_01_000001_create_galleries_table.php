@@ -16,7 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->enum('status', ['draft', 'published', 'archived'])->default('draft');
             $table->boolean('is_public')->default(true);
-            $table->unsignedInteger('sort_order')->default(0);
+            $table->date('gallery_date')->nullable();
+            $table->unsignedBigInteger('cover_photo_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

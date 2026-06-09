@@ -1,0 +1,12 @@
+[     455ms] [LOG] 🔍 Browser logger active (MCP server detected). Posting to: http://jaka-stran.test/_boost/browser-logs @ http://jaka-stran.test/:30
+[     495ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://jaka-stran.test/:89
+[  131972ms] [LOG] [vite] server connection lost. Polling for restart... @ http://jaka-stran.test/:89
+[ 6092928ms] [LOG] 🔍 Browser logger active (MCP server detected). Posting to: http://jaka-stran.test/_boost/browser-logs @ http://jaka-stran.test/:30
+[ 6093765ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://jaka-stran.test/:89
+[ 7331513ms] [LOG] [vite] server connection lost. Polling for restart... @ http://jaka-stran.test/:89
+[ 8310344ms] [LOG] 🔍 Browser logger active (MCP server detected). Posting to: http://jaka-stran.test/_boost/browser-logs @ http://jaka-stran.test/:30
+[ 8310483ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://jaka-stran.test/:89
+[ 8404788ms] [LOG] [vite] server connection lost. Polling for restart... @ http://jaka-stran.test/:89
+[12059184ms] [LOG] 🔍 Browser logger active (MCP server detected). Posting to: http://jaka-stran.test/_boost/browser-logs @ http://jaka-stran.test/:30
+[12059353ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://jaka-stran.test/:89
+[12788275ms] [LOG] [vite] server connection lost. Polling for restart... @ http://jaka-stran.test/:89

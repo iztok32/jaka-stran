@@ -1,15 +1,16 @@
-import { useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { Head, router, usePage } from '@inertiajs/react'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { PageProps } from '@/types'
 import { useTranslation } from '@/lib/i18n'
 import { Button } from '@/Components/ui/button'
+import { Badge } from '@/Components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card'
 import { Label } from '@/Components/ui/label'
 import { Switch } from '@/Components/ui/switch'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select'
 import { Input } from '@/Components/ui/input'
-import { ImagePlus, Loader2, Save, X } from 'lucide-react'
+import { ImagePlus, Instagram, Loader2, Mail, Save, Trash2, User, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface Settings {
@@ -17,10 +18,23 @@ interface Settings {
     watermark_enabled: boolean
     watermark_opacity: number
     watermark_position: string
+    instagram_url: string | null
+    facebook_url: string | null
+    contact_email: string | null
+    contact_phone: string | null
+}
+
+interface PhotographerPhotoItem {
+    id: number
+    url: string
+    original_name: string
+    usage: string | null
+    sort_order: number
 }
 
 interface Props extends PageProps {
     settings: Settings
+    photographerPhotos: PhotographerPhotoItem[]
 }
 
 type Position = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'center'
@@ -251,7 +265,203 @@ function SelectSetting({ settingKey, value, label, description, options, canEdit
     )
 }
 
-export default function SettingsIndex({ settings }: Props) {
+const USAGE_OPTIONS = [
+    { value: 'about',   label: 'O meni — ozadje' },
+    { value: 'hero',    label: 'Hero sekcija' },
+    { value: 'contact', label: 'Kontakt sekcija' },
+]
+
+function PhotographerPhotos({ photos: initialPhotos, canEdit }: {
+    photos: PhotographerPhotoItem[]
+    canEdit: boolean
+}) {
+    const { t } = useTranslation()
+    const [photos, setPhotos]     = useState<PhotographerPhotoItem[]>(initialPhotos)
+    const [uploading, setUploading] = useState(false)
+    const [isDragOver, setIsDragOver] = useState(false)
+    const inputRef = useRef<HTMLInputElement>(null)
+
+    const getCsrf = () =>
+        document.querySelector<HTMLMetaElement>('meta[name="csrf-token"]')?.content ?? ''
+
+    const uploadFiles = useCallback(async (files: File[]) => {
+        if (!canEdit || uploading) return
+        setUploading(true)
+        const formData = new FormData()
+        files.forEach(f => formData.append('photos[]', f))
+        try {
+            const res = await fetch(route('settings.photographer-photos.store'), {
+                method: 'POST',
+                headers: { 'X-CSRF-TOKEN': getCsrf() },
+                credentials: 'same-origin',
+                body: formData,
+            })
+            if (res.ok) {
+                const data = await res.json() as { photos: PhotographerPhotoItem[] }
+                setPhotos(prev => [...prev, ...data.photos])
+            }
+        } finally {
+            setUploading(false)
+        }
+    }, [canEdit, uploading])
+
+    const handleUsageChange = async (photoId: number, usage: string) => {
+        const newUsage = usage === 'none' ? null : usage
+        // Optimistic update — clear old photo with same usage
+        setPhotos(prev => prev.map(p => ({
+            ...p,
+            usage: p.usage === newUsage && p.id !== photoId ? null :
+                   p.id === photoId ? newUsage : p.usage,
+        })))
+        await fetch(route('settings.photographer-photos.usage', photoId), {
+            method: 'PATCH',
+            headers: { 'X-CSRF-TOKEN': getCsrf(), 'Content-Type': 'application/json' },
+            credentials: 'same-origin',
+            body: JSON.stringify({ usage: newUsage }),
+        })
+    }
+
+    const handleDelete = async (photoId: number, filename: string) => {
+        setPhotos(prev => prev.filter(p => p.id !== photoId))
+        await fetch(route('settings.photographer-photos.delete', photoId), {
+            method: 'DELETE',
+            headers: { 'X-CSRF-TOKEN': getCsrf() },
+            credentials: 'same-origin',
+        })
+    }
+
+    return (
+        <div className="space-y-4">
+            {/* Upload zone */}
+            {canEdit && (
+                <div
+                    className={cn(
+                        'border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition-colors',
+                        isDragOver ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/50 hover:bg-muted/50'
+                    )}
+                    onClick={() => inputRef.current?.click()}
+                    onDragOver={e => { e.preventDefault(); setIsDragOver(true) }}
+                    onDragLeave={() => setIsDragOver(false)}
+                    onDrop={e => {
+                        e.preventDefault(); setIsDragOver(false)
+                        const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'))
+                        if (files.length) uploadFiles(files)
+                    }}
+                >
+                    {uploading
+                        ? <Loader2 className="size-7 mx-auto mb-2 animate-spin text-muted-foreground" />
+                        : <ImagePlus className={cn('size-7 mx-auto mb-2', isDragOver ? 'text-primary' : 'text-muted-foreground/50')} />
+                    }
+                    <p className="text-sm text-muted-foreground">
+                        {uploading ? t('Uploading...') : t('Drag & drop or click to upload')}
+                    </p>
+                    <p className="text-xs text-muted-foreground/60 mt-1">JPG, PNG, WEBP · max 10 MB</p>
+                    <input ref={inputRef} type="file" accept="image/jpeg,image/png,image/webp" multiple className="hidden"
+                        onChange={e => { const f = Array.from(e.target.files ?? []); if (f.length) uploadFiles(f); e.target.value = '' }} />
+                </div>
+            )}
+
+            {/* Photos grid */}
+            {photos.length > 0 && (
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    {photos.map(photo => (
+                        <div key={photo.id} className="group relative rounded-lg overflow-hidden border bg-muted aspect-[3/4]">
+                            <img src={photo.url} alt={photo.original_name} className="w-full h-full object-cover" />
+
+                            {/* Usage badge */}
+                            {photo.usage && (
+                                <div className="absolute top-2 left-2">
+                                    <Badge className="text-[10px] bg-black/70 text-white border-0 py-0.5">
+                                        {USAGE_OPTIONS.find(o => o.value === photo.usage)?.label ?? photo.usage}
+                                    </Badge>
+                                </div>
+                            )}
+
+                            {/* Delete button */}
+                            {canEdit && (
+                                <button
+                                    type="button"
+                                    className="absolute top-2 right-2 p-1.5 rounded-full bg-black/60 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600/80"
+                                    onClick={() => handleDelete(photo.id, photo.original_name)}
+                                >
+                                    <Trash2 className="size-3" />
+                                </button>
+                            )}
+
+                            {/* Usage selector */}
+                            <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 to-transparent p-2">
+                                <p className="text-[10px] text-white/60 truncate mb-1">{photo.original_name}</p>
+                                {canEdit ? (
+                                    <Select
+                                        value={photo.usage ?? 'none'}
+                                        onValueChange={v => handleUsageChange(photo.id, v)}
+                                    >
+                                        <SelectTrigger className="h-7 text-[11px] bg-black/50 border-white/20 text-white [&>svg]:text-white">
+                                            <SelectValue placeholder="Brez namena" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="none">— Brez namena</SelectItem>
+                                            {USAGE_OPTIONS.map(o => (
+                                                <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                ) : (
+                                    <p className="text-[11px] text-white/80">
+                                        {photo.usage ? USAGE_OPTIONS.find(o => o.value === photo.usage)?.label : '—'}
+                                    </p>
+                                )}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )}
+
+            {photos.length === 0 && !canEdit && (
+                <p className="text-sm text-muted-foreground text-center py-4">{t('No photos uploaded.')}</p>
+            )}
+        </div>
+    )
+}
+
+function TextSetting({ settingKey, value, label, placeholder, type = 'url', canEdit }: {
+    settingKey: string
+    value: string
+    label: string
+    placeholder?: string
+    type?: 'url' | 'email' | 'tel' | 'text'
+    canEdit: boolean
+}) {
+    const { t } = useTranslation()
+    const [current, setCurrent] = useState(value)
+
+    const save = () => {
+        router.patch(route('settings.update', settingKey), { value: current }, { preserveScroll: true })
+    }
+
+    return (
+        <div className="flex items-end justify-between gap-4 py-3">
+            <div className="flex-1 space-y-1.5">
+                <Label className="text-sm font-medium">{label}</Label>
+                <Input
+                    type={type}
+                    value={current}
+                    onChange={e => setCurrent(e.target.value)}
+                    placeholder={placeholder}
+                    disabled={!canEdit}
+                    className="font-mono text-sm"
+                />
+            </div>
+            {canEdit && (
+                <Button size="sm" variant="outline" onClick={save} className="shrink-0">
+                    <Save className="size-3.5 mr-1.5" />{t('Save')}
+                </Button>
+            )}
+        </div>
+    )
+}
+
+export default function SettingsIndex({ settings, photographerPhotos }: Props) {
     const { t } = useTranslation()
     const { auth } = usePage<Props>().props
     const canEdit = auth.user.permissions?.includes('settings.edit') ?? false
@@ -312,6 +522,88 @@ export default function SettingsIndex({ settings }: Props) {
                                     canEdit={canEdit}
                                 />
                             </div>
+                        </CardContent>
+                    </Card>
+
+                    {/* Social links */}
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2">
+                                <Instagram className="size-4" />
+                                {t('Social networks')}
+                            </CardTitle>
+                            <CardDescription>
+                                {t('Links displayed in the footer and contact section of the landing page.')}
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="divide-y">
+                                <TextSetting
+                                    settingKey="instagram_url"
+                                    value={settings.instagram_url ?? ''}
+                                    label="Instagram"
+                                    placeholder="https://www.instagram.com/username"
+                                    type="url"
+                                    canEdit={canEdit}
+                                />
+                                <TextSetting
+                                    settingKey="facebook_url"
+                                    value={settings.facebook_url ?? ''}
+                                    label="Facebook"
+                                    placeholder="https://www.facebook.com/username"
+                                    type="url"
+                                    canEdit={canEdit}
+                                />
+                            </div>
+                        </CardContent>
+                    </Card>
+
+                    {/* Contact info */}
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2">
+                                <Mail className="size-4" />
+                                {t('Contact info')}
+                            </CardTitle>
+                            <CardDescription>
+                                {t('Email and phone number shown in the contact section of the landing page.')}
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="divide-y">
+                                <TextSetting
+                                    settingKey="contact_email"
+                                    value={settings.contact_email ?? ''}
+                                    label={t('Email')}
+                                    placeholder="info@jaka.si"
+                                    type="email"
+                                    canEdit={canEdit}
+                                />
+                                <TextSetting
+                                    settingKey="contact_phone"
+                                    value={settings.contact_phone ?? ''}
+                                    label={t('Phone')}
+                                    placeholder="+386 41 000 000"
+                                    type="tel"
+                                    canEdit={canEdit}
+                                />
+                            </div>
+                        </CardContent>
+                    </Card>
+
+                    {/* Photographer photos */}
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2">
+                                <User className="size-4" />
+                                Fotografije fotografa
+                            </CardTitle>
+                            <CardDescription>
+                                Naložite fotografije, ki bodo prikazane na landing page. Za vsako izberite kje bo prikazana.
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <PhotographerPhotos photos={photographerPhotos} canEdit={canEdit} />
                         </CardContent>
                     </Card>
 

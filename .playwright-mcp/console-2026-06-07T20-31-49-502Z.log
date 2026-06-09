@@ -1,0 +1,5 @@
+[    9628ms] [LOG] 🔍 Browser logger active (MCP server detected). Posting to: http://jaka-stran.test/_boost/browser-logs @ http://jaka-stran.test/:30
+[   10866ms] [LOG] 🔍 Browser logger active (MCP server detected). Posting to: http://jaka-stran.test/_boost/browser-logs @ http://jaka-stran.test/:30
+[   17755ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://jaka-stran.test/:89
+[  198044ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://[::1]:5173/resources/js/Pages/Welcome.tsx?t=1780864507387:0
+[  198046ms] [ERROR] [vite] Failed to reload /resources/js/Pages/Welcome.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://jaka-stran.test/:89

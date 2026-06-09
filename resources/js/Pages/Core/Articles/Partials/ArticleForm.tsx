@@ -126,6 +126,15 @@ export default function ArticleForm({ article, onSuccess }: ArticleFormProps) {
                     className="font-mono text-sm"
                 />
                 {errors.slug && <p className="text-sm text-destructive">{errors.slug}</p>}
+                {data.slug === 'hero-vsebina' && (
+                    <p className="text-xs text-blue-600 dark:text-blue-400">📍 Ta članek se prikazuje kot <strong>uvodni naslov (hero)</strong> na naslovnici. <em>Naslov</em> = veliki naslov, <em>Izvleček</em> = opis pod naslovom, <em>Vsebina</em> = majhna vrstica zgoraj (tagline). Slug <strong>ne sme biti spremenjen</strong>.</p>
+                )}
+                {data.slug === 'o-fotografu' && (
+                    <p className="text-xs text-purple-600 dark:text-purple-400">📍 Ta članek se prikazuje v sekciji <strong>O meni</strong> na naslovnici. Slug <strong>ne sme biti spremenjen</strong>.</p>
+                )}
+                {data.slug.startsWith('storitev-') && (
+                    <p className="text-xs text-amber-600 dark:text-amber-400">📍 Ta članek se prikazuje kot <strong>storitev</strong> na naslovnici. Polje <em>Naslov</em> = naziv, <em>Izvleček</em> = kratek opis. Vrstni red določa <strong>Datum objave</strong> — starejši datum = prva pozicija. Slug <strong>ne sme biti spremenjen</strong>.</p>
+                )}
             </div>
 
             {/* Status + Publish date row */}

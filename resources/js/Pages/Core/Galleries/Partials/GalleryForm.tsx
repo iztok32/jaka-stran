@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useForm, router } from '@inertiajs/react'
 import { useTranslation } from '@/lib/i18n'
-import { Gallery, GalleryPhoto } from '@/types'
+import { Gallery, GalleryPhoto, Tag } from '@/types'
 import { Button } from '@/Components/ui/button'
 import { Input } from '@/Components/ui/input'
 import { Label } from '@/Components/ui/label'
@@ -11,23 +11,33 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Separator } from '@/Components/ui/separator'
 import { DatePicker } from '@/Components/ui/date-picker'
 import { Globe, Lock, Images } from 'lucide-react'
+import TagInput from '@/Components/TagInput'
 import PhotoUploader from './PhotoUploader'
+
+interface PortfolioService {
+    title: string
+    portfolioTag: string
+}
 
 interface GalleryFormProps {
     gallery?: Gallery | null
+    allTags?: Tag[]
+    portfolioServices?: PortfolioService[]
     canEdit?: boolean
     onSuccess?: () => void
 }
 
-export default function GalleryForm({ gallery, canEdit = true, onSuccess }: GalleryFormProps) {
+export default function GalleryForm({ gallery, allTags = [], portfolioServices = [], canEdit = true, onSuccess }: GalleryFormProps) {
     const { t } = useTranslation()
 
     const [photos, setPhotos]   = useState<GalleryPhoto[]>(gallery?.photos ?? [])
     const [coverId, setCoverId] = useState<number | null>(gallery?.cover_photo_id ?? null)
+    const [tags, setTags]       = useState<string[]>(gallery?.tags?.map(t => t.name) ?? [])
 
     useEffect(() => {
         setPhotos(gallery?.photos ?? [])
         setCoverId(gallery?.cover_photo_id ?? null)
+        setTags(gallery?.tags?.map(t => t.name) ?? [])
     }, [gallery?.id])
 
     const { data, setData, errors, processing, reset } = useForm({
@@ -49,6 +59,7 @@ export default function GalleryForm({ gallery, canEdit = true, onSuccess }: Gall
         formData.append('status',       data.status)
         formData.append('is_public',    data.is_public ? '1' : '0')
         formData.append('gallery_date', data.gallery_date)
+        formData.append('tags',         tags.join(','))
 
         if (gallery) {
             formData.append('_method', 'PUT')
@@ -180,6 +191,19 @@ export default function GalleryForm({ gallery, canEdit = true, onSuccess }: Gall
                 </div>
             </div>
 
+            {/* Tags */}
+            <div className="space-y-1.5">
+                <Label>{t('Tags')}</Label>
+                <TagInput
+                    value={tags}
+                    onChange={setTags}
+                    suggestions={allTags}
+                    placeholder={t('Add tags...')}
+                    disabled={!canEdit}
+                />
+                <p className="text-xs text-muted-foreground">{t('Press Enter or comma to add a tag')}</p>
+            </div>
+
             {/* Submit */}
             {canEdit && (
                 <div className="flex justify-end gap-2 border-t pt-4">
@@ -207,6 +231,8 @@ export default function GalleryForm({ gallery, canEdit = true, onSuccess }: Gall
                             galleryId={gallery.id}
                             photos={photos}
                             coverId={coverId}
+                            allTags={allTags}
+                            portfolioServices={portfolioServices}
                             onPhotosChange={setPhotos}
                             onCoverChange={setCoverId}
                             canEdit={canEdit}

@@ -40,6 +40,11 @@ class Gallery extends Model implements HasMedia, AuditableContract
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'gallery_tag');
+    }
+
     protected static function booted(): void
     {
         static::creating(function (Gallery $gallery) {

@@ -1,18 +1,13 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('/', [\App\Http\Controllers\WelcomeController::class, 'index'])->name('welcome');
+Route::post('/contact', [\App\Http\Controllers\ContactController::class, 'store'])->name('contact.store');
+Route::get('/galerija/{slug}', [\App\Http\Controllers\GalleryController::class, 'show'])->name('gallery.show');
+Route::get('/portfolio/{slug}', [\App\Http\Controllers\PortfolioController::class, 'show'])->name('portfolio.show');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -115,10 +110,24 @@ Route::middleware('auth')->group(function () {
         Route::post('galleries/{gallery}/photos', [\App\Http\Controllers\Core\GalleriesController::class, 'uploadPhotos'])->name('galleries.photos.upload');
         Route::delete('galleries/{gallery}/photos/{mediaId}', [\App\Http\Controllers\Core\GalleriesController::class, 'deletePhoto'])->name('galleries.photos.delete');
         Route::post('galleries/{gallery}/photos/reorder', [\App\Http\Controllers\Core\GalleriesController::class, 'reorderPhotos'])->name('galleries.photos.reorder');
+        Route::post('galleries/{gallery}/photos/{mediaId}/tags', [\App\Http\Controllers\Core\GalleriesController::class, 'syncPhotoTags'])->name('galleries.photos.tags');
         Route::post('galleries/{gallery}/cover', [\App\Http\Controllers\Core\GalleriesController::class, 'setCover'])->name('galleries.cover.set');
     });
     Route::middleware('permission:galleries.delete')->group(function () {
         Route::delete('galleries/{gallery}', [\App\Http\Controllers\Core\GalleriesController::class, 'destroy'])->name('galleries.destroy');
+    });
+
+    // Contact inquiries (admin)
+    Route::middleware('permission:contact-inquiries.view')->group(function () {
+        Route::get('contact-inquiries', [\App\Http\Controllers\Core\ContactInquiriesController::class, 'index'])->name('contact-inquiries.index');
+        Route::get('contact-inquiries/{contactInquiry}', [\App\Http\Controllers\Core\ContactInquiriesController::class, 'show'])->name('contact-inquiries.show');
+    });
+    Route::middleware('permission:contact-inquiries.edit')->group(function () {
+        Route::post('contact-inquiries/{contactInquiry}/reply', [\App\Http\Controllers\Core\ContactInquiriesController::class, 'reply'])->name('contact-inquiries.reply');
+        Route::patch('contact-inquiries/{contactInquiry}/status', [\App\Http\Controllers\Core\ContactInquiriesController::class, 'updateStatus'])->name('contact-inquiries.status');
+    });
+    Route::middleware('permission:contact-inquiries.delete')->group(function () {
+        Route::delete('contact-inquiries/{contactInquiry}', [\App\Http\Controllers\Core\ContactInquiriesController::class, 'destroy'])->name('contact-inquiries.destroy');
     });
 
     // Settings routes
@@ -129,6 +138,9 @@ Route::middleware('auth')->group(function () {
         Route::patch('settings/{key}', [\App\Http\Controllers\Core\SettingsController::class, 'update'])->name('settings.update');
         Route::post('settings/watermark', [\App\Http\Controllers\Core\SettingsController::class, 'storeWatermark'])->name('settings.watermark.store');
         Route::delete('settings/watermark', [\App\Http\Controllers\Core\SettingsController::class, 'deleteWatermark'])->name('settings.watermark.delete');
+        Route::post('settings/photographer-photos', [\App\Http\Controllers\Core\SettingsController::class, 'uploadPhotographerPhotos'])->name('settings.photographer-photos.store');
+        Route::patch('settings/photographer-photos/{photographerPhoto}/usage', [\App\Http\Controllers\Core\SettingsController::class, 'updatePhotographerPhotoUsage'])->name('settings.photographer-photos.usage');
+        Route::delete('settings/photographer-photos/{photographerPhoto}', [\App\Http\Controllers\Core\SettingsController::class, 'deletePhotographerPhoto'])->name('settings.photographer-photos.delete');
     });
 
     Route::get('user/config', [\App\Http\Controllers\UserConfigController::class, 'show'])->name('user.config.show');

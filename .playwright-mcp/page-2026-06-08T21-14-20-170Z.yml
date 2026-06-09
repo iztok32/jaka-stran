@@ -1,0 +1,28 @@
+- generic [ref=e3]:
+  - navigation [ref=e4]:
+    - link "J. Vozlič" [ref=e5] [cursor=pointer]:
+      - /url: /
+    - generic [ref=e6]:
+      - link "← Storitve" [ref=e7] [cursor=pointer]:
+        - /url: /#storitve
+      - link "Admin" [ref=e8] [cursor=pointer]:
+        - /url: http://jaka-stran.test/dashboard
+  - generic [ref=e9]:
+    - generic [ref=e10]: Portfolio
+    - heading "Športna fotografija, ki ujame bistvo trenutka" [level=1] [ref=e12]
+    - paragraph [ref=e13]: Celovita dokumentacija vašega dogodka. Dinamično, pristno, brez zamujenih trenutkov.
+    - generic [ref=e14]: 3 fotografij
+  - generic [ref=e15]:
+    - generic [ref=e16] [cursor=pointer]:
+      - img
+      - img
+    - generic [ref=e18] [cursor=pointer]:
+      - img
+      - img
+    - generic [ref=e20] [cursor=pointer]:
+      - img
+      - img
+  - generic [ref=e22]:
+    - generic [ref=e23]: Jaka Vozlič Photography
+    - link "← Nazaj na storitve" [ref=e24] [cursor=pointer]:
+      - /url: /#storitve

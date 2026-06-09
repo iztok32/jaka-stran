@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Head, router, usePage } from '@inertiajs/react'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-import { PageProps, Gallery } from '@/types'
+import { PageProps, Gallery, Tag } from '@/types'
 import { useTranslation } from '@/lib/i18n'
 import { Button } from '@/Components/ui/button'
 import { Input } from '@/Components/ui/input'
@@ -29,8 +29,15 @@ import {
 import GalleryForm from './Partials/GalleryForm'
 import { cn } from '@/lib/utils'
 
+interface PortfolioService {
+    title: string
+    portfolioTag: string
+}
+
 interface Props extends PageProps {
     galleries: Gallery[]
+    allTags: Tag[]
+    portfolioServices: PortfolioService[]
 }
 
 type ViewMode = 'table' | 'card'
@@ -186,7 +193,7 @@ function GalleryPreviewSheet({ gallery, onClose }: { gallery: Gallery | null; on
     )
 }
 
-export default function GalleriesIndex({ galleries }: Props) {
+export default function GalleriesIndex({ galleries, allTags, portfolioServices }: Props) {
     const { t } = useTranslation()
     const { auth } = usePage<Props>().props
     const userPermissions = auth.user.permissions ?? []
@@ -468,6 +475,16 @@ export default function GalleriesIndex({ galleries }: Props) {
                                                         </p>
                                                     )}
 
+                                                    {gallery.tags.length > 0 && (
+                                                        <div className="flex flex-wrap gap-1">
+                                                            {gallery.tags.map(tag => (
+                                                                <span key={tag.name} className="inline-block bg-secondary text-secondary-foreground text-[10px] rounded px-1.5 py-0.5">
+                                                                    {tag.name}
+                                                                </span>
+                                                            ))}
+                                                        </div>
+                                                    )}
+
                                                     <div className="mt-auto pt-2 border-t flex items-center justify-between text-xs text-muted-foreground">
                                                         <span>{gallery.author.name}</span>
                                                         <span>{formatDate(gallery.gallery_date ?? gallery.created_at)}</span>
@@ -494,6 +511,8 @@ export default function GalleriesIndex({ galleries }: Props) {
                     <div className="mt-4">
                         <GalleryForm
                             gallery={editingGallery}
+                            allTags={allTags}
+                            portfolioServices={portfolioServices}
                             canEdit={canEdit || canCreate}
                             onSuccess={() => setIsSheetOpen(false)}
                         />

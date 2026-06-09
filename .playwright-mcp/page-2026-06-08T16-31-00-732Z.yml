@@ -1,0 +1,149 @@
+- generic [ref=e3]:
+  - navigation [ref=e4]:
+    - link "J. Vozlič" [ref=e5] [cursor=pointer]:
+      - /url: "#"
+    - generic [ref=e6]:
+      - link "Galerija" [ref=e7] [cursor=pointer]:
+        - /url: "#portfolio"
+      - link "O meni" [ref=e8] [cursor=pointer]:
+        - /url: "#o-meni"
+      - link "Storitve" [ref=e9] [cursor=pointer]:
+        - /url: "#storitve"
+      - link "Kontakt" [ref=e10] [cursor=pointer]:
+        - /url: "#kontakt"
+    - link "Prijava" [ref=e12] [cursor=pointer]:
+      - /url: http://jaka-stran.test/login
+  - generic [ref=e13]:
+    - generic [ref=e14]:
+      - generic [ref=e15]:
+        - generic [ref=e16]: Dostopno za projekte — 2026
+        - heading "Lovim akcijo. Ujamem zgodbo." [level=1] [ref=e18]
+        - paragraph [ref=e19]: Dokumentiram trenutke, ki ostanejo. Športna, dokumentarna in komercialna fotografija z avtentičnim občutkom za detajl in atmosfero.
+      - generic [ref=e20]:
+        - generic [ref=e21]:
+          - generic [ref=e22]:
+            - generic [ref=e23]: "342"
+            - generic [ref=e24]: Fotografij
+          - generic [ref=e25]:
+            - generic [ref=e26]: "4"
+            - generic [ref=e27]: Galerij
+          - generic [ref=e28]:
+            - generic [ref=e29]: 8+
+            - generic [ref=e30]: Let izkušenj
+        - generic [ref=e32]: Scroll
+    - generic [ref=e34]:
+      - generic [ref=e37] [cursor=pointer]: Cirque du Soleil
+      - generic [ref=e40] [cursor=pointer]: Jakov
+      - generic [ref=e43] [cursor=pointer]: ICF Canoe slalom world cup
+      - generic [ref=e46] [cursor=pointer]: Jakov
+      - generic [ref=e49] [cursor=pointer]: Cirque du Soleil
+  - generic [ref=e51]:
+    - button "Vse 4" [ref=e52] [cursor=pointer]:
+      - text: Vse
+      - generic [ref=e53]: "4"
+    - button "Koncerti 1" [ref=e54] [cursor=pointer]:
+      - text: Koncerti
+      - generic [ref=e55]: "1"
+    - button "Kultura 1" [ref=e56] [cursor=pointer]:
+      - text: Kultura
+      - generic [ref=e57]: "1"
+    - button "Šport 2" [ref=e58] [cursor=pointer]:
+      - text: Šport
+      - generic [ref=e59]: "2"
+    - generic [ref=e60]: → Scroll
+  - generic [ref=e62]:
+    - link "ICF Canoe slalom world cup Šport · maj 2026 01" [ref=e63] [cursor=pointer]:
+      - /url: /galerija/icf-canoe-slalom-world-cup-1
+      - generic [ref=e66]:
+        - generic [ref=e67]: ICF Canoe slalom world cup
+        - generic [ref=e68]: Šport · maj 2026
+      - generic [ref=e69]: "01"
+    - link "ICF Canoe slalom world cup Šport · maj 2026 02" [ref=e70] [cursor=pointer]:
+      - /url: /galerija/icf-canoe-slalom-world-cup
+      - generic [ref=e73]:
+        - generic [ref=e74]: ICF Canoe slalom world cup
+        - generic [ref=e75]: Šport · maj 2026
+      - generic [ref=e76]: "02"
+    - link "Jakov Koncerti · maj 2026 03" [ref=e77] [cursor=pointer]:
+      - /url: /galerija/jakov-koncert-stožice-2026
+      - generic [ref=e80]:
+        - generic [ref=e81]: Jakov
+        - generic [ref=e82]: Koncerti · maj 2026
+      - generic [ref=e83]: "03"
+    - link "Cirque du Soleil Kultura · april 2026 04" [ref=e84] [cursor=pointer]:
+      - /url: /galerija/cirque-du-soleil
+      - generic [ref=e87]:
+        - generic [ref=e88]: Cirque du Soleil
+        - generic [ref=e89]: Kultura · april 2026
+      - generic [ref=e90]: "04"
+  - generic [ref=e91]:
+    - paragraph [ref=e96]:
+      - text: "\"Vsaka fotografija je"
+      - text: tiha pesem o svetlobi."
+    - generic [ref=e97]:
+      - generic [ref=e98]: O fotografu
+      - heading "Jaka Vozlič" [level=2] [ref=e100]
+      - paragraph [ref=e101]: Fotograf z dušo — lovim akcijo, vzdušje in trenutke, ki jih ni mogoče ponoviti. Športna, dokumentarna in komercialna fotografija z avtentičnim pristopom.
+      - generic [ref=e102]:
+        - paragraph [ref=e103]: Sem fotograf z bazo v Sloveniji. Fotografija zame ni le posel — je način, kako vidim svet. Vsak projekt pristopam z radovednostjo, potrpežljivostjo in globokim spoštovanjem do svojih naročnikov.
+        - paragraph [ref=e104]: Specializiran sem za športno, dokumentarno in komercialno fotografijo. Fotografiram dinamično, ko je potrebna hitrost in ostrina, dokumentarno, ko gre za vzdušje in čustva, ter umetniško, ko trenutek to dopušča. Moje delo je vedno pristno — brez pretiranega poziranja, z visoko mero pozornosti do detajlov in svetlobe.
+        - paragraph [ref=e105]: Sodelujem s klubi, atleti, organizatorji dogodkov, umetniki, mediji in znamkami — za vsakega naročnika prilagodim pristop glede na potrebe in namen fotografij.
+  - generic [ref=e106]:
+    - generic [ref=e107]:
+      - heading "Storitve" [level=2] [ref=e108]
+      - paragraph [ref=e109]: Prilagojeni paketi za vsak projekt in proračun.
+    - generic [ref=e110]:
+      - generic [ref=e111]:
+        - generic [ref=e112]: "01"
+        - heading "Športna fotografija, ki ujame bistvo trenutka" [level=3] [ref=e113]
+        - paragraph [ref=e114]: Celovita dokumentacija vašega dogodka. Dinamično, pristno, brez zamujenih trenutkov.
+        - generic [ref=e115]: ↗
+      - generic [ref=e116]:
+        - generic [ref=e117]: "02"
+        - heading "Fotografija kulturnih dogodkov" [level=3] [ref=e118]
+        - paragraph [ref=e119]: Vsak nastop, razstava ali kulturni dogodek nosi svojo zgodbo — enkratno vzdušje, ki ga ni mogoče ponoviti. Moja naloga je, da ga ujamem, preden izgine.
+        - generic [ref=e120]: ↗
+      - generic [ref=e121]:
+        - generic [ref=e122]: "03"
+        - heading "Editorial & komercialno" [level=3] [ref=e123]
+        - paragraph [ref=e124]: Fotografije za revije, blagovne znamke in oglaševalske kampanje z izkušnjami iz različnih projektov.
+        - generic [ref=e125]: ↗
+  - generic [ref=e126]:
+    - generic [ref=e127]:
+      - generic [ref=e128]: Kontakt
+      - heading "Pogovorimo se." [level=2] [ref=e130]:
+        - text: Pogovorimo
+        - text: se.
+      - paragraph [ref=e131]: Vsak projekt se začne s pogovorom. Pišite mi o svojih idejah — skupaj bomo ustvarili nekaj trajnega.
+      - generic [ref=e132]:
+        - link "info@jaka.si ↗" [ref=e133] [cursor=pointer]:
+          - /url: mailto:info@jaka.si
+          - generic [ref=e134]: info@jaka.si
+          - generic [ref=e135]: ↗
+        - link "+386 41 000 000 ↗" [ref=e136] [cursor=pointer]:
+          - /url: tel:+38641000000
+          - generic [ref=e137]: +386 41 000 000
+          - generic [ref=e138]: ↗
+        - link "Instagram ↗" [ref=e139] [cursor=pointer]:
+          - /url: https://www.instagram.com/vozlich
+          - generic [ref=e140]: Instagram
+          - generic [ref=e141]: ↗
+    - generic [ref=e143]:
+      - generic [ref=e144]:
+        - generic [ref=e145]: Vaše ime
+        - textbox "Ana Kovač" [ref=e146]
+      - generic [ref=e147]:
+        - generic [ref=e148]: E-naslov
+        - textbox "ana@email.si" [ref=e149]
+      - generic [ref=e150]:
+        - generic [ref=e151]: Vrsta projekta
+        - textbox "Portret, poroka, komercialno..." [ref=e152]
+      - generic [ref=e153]:
+        - generic [ref=e154]: Sporočilo
+        - textbox "Opišite vaš projekt..." [ref=e155]
+      - button "Pošlji povpraševanje →" [ref=e156] [cursor=pointer]
+  - contentinfo [ref=e157]:
+    - generic [ref=e158]: Jaka Vozlič Photography
+    - generic [ref=e159]: © 2026 Jaka Vozlič. Vse pravice pridržane.
+    - link "Instagram" [ref=e161] [cursor=pointer]:
+      - /url: https://www.instagram.com/vozlich

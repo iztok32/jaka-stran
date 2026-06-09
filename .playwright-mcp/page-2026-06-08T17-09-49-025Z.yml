@@ -1,0 +1,228 @@
+- generic:
+  - generic:
+    - generic:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - list:
+                - listitem:
+                  - button:
+                    - generic:
+                      - img
+                    - generic:
+                      - generic: Jaka Vozlič
+                      - generic: Fotograf
+            - generic:
+              - generic:
+                - generic: Delo
+                - list:
+                  - listitem:
+                    - link:
+                      - /url: /galleries
+                      - img
+                      - generic: Galerija
+                  - listitem:
+                    - link:
+                      - /url: /articles
+                      - img
+                      - generic: Članki
+                  - listitem:
+                    - link:
+                      - /url: /contact-inquiries
+                      - img
+                      - generic: Zahtevki za kontakt
+                  - listitem:
+                    - link:
+                      - /url: /notifications
+                      - img
+                      - generic: Obveščanje
+              - generic:
+                - generic: Administracija
+                - list:
+                  - listitem:
+                    - link:
+                      - /url: /users
+                      - img
+                      - generic: Uporabniki
+                  - listitem:
+                    - link:
+                      - /url: /settings
+                      - img
+                      - generic: Parametri in nastavitve
+                  - listitem:
+                    - link:
+                      - /url: /roles-permissions
+                      - img
+                      - generic: Pravice uporabniških skupin
+                  - listitem:
+                    - link:
+                      - /url: /roles-group
+                      - img
+                      - generic: Uporabniške skupine
+                  - listitem:
+                    - button:
+                      - img
+                      - generic: Ureja SuperAdmin
+                      - img
+            - generic:
+              - list:
+                - listitem:
+                  - button:
+                    - generic:
+                      - generic:
+                        - generic: CN
+                    - generic:
+                      - generic: Iztok Vozlič
+                      - generic: iztok.vozlic@gmail.com
+                    - img
+            - button
+      - main:
+        - generic:
+          - generic:
+            - button:
+              - img
+              - generic: Toggle Sidebar
+            - navigation:
+              - list:
+                - listitem:
+                  - link [disabled]:
+                    - heading [level=2]: Galleries
+          - generic:
+            - generic:
+              - generic:
+                - switch [checked]
+                - img
+                - img
+            - generic:
+              - generic:
+                - generic:
+                  - button:
+                    - img
+                    - text: sl
+                    - img
+        - main:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic: Gallery management
+                  - generic:
+                    - generic:
+                      - img
+                      - textbox:
+                        - /placeholder: Search galleries...
+                    - combobox:
+                      - img
+                      - generic: Vsi statusi
+                      - img
+                    - generic:
+                      - button:
+                        - img
+                      - button:
+                        - img
+                    - button:
+                      - img
+                      - text: Add Gallery
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                        - generic:
+                          - generic: Objavljeno
+                        - generic:
+                          - button [expanded]:
+                            - img
+                        - generic:
+                          - img
+                          - text: "127"
+                      - generic:
+                        - generic:
+                          - heading [level=3]: ICF Canoe slalom world cup
+                          - generic:
+                            - img
+                            - text: Javno
+                        - generic:
+                          - generic: Šport
+                        - generic:
+                          - generic: Iztok Vozlič
+                          - generic: 30. 05. 2026
+                    - generic:
+                      - generic:
+                        - img
+                        - generic:
+                          - generic: Objavljeno
+                        - generic:
+                          - button:
+                            - img
+                        - generic:
+                          - img
+                          - text: "109"
+                      - generic:
+                        - generic:
+                          - heading [level=3]: ICF Canoe slalom world cup
+                          - generic:
+                            - img
+                            - text: Javno
+                        - generic:
+                          - generic: Šport
+                        - generic:
+                          - generic: Iztok Vozlič
+                          - generic: 29. 05. 2026
+                    - generic:
+                      - generic:
+                        - img
+                        - generic:
+                          - generic: Objavljeno
+                        - generic:
+                          - button:
+                            - img
+                        - generic:
+                          - img
+                          - text: "61"
+                      - generic:
+                        - generic:
+                          - heading [level=3]: Jakov
+                          - generic:
+                            - img
+                            - text: Javno
+                        - paragraph: Jakov koncert v stožicah 2026
+                        - generic:
+                          - generic: Koncerti
+                        - generic:
+                          - generic: Iztok Vozlič
+                          - generic: 08. 05. 2026
+                    - generic:
+                      - generic:
+                        - img
+                        - generic:
+                          - generic: Objavljeno
+                        - generic:
+                          - button:
+                            - img
+                        - generic:
+                          - img
+                          - text: "45"
+                      - generic:
+                        - generic:
+                          - heading [level=3]: Cirque du Soleil
+                          - generic:
+                            - img
+                            - text: Javno
+                        - generic:
+                          - generic: Kultura
+                        - generic:
+                          - generic: Iztok Vozlič
+                          - generic: 16. 04. 2026
+  - menu [active] [ref=e252]:
+    - menuitem "Preview" [ref=e253]:
+      - img [ref=e254]
+      - text: Preview
+    - separator [ref=e257]
+    - menuitem "Edit" [ref=e258]:
+      - img [ref=e259]
+      - text: Edit
+    - menuitem "Izbriši" [ref=e262]:
+      - img [ref=e263]
+      - text: Izbriši

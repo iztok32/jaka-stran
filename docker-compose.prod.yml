@@ -1,0 +1,17 @@
+# docker-compose.prod.yml — produkcijska nadgradnja za strežnik
+#
+# Uporaba na strežniku:
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+#
+# Ta datoteka prepiše volume za uploads na bind mount na SATA disk.
+# Zagotovi, da direktorij obstaja pred prvim zagonom:
+#   mkdir -p /mnt/sata-disk/jaka-page
+
+services:
+  app:
+    volumes:
+      - /mnt/sata-disk/jaka-page:/var/www/html/storage/app/public
+      - storage_logs:/var/www/html/storage/logs
+
+volumes:
+  storage_logs:

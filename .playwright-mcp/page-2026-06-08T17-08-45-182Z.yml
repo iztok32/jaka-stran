@@ -1,0 +1,44 @@
+- generic [ref=e3]:
+  - generic [ref=e4]:
+    - button "sl sl" [ref=e8] [cursor=pointer]:
+      - img "sl" [ref=e9]
+      - text: sl
+      - img [ref=e10]
+    - generic [ref=e13]:
+      - switch "Preklop teme" [ref=e14] [cursor=pointer]
+      - img
+      - img
+  - generic [ref=e16]:
+    - generic [ref=e18]:
+      - generic [ref=e20]:
+        - generic [ref=e21]:
+          - heading "Dobrodošli nazaj" [level=1] [ref=e22]
+          - paragraph [ref=e23]: Prijavite se v svoj račun
+        - group [ref=e24]:
+          - generic [ref=e25]: E-pošta
+          - textbox "E-pošta" [ref=e26]:
+            - /placeholder: m@example.com
+        - group [ref=e27]:
+          - generic [ref=e28]:
+            - generic [ref=e29]: Geslo
+            - link "Ste pozabili geslo?" [ref=e30] [cursor=pointer]:
+              - /url: http://jaka-stran.test/forgot-password
+          - textbox "Geslo" [ref=e31]
+        - generic [ref=e33]:
+          - checkbox "Zapomni si me" [ref=e34]
+          - generic [ref=e35]: Zapomni si me
+        - group [ref=e36]:
+          - button "Prijava" [ref=e37] [cursor=pointer]
+        - paragraph [ref=e38]:
+          - text: Še nimate računa?
+          - link "Registracija" [ref=e39] [cursor=pointer]:
+            - /url: http://jaka-stran.test/register
+      - img "Login background" [ref=e41]
+    - generic [ref=e42]:
+      - text: S klikom na nadaljuj se strinjate z našimi
+      - link "Pogoji storitve" [ref=e43] [cursor=pointer]:
+        - /url: "#"
+      - text: in
+      - link "Politika zasebnosti" [ref=e44] [cursor=pointer]:
+        - /url: "#"
+      - text: .

@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A. Novak — Photography</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #c8a96e;
+    --gold-dim: rgba(200,169,110,0.4);
+    --gold-faint: rgba(200,169,110,0.12);
+    --bg: #070707;
+    --bg2: #0e0e0e;
+    --bg3: #141414;
+    --line: rgba(255,255,255,0.07);
+    --line2: rgba(255,255,255,0.12);
+    --text: rgba(255,255,255,0.88);
+    --text-dim: rgba(255,255,255,0.38);
+    --text-faint: rgba(255,255,255,0.16);
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1.6;
+    cursor: crosshair;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--gold-faint); color: var(--gold); }
+
+  /* ── CURSOR ── */
+  .cursor {
+    position: fixed; width: 8px; height: 8px;
+    background: var(--gold); border-radius: 50%;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: transform 0.08s, width 0.2s, height 0.2s, opacity 0.2s;
+    mix-blend-mode: screen;
+  }
+  .cursor-ring {
+    position: fixed; width: 36px; height: 36px;
+    border: 0.5px solid var(--gold-dim); border-radius: 50%;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%,-50%);
+    transition: transform 0.18s ease, width 0.25s, height 0.25s, opacity 0.2s;
+  }
+  body:has(a:hover) .cursor, body:has(.gal-item:hover) .cursor { width: 14px; height: 14px; }
+  body:has(a:hover) .cursor-ring, body:has(.gal-item:hover) .cursor-ring { width: 60px; height: 60px; opacity: 0.4; }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.32s; }
+  .reveal-delay-4 { transition-delay: 0.46s; }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.025;
+    pointer-events: none;
+    z-index: 9000;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px;
+    height: 64px;
+    border-bottom: 0.5px solid var(--line);
+    background: rgba(7,7,7,0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .nav-logo {
+    font-family: var(--serif); font-style: italic; font-size: 20px;
+    font-weight: 300; color: var(--text); letter-spacing: 0.04em;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a {
+    font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--text-dim); text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 0.5px;
+    background: var(--gold); transition: width 0.3s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--gold); border: 0.5px solid var(--gold-dim);
+    padding: 8px 20px; border-radius: 1px; text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+  .nav-cta:hover { background: var(--gold); color: #000; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 64px;
+  }
+  .hero-left {
+    padding: 80px 40px 60px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    border-right: 0.5px solid var(--line);
+    position: relative;
+  }
+  .hero-eyebrow {
+    font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--text-faint); display: flex; align-items: center; gap: 10px;
+    margin-bottom: 40px;
+  }
+  .hero-eyebrow::before {
+    content: ''; width: 28px; height: 0.5px; background: var(--gold);
+  }
+  .hero-title {
+    font-family: var(--serif); font-style: italic; font-weight: 300;
+    font-size: clamp(52px, 7vw, 86px);
+    line-height: 1.0; color: var(--text);
+    letter-spacing: -0.01em;
+  }
+  .hero-title em { font-style: normal; color: var(--gold); }
+  .hero-desc {
+    font-size: 11px; line-height: 1.8; color: var(--text-dim);
+    max-width: 340px; margin-top: 32px;
+    border-left: 0.5px solid var(--gold-dim); padding-left: 20px;
+  }
+  .hero-bottom {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-top: 60px;
+  }
+  .hero-stats { display: flex; gap: 36px; }
+  .hero-stat .num {
+    font-family: var(--serif); font-size: 36px; font-weight: 300;
+    color: var(--text); line-height: 1;
+  }
+  .hero-stat .lbl {
+    font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-faint); margin-top: 4px;
+  }
+  .hero-scroll {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  .hero-scroll-line {
+    width: 0.5px; height: 40px; background: var(--line2);
+    position: relative; overflow: hidden;
+  }
+  .hero-scroll-line::after {
+    content: ''; position: absolute; top: -100%;
+    width: 100%; height: 100%; background: var(--gold);
+    animation: scrollLine 1.8s ease-in-out infinite;
+  }
+  @keyframes scrollLine {
+    0% { top: -100%; } 100% { top: 100%; }
+  }
+
+  /* ── HERO RIGHT: split image grid ── */
+  .hero-right {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 1px; background: var(--line);
+  }
+  .hero-img {
+    position: relative; overflow: hidden; cursor: pointer;
+    background: var(--bg2);
+  }
+  .hero-img.span-col { grid-column: span 2; }
+  .hero-img.span-row { grid-row: span 2; }
+  .hero-img-bg {
+    width: 100%; height: 100%;
+    transition: transform 0.7s ease, filter 0.7s ease;
+    filter: brightness(0.7) saturate(0.6);
+  }
+  .hero-img:hover .hero-img-bg { transform: scale(1.06); filter: brightness(0.85) saturate(0.8); }
+  .hero-img-label {
+    position: absolute; bottom: 14px; left: 14px;
+    font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    background: rgba(0,0,0,0.5); padding: 3px 8px; border-radius: 1px;
+  }
+
+  /* Placeholder colored photo blocks */
+  .ph { width: 100%; height: 100%; }
+  .ph-1 { background: linear-gradient(135deg,#1a1310 0%,#2d1f14 100%); }
+  .ph-2 { background: linear-gradient(135deg,#0d1520 0%,#112033 100%); }
+  .ph-3 { background: linear-gradient(135deg,#121812 0%,#1e2d1a 100%); }
+  .ph-4 { background: linear-gradient(135deg,#1a0f0f 0%,#2d1515 100%); }
+  .ph-5 { background: linear-gradient(135deg,#151215 0%,#251e28 100%); }
+
+  /* ── FILTER BAR ── */
+  .filter-section {
+    border-bottom: 0.5px solid var(--line);
+    border-top: 0.5px solid var(--line);
+    position: sticky; top: 64px; z-index: 50;
+    background: rgba(7,7,7,0.95);
+    backdrop-filter: blur(10px);
+  }
+  .filter-inner {
+    display: flex; align-items: stretch; overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .filter-inner::-webkit-scrollbar { display: none; }
+  .filter-btn {
+    flex-shrink: 0;
+    font-family: var(--mono); font-size: 9px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-faint); padding: 14px 22px;
+    border: none; background: transparent; cursor: pointer;
+    border-right: 0.5px solid var(--line);
+    transition: color 0.2s, background 0.2s;
+    white-space: nowrap; display: flex; align-items: center; gap: 8px;
+  }
+  .filter-btn:hover { color: var(--text); background: rgba(255,255,255,0.02); }
+  .filter-btn.active { color: var(--gold); background: var(--gold-faint); }
+  .filter-count { font-size: 8px; color: var(--text-faint); }
+  .filter-btn.active .filter-count { color: var(--gold-dim); }
+  .filter-sort {
+    margin-left: auto; flex-shrink: 0;
+    display: flex; align-items: center; gap: 8px;
+    padding: 14px 24px; border-left: 0.5px solid var(--line);
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-faint);
+  }
+
+  /* ── GALLERY ── */
+  .gallery-section { padding: 0; }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--line);
+  }
+  .gal-item {
+    position: relative; overflow: hidden;
+    aspect-ratio: 3/4; background: var(--bg2);
+    cursor: pointer;
+  }
+  .gal-item.wide { grid-column: span 2; aspect-ratio: 16/9; }
+  .gal-item.tall { grid-row: span 2; aspect-ratio: auto; }
+
+  .gal-bg {
+    width: 100%; height: 100%;
+    transition: transform 0.65s cubic-bezier(0.25,0.46,0.45,0.94),
+                filter 0.65s ease;
+    filter: brightness(0.65) saturate(0.55);
+  }
+  .gal-item:hover .gal-bg {
+    transform: scale(1.07);
+    filter: brightness(0.85) saturate(0.85);
+  }
+
+  .gal-overlay {
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0);
+    transition: background 0.4s;
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px;
+  }
+  .gal-item:hover .gal-overlay { background: rgba(0,0,0,0.45); }
+
+  .gal-info {
+    transform: translateY(12px); opacity: 0;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+  }
+  .gal-item:hover .gal-info { transform: translateY(0); opacity: 1; }
+
+  .gal-title {
+    font-family: var(--serif); font-style: italic;
+    font-size: 16px; font-weight: 300; color: rgba(255,255,255,0.92);
+    line-height: 1.2;
+  }
+  .gal-meta {
+    font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.4); margin-top: 5px;
+  }
+  .gal-num {
+    position: absolute; top: 14px; right: 14px;
+    font-size: 8px; letter-spacing: 0.1em; color: rgba(255,255,255,0.2);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .gal-item:hover .gal-num { opacity: 1; }
+
+  /* gallery photo placeholders */
+  .gb-1  { background: linear-gradient(150deg,#1c1410 0%,#2e1e10 60%,#1a110a 100%); }
+  .gb-2  { background: linear-gradient(160deg,#0a1220 0%,#142040 60%,#0d1828 100%); }
+  .gb-3  { background: linear-gradient(140deg,#111a10 0%,#1c2e18 60%,#0e1a0c 100%); }
+  .gb-4  { background: linear-gradient(155deg,#1c0a0a 0%,#2e1212 60%,#1a0808 100%); }
+  .gb-5  { background: linear-gradient(145deg,#0e1418 0%,#182030 60%,#0c1218 100%); }
+  .gb-6  { background: linear-gradient(165deg,#1a1814 0%,#2e2a1e 60%,#141208 100%); }
+  .gb-7  { background: linear-gradient(135deg,#100c18 0%,#1e1430 60%,#0c0a14 100%); }
+  .gb-8  { background: linear-gradient(150deg,#101810 0%,#1c2c1c 60%,#0c140c 100%); }
+  .gb-9  { background: linear-gradient(160deg,#18100a 0%,#2c1e10 60%,#140c06 100%); }
+  .gb-10 { background: linear-gradient(145deg,#0a1018 0%,#101c2e 60%,#080e18 100%); }
+  .gb-11 { background: linear-gradient(140deg,#1a0e0e 0%,#2c1818 60%,#140a0a 100%); }
+  .gb-12 { background: linear-gradient(155deg,#101410 0%,#1e2818 60%,#0c100a 100%); }
+
+  /* ── ABOUT SECTION ── */
+  .about-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 0.5px solid var(--line);
+    min-height: 500px;
+  }
+  .about-left {
+    border-right: 0.5px solid var(--line);
+    position: relative; overflow: hidden;
+    background: var(--bg2);
+  }
+  .about-left-bg {
+    width: 100%; height: 100%;
+    background: linear-gradient(160deg,#151210 0%,#20180c 40%,#0e0c08 100%);
+    filter: brightness(0.6) saturate(0.5);
+  }
+  .about-left-caption {
+    position: absolute; bottom: 32px; left: 32px; right: 32px;
+  }
+  .about-left-caption .caption-line {
+    width: 32px; height: 0.5px; background: var(--gold); margin-bottom: 14px;
+  }
+  .about-left-caption p {
+    font-family: var(--serif); font-style: italic; font-size: 22px;
+    font-weight: 300; color: rgba(255,255,255,0.85); line-height: 1.3;
+  }
+
+  .about-right {
+    padding: 60px 48px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .section-label {
+    font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 20px; display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::before { content: ''; width: 20px; height: 0.5px; background: var(--gold); }
+
+  .about-right h2 {
+    font-family: var(--serif); font-size: 42px; font-weight: 300;
+    line-height: 1.1; margin-bottom: 28px; color: var(--text);
+  }
+  .about-right p {
+    font-size: 11px; line-height: 1.9; color: var(--text-dim);
+    margin-bottom: 16px; max-width: 400px;
+  }
+  .about-awards {
+    margin-top: 36px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .award-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-bottom: 12px; border-bottom: 0.5px solid var(--line);
+    font-size: 10px; color: var(--text-dim);
+  }
+  .award-item .award-name { color: var(--text); }
+  .award-item .award-year { color: var(--text-faint); font-size: 9px; }
+
+  /* ── SERVICES ── */
+  .services-section {
+    padding: 100px 40px;
+    border-top: 0.5px solid var(--line);
+  }
+  .services-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 60px;
+  }
+  .services-header h2 {
+    font-family: var(--serif); font-size: 48px; font-weight: 300;
+    font-style: italic; color: var(--text); line-height: 1;
+  }
+  .services-header p { font-size: 10px; color: var(--text-faint); max-width: 200px; text-align: right; line-height: 1.8; }
+
+  .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--line); }
+  .service-card {
+    background: var(--bg); padding: 36px 32px;
+    transition: background 0.3s;
+    position: relative;
+  }
+  .service-card:hover { background: var(--bg2); }
+  .service-num {
+    font-size: 9px; letter-spacing: 0.14em; color: var(--text-faint);
+    margin-bottom: 24px;
+  }
+  .service-card h3 {
+    font-family: var(--serif); font-size: 24px; font-weight: 300;
+    color: var(--text); margin-bottom: 16px; line-height: 1.2;
+  }
+  .service-card p { font-size: 10px; color: var(--text-dim); line-height: 1.9; margin-bottom: 28px; }
+  .service-price {
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--gold);
+  }
+  .service-arrow {
+    position: absolute; bottom: 32px; right: 32px;
+    font-size: 18px; color: var(--text-faint);
+    transition: transform 0.3s, color 0.3s;
+  }
+  .service-card:hover .service-arrow { transform: translate(4px,-4px); color: var(--gold); }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    border-top: 0.5px solid var(--line);
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: 400px;
+  }
+  .contact-left {
+    padding: 80px 48px;
+    border-right: 0.5px solid var(--line);
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .contact-left h2 {
+    font-family: var(--serif); font-size: 52px; font-weight: 300;
+    font-style: italic; line-height: 1; color: var(--text); margin-bottom: 24px;
+  }
+  .contact-left p { font-size: 10px; color: var(--text-dim); line-height: 1.9; max-width: 320px; }
+  .contact-links { margin-top: 36px; display: flex; flex-direction: column; gap: 16px; }
+  .contact-link {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-bottom: 16px; border-bottom: 0.5px solid var(--line);
+    text-decoration: none; color: var(--text-dim);
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .contact-link:hover { color: var(--gold); }
+  .contact-link .link-arrow { font-size: 14px; transition: transform 0.2s; }
+  .contact-link:hover .link-arrow { transform: translate(4px,-4px); }
+
+  .contact-right {
+    padding: 80px 48px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .contact-right form { display: flex; flex-direction: column; gap: 20px; }
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-label { font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-faint); }
+  .form-input, .form-textarea {
+    background: transparent; border: none; border-bottom: 0.5px solid var(--line);
+    color: var(--text); font-family: var(--mono); font-size: 11px;
+    padding: 10px 0; outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus, .form-textarea:focus { border-bottom-color: var(--gold); }
+  .form-textarea { resize: none; min-height: 80px; }
+  .form-input::placeholder, .form-textarea::placeholder { color: var(--text-faint); }
+  .form-submit {
+    align-self: flex-start;
+    font-family: var(--mono); font-size: 9px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: #000; background: var(--gold);
+    border: none; padding: 12px 28px; cursor: pointer;
+    border-radius: 1px; margin-top: 8px;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+  .form-submit:hover { opacity: 0.85; transform: translateY(-1px); }
+  .form-submit:active { transform: translateY(0); }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 0.5px solid var(--line);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 24px 40px;
+  }
+  footer .f-logo {
+    font-family: var(--serif); font-style: italic;
+    font-size: 15px; color: var(--text-dim);
+  }
+  footer .f-copy { font-size: 9px; letter-spacing: 0.1em; color: var(--text-faint); }
+  footer .f-links { display: flex; gap: 24px; }
+  footer .f-links a { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-faint); text-decoration: none; transition: color 0.2s; }
+  footer .f-links a:hover { color: var(--gold); }
+
+  /* ── GALLERY FILTER ANIMATION ── */
+  .gal-item {
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .gal-item.hidden {
+    opacity: 0; pointer-events: none;
+    transform: scale(0.96);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { grid-template-columns: 1fr 1fr; grid-template-rows: auto; min-height: 260px; }
+    .hero-img.span-row { grid-row: auto; }
+    nav { padding: 0 20px; }
+    .nav-links a { display: none; }
+    .gallery-grid { grid-template-columns: repeat(2,1fr); }
+    .gal-item.wide { grid-column: span 2; }
+    .gal-item.tall { grid-row: auto; }
+    .about-section, .contact-section, .services-grid { grid-template-columns: 1fr; }
+    .about-left { min-height: 240px; }
+    .hero-left, .about-right, .contact-left, .contact-right { padding: 40px 24px; }
+    .services-section { padding: 60px 24px; }
+    footer { flex-direction: column; gap: 16px; text-align: center; padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">A. <span>Novak</span></a>
+  <div class="nav-links">
+    <a href="#portfolio">Portfolio</a>
+    <a href="#o-meni">O meni</a>
+    <a href="#storitve">Storitve</a>
+    <a href="#kontakt">Kontakt</a>
+  </div>
+  <a class="nav-cta" href="#kontakt">Rezerviraj termin</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div>
+      <div class="hero-eyebrow reveal">Dostopno za projekte — 2025</div>
+      <h1 class="hero-title reveal reveal-delay-1">
+        Svetloba,<br>ki <em>govori</em><br>sama zase.
+      </h1>
+      <p class="hero-desc reveal reveal-delay-2">
+        Dokumentiram trenutke, ki ostanejo. Portretna, naravna in arhitekturna fotografija z editorial občutkom za detajl in atmosfero.
+      </p>
+    </div>
+    <div class="hero-bottom reveal reveal-delay-3">
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="num">147</div>
+          <div class="lbl">Fotografij</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num">8</div>
+          <div class="lbl">Serij</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num">12+</div>
+          <div class="lbl">Let izkušenj</div>
+        </div>
+      </div>
+      <div class="hero-scroll">
+        <span>Scroll</span>
+        <div class="hero-scroll-line"></div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img span-row">
+      <div class="hero-img-bg ph ph-1" style="height:100%"></div>
+      <div class="hero-img-label">Portret</div>
+    </div>
+    <div class="hero-img">
+      <div class="hero-img-bg ph ph-2" style="height:100%"></div>
+      <div class="hero-img-label">Narava</div>
+    </div>
+    <div class="hero-img">
+      <div class="hero-img-bg ph ph-3" style="height:100%"></div>
+      <div class="hero-img-label">Arhitektura</div>
+    </div>
+  </div>
+</section>
+
+<!-- FILTER -->
+<section class="filter-section" id="portfolio">
+  <div class="filter-inner">
+    <button class="filter-btn active" data-filter="vse">Vse <span class="filter-count">12</span></button>
+    <button class="filter-btn" data-filter="portret">Portret <span class="filter-count">4</span></button>
+    <button class="filter-btn" data-filter="narava">Narava <span class="filter-count">3</span></button>
+    <button class="filter-btn" data-filter="arhitektura">Arhitektura <span class="filter-count">2</span></button>
+    <button class="filter-btn" data-filter="poroka">Poroka <span class="filter-count">2</span></button>
+    <button class="filter-btn" data-filter="ulica">Ulica <span class="filter-count">1</span></button>
+    <div class="filter-sort">↑ Najnovejše</div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section">
+  <div class="gallery-grid" id="gallery-grid">
+
+    <div class="gal-item wide" data-cat="portret">
+      <div class="gal-bg gb-1"></div>
+      <div class="gal-overlay">
+        <div class="gal-info">
+          <div class="gal-title">Jutranje sence</div>
+          <div class="gal-meta">Portret · Ljubljana · 2024</div>
+        </div>
+      </div>
+      <div class="gal-num">01</div>
+    </div>
+
+    <div class="gal-item" data-cat="narava">
+      <div class="gal-bg gb-2"></div>
+      <div class="gal-overlay">
+        <div class="gal-info">
+          <div class="gal-title">Gorski rob</div>
+          <div class="gal-meta">Narava · Triglav · 2024</div>
+        </div>
+      </div>
+      <div class="gal-num">02</div>
+    </div>
+
+    <div class="gal-item tall" data-cat="arhitektura">
+      <div class="gal-bg gb-3"></div>
+      <div class="gal-overlay">
+        <div class="gal-info">
+          <div class="gal-title">Beton in nebo</div>
+          <div class="gal-meta">Arhitektura · Berlin · 2024</div>
+        </div>
+      </div>
+      <div class="gal-num">03</div>
+    </div>
+
+    <div class="gal-item" data-cat="ulica">
+      <div class="gal-bg gb-4"></div>
+      <div class="gal-overlay">
+        <div class="gal-info">
+          <div class="gal-title">Mestni dež</div>
+          <div class="gal-meta">Ulica · Ljubljana · 2024</div>
+        </div>
+      </div>
+      <div class="gal-num">04</div>
+    </div>
+
+    <div class="gal-item" data-cat="portret">
+      <div class="gal-bg gb-5"></div>
+      <div class="gal-overlay">
+        <div class="gal-info">
+          <div class="gal-title">Pogled skozi</div>
+          <div class="gal-meta">Portret · Studio · 2023</div>
+        </div>
+      </div>
+      <div class="gal-num">05</div>
+    </div>
+
+    <div class="gal-item" data-cat="narava">
+      <div class="gal-bg gb-6"></div>
+      <div class="gal-overlay">
+        <div class="gal-info">
+          <div class="gal-title">Gozdni mir</div>
+          <div class="gal-meta">Narava · Kočevje · 2023</div>
+        </div>
+      </div>
+      <div class="gal-num">06</div>
+    </div>
+
+    <div class="gal-item wide" data-cat="poroka">
+      <div class="gal-bg gb-7"></div>
+      <div class="gal-overlay">
+        <div class="gal-info">
+          <div class="gal-title">Obred ob sončnem zahodu</div>
+          <div class="gal-meta">Poroka · Piran · 2024</div>
+        </div>
+      </div>
+      <div class="gal-num">07</div>
+    </div>
+
+    <div class="gal-item" data-cat="portret">
+      <div class="gal-bg gb-8"></div>
+      <div class="gal-overlay">
+        <div class="gal-info">
+          <div class="gal-title">Tihi trenutek</div>
+          <div class="gal-meta">Portret · Na prostem · 2023</div>
+        </div>
+      </div>
+      <div class="gal-num">08</div>
+    </div>
+
+    <div class="gal-item" data-cat="arhitektura">
+      <div class="gal-bg gb-9"></div>
+      <div class="gal-overlay">
+        <div class="gal-info">
+          <div class="gal-title">Fasada 03</div>
+          <div class="gal-meta">Arhitektura · Wien · 2023</div>
+        </div>
+      </div>
+      <div class="gal-num">09</div>
+    </div>
+
+    <div class="gal-item" data-cat="narava">
+      <div class="gal-bg gb-10"></div>
+      <div class="gal-overlay">
+        <div class="gal-info">
+          <div class="gal-title">Zimska tišina</div>
+          <div class="gal-meta">Narava · Pokljuka · 2024</div>
+        </div>
+      </div>
+      <div class="gal-num">10</div>
+    </div>
+
+    <div class="gal-item" data-cat="poroka">
+      <div class="gal-bg gb-11"></div>
+      <div class="gal-overlay">
+        <div class="gal-info">
+          <div class="gal-title">Zaobljuba</div>
+          <div class="gal-meta">Poroka · Bled · 2024</div>
+        </div>
+      </div>
+      <div class="gal-num">11</div>
+    </div>
+
+    <div class="gal-item" data-cat="portret">
+      <div class="gal-bg gb-12"></div>
+      <div class="gal-overlay">
+        <div class="gal-info">
+          <div class="gal-title">V senci</div>
+          <div class="gal-meta">Portret · Studio · 2023</div>
+        </div>
+      </div>
+      <div class="gal-num">12</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="o-meni">
+  <div class="about-left reveal">
+    <div class="about-left-bg" style="height:100%"></div>
+    <div class="about-left-caption">
+      <div class="caption-line"></div>
+      <p>"Vsaka fotografija je<br>tiha pesem o svetlobi."</p>
+    </div>
+  </div>
+  <div class="about-right">
+    <div class="section-label reveal">O fotografu</div>
+    <h2 class="reveal reveal-delay-1">Aleksander<br>Novak</h2>
+    <p class="reveal reveal-delay-2">
+      Sem dokumentarni in portretni fotograf z bazo v Ljubljani. Moje delo izhaja iz prepričanja, da najboljše fotografije nastanejo takrat, ko tehnična preciznost sreča čustveno prisotnost.
+    </p>
+    <p class="reveal reveal-delay-3">
+      Po diplomi na AGRFT sem deset let sodeloval z vodilnimi revijami in oglaševalskimi agencijami po vsej Evropi. Danes sprejemam projekte, ki zahtevajo pristno vizualno pripovedništvo.
+    </p>
+    <div class="about-awards reveal reveal-delay-4">
+      <div class="award-item">
+        <span class="award-name">World Press Photo — finalista</span>
+        <span class="award-year">2023</span>
+      </div>
+      <div class="award-item">
+        <span class="award-name">Sony World Photography Awards</span>
+        <span class="award-year">2022</span>
+      </div>
+      <div class="award-item">
+        <span class="award-name">Prix de la Photographie Paris</span>
+        <span class="award-year">2021</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="storitve">
+  <div class="services-header">
+    <h2 class="reveal">Storitve</h2>
+    <p class="reveal reveal-delay-1">Prilagojeni paketi za vsak projekt in proračun.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-num">01</div>
+      <h3>Portretna sesija</h3>
+      <p>Individualne, poslovne in umetniške portretne fotografije v studiu ali na lokaciji po vaši izbiri.</p>
+      <div class="service-price">od 180 €</div>
+      <div class="service-arrow">↗</div>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-num">02</div>
+      <h3>Poročna fotografija</h3>
+      <p>Celodnevna dokumentacija vašega posebnega dne. Diskretno, pristno, brez poziranja.</p>
+      <div class="service-price">od 1.200 €</div>
+      <div class="service-arrow">↗</div>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-num">03</div>
+      <h3>Editorial & komercialno</h3>
+      <p>Fotografije za revije, blagovne znamke in oglaševalske kampanje. Izkušnje z mednarodnimi klienti.</p>
+      <div class="service-price">po dogovoru</div>
+      <div class="service-arrow">↗</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="kontakt">
+  <div class="contact-left">
+    <div class="section-label reveal">Kontakt</div>
+    <h2 class="reveal reveal-delay-1">Pogovorimo<br>se.</h2>
+    <p class="reveal reveal-delay-2">Vsak projekt se začne s pogovorom. Pišite mi o svojih idejah — skupaj bomo ustvarili nekaj trajnega.</p>
+    <div class="contact-links reveal reveal-delay-3">
+      <a class="contact-link" href="mailto:hello@anovak.si">
+        <span>hello@anovak.si</span>
+        <span class="link-arrow">↗</span>
+      </a>
+      <a class="contact-link" href="tel:+38641000000">
+        <span>+386 41 000 000</span>
+        <span class="link-arrow">↗</span>
+      </a>
+      <a class="contact-link" href="#">
+        <span>Instagram</span>
+        <span class="link-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+  <div class="contact-right">
+    <form class="reveal" onsubmit="return false;">
+      <div class="form-group">
+        <label class="form-label">Vaše ime</label>
+        <input class="form-input" type="text" placeholder="Jana Kovač">
+      </div>
+      <div class="form-group">
+        <label class="form-label">E-naslov</label>
+        <input class="form-input" type="email" placeholder="jana@email.si">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Vrsta projekta</label>
+        <input class="form-input" type="text" placeholder="Portret, poroka, komercialno...">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Sporočilo</label>
+        <textarea class="form-textarea" placeholder="Opišite vaš projekt..."></textarea>
+      </div>
+      <button class="form-submit" type="submit">Pošlji povpraševanje →</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">A. Novak Photography</div>
+  <div class="f-copy">© 2025 Aleksander Novak. Vse pravice pridržane.</div>
+  <div class="f-links">
+    <a href="#">Instagram</a>
+    <a href="#">Behance</a>
+    <a href="#">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+/* ── CURSOR ── */
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+function animCursor() {
+  cur.style.left = mx + 'px'; cur.style.top = my + 'px';
+  rx += (mx - rx) * 0.14; ry += (my - ry) * 0.14;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animCursor);
+}
+animCursor();
+
+/* ── SCROLL REVEAL ── */
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.12 });
+reveals.forEach(el => observer.observe(el));
+
+/* ── GALLERY FILTER ── */
+const filterBtns = document.querySelectorAll('.filter-btn[data-filter]');
+const galItems = document.querySelectorAll('.gal-item');
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.filter;
+    galItems.forEach((item, i) => {
+      const match = cat === 'vse' || item.dataset.cat === cat;
+      if (match) {
+        item.classList.remove('hidden');
+        item.style.transitionDelay = (i * 0.04) + 's';
+      } else {
+        item.classList.add('hidden');
+        item.style.transitionDelay = '0s';
+      }
+    });
+  });
+});
+
+/* ── NAV active link ── */
+const sections = document.querySelectorAll('section[id], footer');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 100) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current
+      ? 'rgba(200,169,110,0.9)' : '';
+  });
+}, { passive: true });
+</script>
+</body>
+</html>

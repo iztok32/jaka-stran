@@ -1,0 +1,26 @@
+[     390ms] [LOG] 🔍 Browser logger active (MCP server detected). Posting to: http://jaka-stran.test/_boost/browser-logs @ http://jaka-stran.test/:30
+[     485ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://jaka-stran.test/:89
+[  275070ms] [ERROR] Warning: %s a style property during rerender (%s) when a conflicting property is set (%s) can lead to styling bugs. To avoid this, don't mix shorthand and non-shorthand properties for the same value; instead, replace the shorthand with separate values.%s Removing background backgroundImage 
+    at div
+    at div
+    at section
+    at AboutSection (http://[::1]:5173/resources/js/Pages/Welcome.tsx?t=1780761056756:561:3)
+    at div
+    at Welcome (http://[::1]:5173/resources/js/Pages/Welcome.tsx?t=1780761056756:1079:35)
+    at App (http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=4934fd6a:15099:3) @ http://jaka-stran.test/:89
+[  275071ms] [ERROR] Warning: %s a style property during rerender (%s) when a conflicting property is set (%s) can lead to styling bugs. To avoid this, don't mix shorthand and non-shorthand properties for the same value; instead, replace the shorthand with separate values.%s Removing background backgroundPosition 
+    at div
+    at div
+    at section
+    at AboutSection (http://[::1]:5173/resources/js/Pages/Welcome.tsx?t=1780761056756:561:3)
+    at div
+    at Welcome (http://[::1]:5173/resources/js/Pages/Welcome.tsx?t=1780761056756:1079:35)
+    at App (http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=4934fd6a:15099:3) @ http://jaka-stran.test/:89
+[  275072ms] [ERROR] Warning: %s a style property during rerender (%s) when a conflicting property is set (%s) can lead to styling bugs. To avoid this, don't mix shorthand and non-shorthand properties for the same value; instead, replace the shorthand with separate values.%s Removing background backgroundSize 
+    at div
+    at div
+    at section
+    at AboutSection (http://[::1]:5173/resources/js/Pages/Welcome.tsx?t=1780761056756:561:3)
+    at div
+    at Welcome (http://[::1]:5173/resources/js/Pages/Welcome.tsx?t=1780761056756:1079:35)
+    at App (http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=4934fd6a:15099:3) @ http://jaka-stran.test/:89

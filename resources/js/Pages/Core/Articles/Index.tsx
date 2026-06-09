@@ -368,7 +368,18 @@ export default function ArticlesIndex({ articles }: Props) {
                                                     )}
                                                 </TableCell>
                                                 <TableCell>
-                                                    <div className="font-medium">{article.title}</div>
+                                                    <div className="font-medium flex items-center gap-2">
+                                                        {article.title}
+                                                        {article.slug === 'hero-vsebina' && (
+                                                            <Badge className="text-[10px] py-0 bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">Landing · Hero</Badge>
+                                                        )}
+                                                        {article.slug === 'o-fotografu' && (
+                                                            <Badge className="text-[10px] py-0 bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400">Landing · O meni</Badge>
+                                                        )}
+                                                        {article.slug.startsWith('storitev-') && (
+                                                            <Badge className="text-[10px] py-0 bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">Landing · Storitev</Badge>
+                                                        )}
+                                                    </div>
                                                     <div className="text-xs text-muted-foreground font-mono">{article.slug}</div>
                                                 </TableCell>
                                                 <TableCell><StatusBadge status={article.status} /></TableCell>
@@ -447,6 +458,17 @@ export default function ArticlesIndex({ articles }: Props) {
                                                         </h3>
                                                         <AccessBadge isPublic={article.is_public} />
                                                     </div>
+                                                    {(article.slug === 'hero-vsebina' || article.slug === 'o-fotografu' || article.slug.startsWith('storitev-')) && (
+                                                        <Badge className={`text-[10px] py-0 self-start ${
+                                                            article.slug === 'hero-vsebina'
+                                                                ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
+                                                                : article.slug.startsWith('storitev-')
+                                                                    ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400'
+                                                                    : 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400'
+                                                        }`}>
+                                                            {article.slug === 'hero-vsebina' ? 'Landing · Hero' : article.slug.startsWith('storitev-') ? 'Landing · Storitev' : 'Landing · O meni'}
+                                                        </Badge>
+                                                    )}
 
                                                     {article.excerpt && (
                                                         <p className="text-xs text-muted-foreground line-clamp-2">

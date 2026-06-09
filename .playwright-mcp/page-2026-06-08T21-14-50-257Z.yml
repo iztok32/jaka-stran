@@ -1,0 +1,1580 @@
+- generic:
+  - generic:
+    - generic:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - list:
+                - listitem:
+                  - button:
+                    - generic:
+                      - img
+                    - generic:
+                      - generic: Jaka Vozlič
+                      - generic: Fotograf
+            - generic:
+              - generic:
+                - generic: Delo
+                - list:
+                  - listitem:
+                    - link:
+                      - /url: /galleries
+                      - img
+                      - generic: Galerija
+                  - listitem:
+                    - link:
+                      - /url: /articles
+                      - img
+                      - generic: Članki
+                  - listitem:
+                    - link:
+                      - /url: /contact-inquiries
+                      - img
+                      - generic: Zahtevki za kontakt
+                  - listitem:
+                    - link:
+                      - /url: /notifications
+                      - img
+                      - generic: Obveščanje
+              - generic:
+                - generic: Administracija
+                - list:
+                  - listitem:
+                    - link:
+                      - /url: /users
+                      - img
+                      - generic: Uporabniki
+                  - listitem:
+                    - link:
+                      - /url: /settings
+                      - img
+                      - generic: Parametri in nastavitve
+                  - listitem:
+                    - link:
+                      - /url: /roles-permissions
+                      - img
+                      - generic: Pravice uporabniških skupin
+                  - listitem:
+                    - link:
+                      - /url: /roles-group
+                      - img
+                      - generic: Uporabniške skupine
+                  - listitem:
+                    - button:
+                      - img
+                      - generic: Ureja SuperAdmin
+                      - img
+            - generic:
+              - list:
+                - listitem:
+                  - button:
+                    - generic:
+                      - generic:
+                        - generic: CN
+                    - generic:
+                      - generic: Iztok Vozlič
+                      - generic: iztok.vozlic@gmail.com
+                    - img
+            - button
+      - main:
+        - generic:
+          - generic:
+            - button:
+              - img
+              - generic: Toggle Sidebar
+            - navigation:
+              - list:
+                - listitem:
+                  - link [disabled]:
+                    - heading [level=2]: Galleries
+          - generic:
+            - generic:
+              - generic:
+                - switch [checked]
+                - img
+                - img
+            - generic:
+              - generic:
+                - generic:
+                  - button:
+                    - img
+                    - text: sl
+                    - img
+        - main:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic: Gallery management
+                  - generic:
+                    - generic:
+                      - img
+                      - textbox:
+                        - /placeholder: Search galleries...
+                    - combobox:
+                      - img
+                      - generic: Vsi statusi
+                      - img
+                    - generic:
+                      - button:
+                        - img
+                      - button:
+                        - img
+                    - button:
+                      - img
+                      - text: Add Gallery
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                        - generic:
+                          - generic: Objavljeno
+                        - generic:
+                          - button:
+                            - img
+                        - generic:
+                          - img
+                          - text: "126"
+                      - generic:
+                        - generic:
+                          - heading [level=3]: ICF Canoe slalom world cup
+                          - generic:
+                            - img
+                            - text: Javno
+                        - generic:
+                          - generic: Šport
+                        - generic:
+                          - generic: Iztok Vozlič
+                          - generic: 30. 05. 2026
+                    - generic:
+                      - generic:
+                        - img
+                        - generic:
+                          - generic: Objavljeno
+                        - generic:
+                          - button:
+                            - img
+                        - generic:
+                          - img
+                          - text: "109"
+                      - generic:
+                        - generic:
+                          - heading [level=3]: ICF Canoe slalom world cup
+                          - generic:
+                            - img
+                            - text: Javno
+                        - generic:
+                          - generic: Šport
+                        - generic:
+                          - generic: Iztok Vozlič
+                          - generic: 29. 05. 2026
+                    - generic:
+                      - generic:
+                        - img
+                        - generic:
+                          - generic: Objavljeno
+                        - generic:
+                          - button:
+                            - img
+                        - generic:
+                          - img
+                          - text: "61"
+                      - generic:
+                        - generic:
+                          - heading [level=3]: Jakov
+                          - generic:
+                            - img
+                            - text: Javno
+                        - paragraph: Jakov koncert v stožicah 2026
+                        - generic:
+                          - generic: Koncerti
+                        - generic:
+                          - generic: Iztok Vozlič
+                          - generic: 08. 05. 2026
+                    - generic:
+                      - generic:
+                        - img
+                        - generic:
+                          - generic: Objavljeno
+                        - generic:
+                          - button:
+                            - img
+                        - generic:
+                          - img
+                          - text: "45"
+                      - generic:
+                        - generic:
+                          - heading [level=3]: Cirque du Soleil
+                          - generic:
+                            - img
+                            - text: Javno
+                        - generic:
+                          - generic: Kultura
+                        - generic:
+                          - generic: Iztok Vozlič
+                          - generic: 16. 04. 2026
+  - dialog "Edit Gallery" [ref=e267]:
+    - button "Close" [ref=e268] [cursor=pointer]:
+      - img [ref=e269]
+      - generic [ref=e272]: Close
+    - heading "Edit Gallery" [level=2] [ref=e274]
+    - generic [ref=e276]:
+      - generic [ref=e277]:
+        - generic [ref=e278]: Naslov *
+        - textbox "Naslov *" [ref=e279]:
+          - /placeholder: Gallery title
+          - text: ICF Canoe slalom world cup
+      - generic [ref=e280]:
+        - generic [ref=e281]:
+          - text: Slug
+          - generic [ref=e282]: (samodejno generirano iz naslova)
+        - textbox "Slug(samodejno generirano iz naslova)" [ref=e283]:
+          - /placeholder: npr. porocna-fotografija-2024
+          - text: icf-canoe-slalom-world-cup-1
+      - generic [ref=e284]:
+        - text: Opis
+        - textbox "Opis" [ref=e285]:
+          - /placeholder: Short description of the gallery
+      - generic [ref=e286]:
+        - generic [ref=e287]:
+          - generic [ref=e288]: Status
+          - combobox [ref=e289] [cursor=pointer]:
+            - generic:
+              - generic: Objavljeno
+            - img [ref=e290]
+          - combobox [ref=e292]
+        - generic [ref=e293]:
+          - generic [ref=e294]: Gallery date
+          - button "30.05.2026" [ref=e295] [cursor=pointer]:
+            - img
+            - generic [ref=e296]: 30.05.2026
+            - img
+      - generic [ref=e297]:
+        - generic [ref=e298]:
+          - text: Javni dostop
+          - paragraph [ref=e299]: Vidno brez prijave
+        - generic [ref=e300]:
+          - img [ref=e301]
+          - switch [checked] [ref=e304] [cursor=pointer]
+          - checkbox [checked]
+      - generic [ref=e305]:
+        - text: Tags
+        - generic [ref=e307]:
+          - generic [ref=e308]:
+            - text: Šport
+            - button [ref=e309] [cursor=pointer]:
+              - img [ref=e310]
+          - textbox [ref=e313]
+        - paragraph [ref=e314]: Press Enter or comma to add a tag
+      - button "Update Gallery" [ref=e316] [cursor=pointer]
+      - generic [ref=e317]:
+        - generic [ref=e318]:
+          - img [ref=e319]
+          - generic [ref=e324]: Photos
+          - generic [ref=e325]: (126)
+        - generic [ref=e326]:
+          - generic [ref=e327] [cursor=pointer]:
+            - img [ref=e328]
+            - paragraph [ref=e332]: Drag & drop photos here, or click to select
+            - paragraph [ref=e333]: JPG, PNG, WEBP · max 100 MB / foto
+          - generic [ref=e334]:
+            - paragraph [ref=e335]:
+              - text: 126 photos
+              - generic [ref=e336]: · drag to reorder
+              - generic [ref=e337]:
+                - text: ·
+                - img [ref=e338]
+                - text: cover ·
+                - img [ref=e340]
+                - text: tags
+            - generic [ref=e343]:
+              - generic [ref=e344]:
+                - img "vozlich-2-3.jpg" [ref=e345]
+                - generic [ref=e346]:
+                  - img [ref=e347]
+                  - text: "1"
+                - button [ref=e350]:
+                  - img [ref=e351]
+                - button [ref=e358] [cursor=pointer]:
+                  - img [ref=e359]
+                - button "Set as cover" [ref=e362] [cursor=pointer]:
+                  - img [ref=e363]
+                - button "Tags" [expanded] [ref=e365] [cursor=pointer]:
+                  - img [ref=e366]
+              - generic [ref=e369]:
+                - img "vozlich-2.jpg" [ref=e370]
+                - button [ref=e371]:
+                  - img [ref=e372]
+                - button [ref=e379] [cursor=pointer]:
+                  - img [ref=e380]
+                - button "Set as cover" [ref=e383] [cursor=pointer]:
+                  - img [ref=e384]
+                - button "Tags" [ref=e386] [cursor=pointer]:
+                  - img [ref=e387]
+              - generic [ref=e390]:
+                - img "vozlich-2-6.jpg" [ref=e391]
+                - button [ref=e392]:
+                  - img [ref=e393]
+                - button [ref=e400] [cursor=pointer]:
+                  - img [ref=e401]
+                - button "Set as cover" [ref=e404] [cursor=pointer]:
+                  - img [ref=e405]
+                - button "Tags" [ref=e407] [cursor=pointer]:
+                  - img [ref=e408]
+              - generic [ref=e411]:
+                - img "vozlich-2-2.jpg" [ref=e412]
+                - button [ref=e413]:
+                  - img [ref=e414]
+                - button [ref=e421] [cursor=pointer]:
+                  - img [ref=e422]
+                - button "Set as cover" [ref=e425] [cursor=pointer]:
+                  - img [ref=e426]
+                - button "Tags" [ref=e428] [cursor=pointer]:
+                  - img [ref=e429]
+              - generic [ref=e432]:
+                - img "vozlich-2-5.jpg" [ref=e433]
+                - button [ref=e434]:
+                  - img [ref=e435]
+                - button [ref=e442] [cursor=pointer]:
+                  - img [ref=e443]
+                - button "Set as cover" [ref=e446] [cursor=pointer]:
+                  - img [ref=e447]
+                - button "Tags" [ref=e449] [cursor=pointer]:
+                  - img [ref=e450]
+              - generic [ref=e453]:
+                - img "vozlich-2-8.jpg" [ref=e454]
+                - generic [ref=e455]:
+                  - img [ref=e456]
+                  - text: "1"
+                - button [ref=e459]:
+                  - img [ref=e460]
+                - button [ref=e467] [cursor=pointer]:
+                  - img [ref=e468]
+                - button "Set as cover" [ref=e471] [cursor=pointer]:
+                  - img [ref=e472]
+                - button "Tags" [ref=e474] [cursor=pointer]:
+                  - img [ref=e475]
+              - generic [ref=e478]:
+                - img "vozlich-2-7.jpg" [ref=e479]
+                - button [ref=e480]:
+                  - img [ref=e481]
+                - button [ref=e488] [cursor=pointer]:
+                  - img [ref=e489]
+                - button "Set as cover" [ref=e492] [cursor=pointer]:
+                  - img [ref=e493]
+                - button "Tags" [ref=e495] [cursor=pointer]:
+                  - img [ref=e496]
+              - generic [ref=e499]:
+                - img "vozlich-2-9.jpg" [ref=e500]
+                - button [ref=e501]:
+                  - img [ref=e502]
+                - button [ref=e509] [cursor=pointer]:
+                  - img [ref=e510]
+                - button "Set as cover" [ref=e513] [cursor=pointer]:
+                  - img [ref=e514]
+                - button "Tags" [ref=e516] [cursor=pointer]:
+                  - img [ref=e517]
+              - generic [ref=e520]:
+                - img "vozlich-2-11.jpg" [ref=e521]
+                - button [ref=e522]:
+                  - img [ref=e523]
+                - button [ref=e530] [cursor=pointer]:
+                  - img [ref=e531]
+                - button "Set as cover" [ref=e534] [cursor=pointer]:
+                  - img [ref=e535]
+                - button "Tags" [ref=e537] [cursor=pointer]:
+                  - img [ref=e538]
+              - generic [ref=e541]:
+                - img "vozlich-2-10.jpg" [ref=e542]
+                - button [ref=e543]:
+                  - img [ref=e544]
+                - button [ref=e551] [cursor=pointer]:
+                  - img [ref=e552]
+                - button "Set as cover" [ref=e555] [cursor=pointer]:
+                  - img [ref=e556]
+                - button "Tags" [ref=e558] [cursor=pointer]:
+                  - img [ref=e559]
+              - generic [ref=e562]:
+                - img "vozlich-2-12.jpg" [ref=e563]
+                - button [ref=e564]:
+                  - img [ref=e565]
+                - button [ref=e572] [cursor=pointer]:
+                  - img [ref=e573]
+                - button "Set as cover" [ref=e576] [cursor=pointer]:
+                  - img [ref=e577]
+                - button "Tags" [ref=e579] [cursor=pointer]:
+                  - img [ref=e580]
+              - generic [ref=e583]:
+                - img "vozlich-2-13.jpg" [ref=e584]
+                - button [ref=e585]:
+                  - img [ref=e586]
+                - button [ref=e593] [cursor=pointer]:
+                  - img [ref=e594]
+                - button "Set as cover" [ref=e597] [cursor=pointer]:
+                  - img [ref=e598]
+                - button "Tags" [ref=e600] [cursor=pointer]:
+                  - img [ref=e601]
+              - generic [ref=e604]:
+                - img "vozlich-2-14.jpg" [ref=e605]
+                - button [ref=e606]:
+                  - img [ref=e607]
+                - button [ref=e614] [cursor=pointer]:
+                  - img [ref=e615]
+                - button "Set as cover" [ref=e618] [cursor=pointer]:
+                  - img [ref=e619]
+                - button "Tags" [ref=e621] [cursor=pointer]:
+                  - img [ref=e622]
+              - generic [ref=e625]:
+                - img "vozlich-2-15.jpg" [ref=e626]
+                - button [ref=e627]:
+                  - img [ref=e628]
+                - button [ref=e635] [cursor=pointer]:
+                  - img [ref=e636]
+                - button "Set as cover" [ref=e639] [cursor=pointer]:
+                  - img [ref=e640]
+                - button "Tags" [ref=e642] [cursor=pointer]:
+                  - img [ref=e643]
+              - generic [ref=e646]:
+                - img "vozlich-2-16.jpg" [ref=e647]
+                - generic [ref=e648]:
+                  - img [ref=e649]
+                  - text: "1"
+                - button [ref=e652]:
+                  - img [ref=e653]
+                - button [ref=e660] [cursor=pointer]:
+                  - img [ref=e661]
+                - button "Set as cover" [ref=e664] [cursor=pointer]:
+                  - img [ref=e665]
+                - button "Tags" [ref=e667] [cursor=pointer]:
+                  - img [ref=e668]
+              - generic [ref=e671]:
+                - img "vozlich-2-17.jpg" [ref=e672]
+                - button [ref=e673]:
+                  - img [ref=e674]
+                - button [ref=e681] [cursor=pointer]:
+                  - img [ref=e682]
+                - button "Set as cover" [ref=e685] [cursor=pointer]:
+                  - img [ref=e686]
+                - button "Tags" [ref=e688] [cursor=pointer]:
+                  - img [ref=e689]
+              - generic [ref=e692]:
+                - img "vozlich-2-18.jpg" [ref=e693]
+                - button [ref=e694]:
+                  - img [ref=e695]
+                - button [ref=e702] [cursor=pointer]:
+                  - img [ref=e703]
+                - button "Set as cover" [ref=e706] [cursor=pointer]:
+                  - img [ref=e707]
+                - button "Tags" [ref=e709] [cursor=pointer]:
+                  - img [ref=e710]
+              - generic [ref=e713]:
+                - img "vozlich-0181.jpg" [ref=e714]
+                - button [ref=e715]:
+                  - img [ref=e716]
+                - button [ref=e723] [cursor=pointer]:
+                  - img [ref=e724]
+                - button "Set as cover" [ref=e727] [cursor=pointer]:
+                  - img [ref=e728]
+                - button "Tags" [ref=e730] [cursor=pointer]:
+                  - img [ref=e731]
+              - generic [ref=e734]:
+                - img "vozlich-0284.jpg" [ref=e735]
+                - button [ref=e736]:
+                  - img [ref=e737]
+                - button [ref=e744] [cursor=pointer]:
+                  - img [ref=e745]
+                - button "Set as cover" [ref=e748] [cursor=pointer]:
+                  - img [ref=e749]
+                - button "Tags" [ref=e751] [cursor=pointer]:
+                  - img [ref=e752]
+              - generic [ref=e755]:
+                - img "vozlich-0734.jpg" [ref=e756]
+                - button [ref=e757]:
+                  - img [ref=e758]
+                - button [ref=e765] [cursor=pointer]:
+                  - img [ref=e766]
+                - button "Set as cover" [ref=e769] [cursor=pointer]:
+                  - img [ref=e770]
+                - button "Tags" [ref=e772] [cursor=pointer]:
+                  - img [ref=e773]
+              - generic [ref=e776]:
+                - img "vozlich-0781.jpg" [ref=e777]
+                - button [ref=e778]:
+                  - img [ref=e779]
+                - button [ref=e786] [cursor=pointer]:
+                  - img [ref=e787]
+                - button "Set as cover" [ref=e790] [cursor=pointer]:
+                  - img [ref=e791]
+                - button "Tags" [ref=e793] [cursor=pointer]:
+                  - img [ref=e794]
+              - generic [ref=e797]:
+                - img "vozlich-0918.jpg" [ref=e798]
+                - button [ref=e799]:
+                  - img [ref=e800]
+                - button [ref=e807] [cursor=pointer]:
+                  - img [ref=e808]
+                - button "Set as cover" [ref=e811] [cursor=pointer]:
+                  - img [ref=e812]
+                - button "Tags" [ref=e814] [cursor=pointer]:
+                  - img [ref=e815]
+              - generic [ref=e818]:
+                - img "vozlich-0967.jpg" [ref=e819]
+                - button [ref=e820]:
+                  - img [ref=e821]
+                - button [ref=e828] [cursor=pointer]:
+                  - img [ref=e829]
+                - button "Set as cover" [ref=e832] [cursor=pointer]:
+                  - img [ref=e833]
+                - button "Tags" [ref=e835] [cursor=pointer]:
+                  - img [ref=e836]
+              - generic [ref=e839]:
+                - img "vozlich-1037.jpg" [ref=e840]
+                - button [ref=e841]:
+                  - img [ref=e842]
+                - button [ref=e849] [cursor=pointer]:
+                  - img [ref=e850]
+                - button "Set as cover" [ref=e853] [cursor=pointer]:
+                  - img [ref=e854]
+                - button "Tags" [ref=e856] [cursor=pointer]:
+                  - img [ref=e857]
+              - generic [ref=e860]:
+                - img "vozlich-1107.jpg" [ref=e861]
+                - button [ref=e862]:
+                  - img [ref=e863]
+                - button [ref=e870] [cursor=pointer]:
+                  - img [ref=e871]
+                - button "Set as cover" [ref=e874] [cursor=pointer]:
+                  - img [ref=e875]
+                - button "Tags" [ref=e877] [cursor=pointer]:
+                  - img [ref=e878]
+              - generic [ref=e881]:
+                - img "vozlich-1497.jpg" [ref=e882]
+                - button [ref=e883]:
+                  - img [ref=e884]
+                - button [ref=e891] [cursor=pointer]:
+                  - img [ref=e892]
+                - button "Set as cover" [ref=e895] [cursor=pointer]:
+                  - img [ref=e896]
+                - button "Tags" [ref=e898] [cursor=pointer]:
+                  - img [ref=e899]
+              - generic [ref=e902]:
+                - img "vozlich-1518.jpg" [ref=e903]
+                - button [ref=e904]:
+                  - img [ref=e905]
+                - button [ref=e912] [cursor=pointer]:
+                  - img [ref=e913]
+                - button "Set as cover" [ref=e916] [cursor=pointer]:
+                  - img [ref=e917]
+                - button "Tags" [ref=e919] [cursor=pointer]:
+                  - img [ref=e920]
+              - generic [ref=e923]:
+                - img "vozlich-1594.jpg" [ref=e924]
+                - button [ref=e925]:
+                  - img [ref=e926]
+                - button [ref=e933] [cursor=pointer]:
+                  - img [ref=e934]
+                - button "Set as cover" [ref=e937] [cursor=pointer]:
+                  - img [ref=e938]
+                - button "Tags" [ref=e940] [cursor=pointer]:
+                  - img [ref=e941]
+              - generic [ref=e944]:
+                - img "vozlich-1628.jpg" [ref=e945]
+                - generic [ref=e946]:
+                  - img [ref=e947]
+                  - text: Cover
+                - button [ref=e949]:
+                  - img [ref=e950]
+                - button [ref=e957] [cursor=pointer]:
+                  - img [ref=e958]
+                - button "Set as cover" [ref=e961] [cursor=pointer]:
+                  - img [ref=e962]
+                - button "Tags" [ref=e964] [cursor=pointer]:
+                  - img [ref=e965]
+              - generic [ref=e968]:
+                - img "vozlich-1648.jpg" [ref=e969]
+                - button [ref=e970]:
+                  - img [ref=e971]
+                - button [ref=e978] [cursor=pointer]:
+                  - img [ref=e979]
+                - button "Set as cover" [ref=e982] [cursor=pointer]:
+                  - img [ref=e983]
+                - button "Tags" [ref=e985] [cursor=pointer]:
+                  - img [ref=e986]
+              - generic [ref=e989]:
+                - img "vozlich-7001.jpg" [ref=e990]
+                - button [ref=e991]:
+                  - img [ref=e992]
+                - button [ref=e999] [cursor=pointer]:
+                  - img [ref=e1000]
+                - button "Set as cover" [ref=e1003] [cursor=pointer]:
+                  - img [ref=e1004]
+                - button "Tags" [ref=e1006] [cursor=pointer]:
+                  - img [ref=e1007]
+              - generic [ref=e1010]:
+                - img "vozlich-6935.jpg" [ref=e1011]
+                - button [ref=e1012]:
+                  - img [ref=e1013]
+                - button [ref=e1020] [cursor=pointer]:
+                  - img [ref=e1021]
+                - button "Set as cover" [ref=e1024] [cursor=pointer]:
+                  - img [ref=e1025]
+                - button "Tags" [ref=e1027] [cursor=pointer]:
+                  - img [ref=e1028]
+              - generic [ref=e1031]:
+                - img "vozlich-7028.jpg" [ref=e1032]
+                - button [ref=e1033]:
+                  - img [ref=e1034]
+                - button [ref=e1041] [cursor=pointer]:
+                  - img [ref=e1042]
+                - button "Set as cover" [ref=e1045] [cursor=pointer]:
+                  - img [ref=e1046]
+                - button "Tags" [ref=e1048] [cursor=pointer]:
+                  - img [ref=e1049]
+              - generic [ref=e1052]:
+                - img "vozlich-7049.jpg" [ref=e1053]
+                - button [ref=e1054]:
+                  - img [ref=e1055]
+                - button [ref=e1062] [cursor=pointer]:
+                  - img [ref=e1063]
+                - button "Set as cover" [ref=e1066] [cursor=pointer]:
+                  - img [ref=e1067]
+                - button "Tags" [ref=e1069] [cursor=pointer]:
+                  - img [ref=e1070]
+              - generic [ref=e1073]:
+                - img "vozlich-7071.jpg" [ref=e1074]
+                - button [ref=e1075]:
+                  - img [ref=e1076]
+                - button [ref=e1083] [cursor=pointer]:
+                  - img [ref=e1084]
+                - button "Set as cover" [ref=e1087] [cursor=pointer]:
+                  - img [ref=e1088]
+                - button "Tags" [ref=e1090] [cursor=pointer]:
+                  - img [ref=e1091]
+              - generic [ref=e1094]:
+                - img "vozlich-7093.jpg" [ref=e1095]
+                - button [ref=e1096]:
+                  - img [ref=e1097]
+                - button [ref=e1104] [cursor=pointer]:
+                  - img [ref=e1105]
+                - button "Set as cover" [ref=e1108] [cursor=pointer]:
+                  - img [ref=e1109]
+                - button "Tags" [ref=e1111] [cursor=pointer]:
+                  - img [ref=e1112]
+              - generic [ref=e1115]:
+                - img "vozlich-7114.jpg" [ref=e1116]
+                - button [ref=e1117]:
+                  - img [ref=e1118]
+                - button [ref=e1125] [cursor=pointer]:
+                  - img [ref=e1126]
+                - button "Set as cover" [ref=e1129] [cursor=pointer]:
+                  - img [ref=e1130]
+                - button "Tags" [ref=e1132] [cursor=pointer]:
+                  - img [ref=e1133]
+              - generic [ref=e1136]:
+                - img "vozlich-7157.jpg" [ref=e1137]
+                - button [ref=e1138]:
+                  - img [ref=e1139]
+                - button [ref=e1146] [cursor=pointer]:
+                  - img [ref=e1147]
+                - button "Set as cover" [ref=e1150] [cursor=pointer]:
+                  - img [ref=e1151]
+                - button "Tags" [ref=e1153] [cursor=pointer]:
+                  - img [ref=e1154]
+              - generic [ref=e1157]:
+                - img "vozlich-7169.jpg" [ref=e1158]
+                - button [ref=e1159]:
+                  - img [ref=e1160]
+                - button [ref=e1167] [cursor=pointer]:
+                  - img [ref=e1168]
+                - button "Set as cover" [ref=e1171] [cursor=pointer]:
+                  - img [ref=e1172]
+                - button "Tags" [ref=e1174] [cursor=pointer]:
+                  - img [ref=e1175]
+              - generic [ref=e1178]:
+                - img "vozlich-7221.jpg" [ref=e1179]
+                - button [ref=e1180]:
+                  - img [ref=e1181]
+                - button [ref=e1188] [cursor=pointer]:
+                  - img [ref=e1189]
+                - button "Set as cover" [ref=e1192] [cursor=pointer]:
+                  - img [ref=e1193]
+                - button "Tags" [ref=e1195] [cursor=pointer]:
+                  - img [ref=e1196]
+              - generic [ref=e1199]:
+                - img "vozlich-7260.jpg" [ref=e1200]
+                - button [ref=e1201]:
+                  - img [ref=e1202]
+                - button [ref=e1209] [cursor=pointer]:
+                  - img [ref=e1210]
+                - button "Set as cover" [ref=e1213] [cursor=pointer]:
+                  - img [ref=e1214]
+                - button "Tags" [ref=e1216] [cursor=pointer]:
+                  - img [ref=e1217]
+              - generic [ref=e1220]:
+                - img "vozlich-7294.jpg" [ref=e1221]
+                - button [ref=e1222]:
+                  - img [ref=e1223]
+                - button [ref=e1230] [cursor=pointer]:
+                  - img [ref=e1231]
+                - button "Set as cover" [ref=e1234] [cursor=pointer]:
+                  - img [ref=e1235]
+                - button "Tags" [ref=e1237] [cursor=pointer]:
+                  - img [ref=e1238]
+              - generic [ref=e1241]:
+                - img "vozlich-7316.jpg" [ref=e1242]
+                - button [ref=e1243]:
+                  - img [ref=e1244]
+                - button [ref=e1251] [cursor=pointer]:
+                  - img [ref=e1252]
+                - button "Set as cover" [ref=e1255] [cursor=pointer]:
+                  - img [ref=e1256]
+                - button "Tags" [ref=e1258] [cursor=pointer]:
+                  - img [ref=e1259]
+              - generic [ref=e1262]:
+                - img "vozlich-7356.jpg" [ref=e1263]
+                - button [ref=e1264]:
+                  - img [ref=e1265]
+                - button [ref=e1272] [cursor=pointer]:
+                  - img [ref=e1273]
+                - button "Set as cover" [ref=e1276] [cursor=pointer]:
+                  - img [ref=e1277]
+                - button "Tags" [ref=e1279] [cursor=pointer]:
+                  - img [ref=e1280]
+              - generic [ref=e1283]:
+                - img "vozlich-7391.jpg" [ref=e1284]
+                - button [ref=e1285]:
+                  - img [ref=e1286]
+                - button [ref=e1293] [cursor=pointer]:
+                  - img [ref=e1294]
+                - button "Set as cover" [ref=e1297] [cursor=pointer]:
+                  - img [ref=e1298]
+                - button "Tags" [ref=e1300] [cursor=pointer]:
+                  - img [ref=e1301]
+              - generic [ref=e1304]:
+                - img "vozlich-7436.jpg" [ref=e1305]
+                - button [ref=e1306]:
+                  - img [ref=e1307]
+                - button [ref=e1314] [cursor=pointer]:
+                  - img [ref=e1315]
+                - button "Set as cover" [ref=e1318] [cursor=pointer]:
+                  - img [ref=e1319]
+                - button "Tags" [ref=e1321] [cursor=pointer]:
+                  - img [ref=e1322]
+              - generic [ref=e1325]:
+                - img "vozlich-7471.jpg" [ref=e1326]
+                - button [ref=e1327]:
+                  - img [ref=e1328]
+                - button [ref=e1335] [cursor=pointer]:
+                  - img [ref=e1336]
+                - button "Set as cover" [ref=e1339] [cursor=pointer]:
+                  - img [ref=e1340]
+                - button "Tags" [ref=e1342] [cursor=pointer]:
+                  - img [ref=e1343]
+              - generic [ref=e1346]:
+                - img "vozlich-7475.jpg" [ref=e1347]
+                - button [ref=e1348]:
+                  - img [ref=e1349]
+                - button [ref=e1356] [cursor=pointer]:
+                  - img [ref=e1357]
+                - button "Set as cover" [ref=e1360] [cursor=pointer]:
+                  - img [ref=e1361]
+                - button "Tags" [ref=e1363] [cursor=pointer]:
+                  - img [ref=e1364]
+              - generic [ref=e1367]:
+                - img "vozlich-7511.jpg" [ref=e1368]
+                - button [ref=e1369]:
+                  - img [ref=e1370]
+                - button [ref=e1377] [cursor=pointer]:
+                  - img [ref=e1378]
+                - button "Set as cover" [ref=e1381] [cursor=pointer]:
+                  - img [ref=e1382]
+                - button "Tags" [ref=e1384] [cursor=pointer]:
+                  - img [ref=e1385]
+              - generic [ref=e1388]:
+                - img "vozlich-7546.jpg" [ref=e1389]
+                - button [ref=e1390]:
+                  - img [ref=e1391]
+                - button [ref=e1398] [cursor=pointer]:
+                  - img [ref=e1399]
+                - button "Set as cover" [ref=e1402] [cursor=pointer]:
+                  - img [ref=e1403]
+                - button "Tags" [ref=e1405] [cursor=pointer]:
+                  - img [ref=e1406]
+              - generic [ref=e1409]:
+                - img "vozlich-7572.jpg" [ref=e1410]
+                - button [ref=e1411]:
+                  - img [ref=e1412]
+                - button [ref=e1419] [cursor=pointer]:
+                  - img [ref=e1420]
+                - button "Set as cover" [ref=e1423] [cursor=pointer]:
+                  - img [ref=e1424]
+                - button "Tags" [ref=e1426] [cursor=pointer]:
+                  - img [ref=e1427]
+              - generic [ref=e1430]:
+                - img "vozlich-7577.jpg" [ref=e1431]
+                - button [ref=e1432]:
+                  - img [ref=e1433]
+                - button [ref=e1440] [cursor=pointer]:
+                  - img [ref=e1441]
+                - button "Set as cover" [ref=e1444] [cursor=pointer]:
+                  - img [ref=e1445]
+                - button "Tags" [ref=e1447] [cursor=pointer]:
+                  - img [ref=e1448]
+              - generic [ref=e1451]:
+                - img "vozlich-7594.jpg" [ref=e1452]
+                - button [ref=e1453]:
+                  - img [ref=e1454]
+                - button [ref=e1461] [cursor=pointer]:
+                  - img [ref=e1462]
+                - button "Set as cover" [ref=e1465] [cursor=pointer]:
+                  - img [ref=e1466]
+                - button "Tags" [ref=e1468] [cursor=pointer]:
+                  - img [ref=e1469]
+              - generic [ref=e1472]:
+                - img "vozlich-7601.jpg" [ref=e1473]
+                - button [ref=e1474]:
+                  - img [ref=e1475]
+                - button [ref=e1482] [cursor=pointer]:
+                  - img [ref=e1483]
+                - button "Set as cover" [ref=e1486] [cursor=pointer]:
+                  - img [ref=e1487]
+                - button "Tags" [ref=e1489] [cursor=pointer]:
+                  - img [ref=e1490]
+              - generic [ref=e1493]:
+                - img "vozlich-7613.jpg" [ref=e1494]
+                - button [ref=e1495]:
+                  - img [ref=e1496]
+                - button [ref=e1503] [cursor=pointer]:
+                  - img [ref=e1504]
+                - button "Set as cover" [ref=e1507] [cursor=pointer]:
+                  - img [ref=e1508]
+                - button "Tags" [ref=e1510] [cursor=pointer]:
+                  - img [ref=e1511]
+              - generic [ref=e1514]:
+                - img "vozlich-7619.jpg" [ref=e1515]
+                - button [ref=e1516]:
+                  - img [ref=e1517]
+                - button [ref=e1524] [cursor=pointer]:
+                  - img [ref=e1525]
+                - button "Set as cover" [ref=e1528] [cursor=pointer]:
+                  - img [ref=e1529]
+                - button "Tags" [ref=e1531] [cursor=pointer]:
+                  - img [ref=e1532]
+              - generic [ref=e1535]:
+                - img "vozlich-7635.jpg" [ref=e1536]
+                - button [ref=e1537]:
+                  - img [ref=e1538]
+                - button [ref=e1545] [cursor=pointer]:
+                  - img [ref=e1546]
+                - button "Set as cover" [ref=e1549] [cursor=pointer]:
+                  - img [ref=e1550]
+                - button "Tags" [ref=e1552] [cursor=pointer]:
+                  - img [ref=e1553]
+              - generic [ref=e1556]:
+                - img "vozlich-7638.jpg" [ref=e1557]
+                - button [ref=e1558]:
+                  - img [ref=e1559]
+                - button [ref=e1566] [cursor=pointer]:
+                  - img [ref=e1567]
+                - button "Set as cover" [ref=e1570] [cursor=pointer]:
+                  - img [ref=e1571]
+                - button "Tags" [ref=e1573] [cursor=pointer]:
+                  - img [ref=e1574]
+              - generic [ref=e1577]:
+                - img "vozlich-7683.jpg" [ref=e1578]
+                - button [ref=e1579]:
+                  - img [ref=e1580]
+                - button [ref=e1587] [cursor=pointer]:
+                  - img [ref=e1588]
+                - button "Set as cover" [ref=e1591] [cursor=pointer]:
+                  - img [ref=e1592]
+                - button "Tags" [ref=e1594] [cursor=pointer]:
+                  - img [ref=e1595]
+              - generic [ref=e1598]:
+                - img "vozlich-7721.jpg" [ref=e1599]
+                - button [ref=e1600]:
+                  - img [ref=e1601]
+                - button [ref=e1608] [cursor=pointer]:
+                  - img [ref=e1609]
+                - button "Set as cover" [ref=e1612] [cursor=pointer]:
+                  - img [ref=e1613]
+                - button "Tags" [ref=e1615] [cursor=pointer]:
+                  - img [ref=e1616]
+              - generic [ref=e1619]:
+                - img "vozlich-7747.jpg" [ref=e1620]
+                - button [ref=e1621]:
+                  - img [ref=e1622]
+                - button [ref=e1629] [cursor=pointer]:
+                  - img [ref=e1630]
+                - button "Set as cover" [ref=e1633] [cursor=pointer]:
+                  - img [ref=e1634]
+                - button "Tags" [ref=e1636] [cursor=pointer]:
+                  - img [ref=e1637]
+              - generic [ref=e1640]:
+                - img "vozlich-7776.jpg" [ref=e1641]
+                - button [ref=e1642]:
+                  - img [ref=e1643]
+                - button [ref=e1650] [cursor=pointer]:
+                  - img [ref=e1651]
+                - button "Set as cover" [ref=e1654] [cursor=pointer]:
+                  - img [ref=e1655]
+                - button "Tags" [ref=e1657] [cursor=pointer]:
+                  - img [ref=e1658]
+              - generic [ref=e1661]:
+                - img "vozlich-7783.jpg" [ref=e1662]
+                - button [ref=e1663]:
+                  - img [ref=e1664]
+                - button [ref=e1671] [cursor=pointer]:
+                  - img [ref=e1672]
+                - button "Set as cover" [ref=e1675] [cursor=pointer]:
+                  - img [ref=e1676]
+                - button "Tags" [ref=e1678] [cursor=pointer]:
+                  - img [ref=e1679]
+              - generic [ref=e1682]:
+                - img "vozlich-7830.jpg" [ref=e1683]
+                - button [ref=e1684]:
+                  - img [ref=e1685]
+                - button [ref=e1692] [cursor=pointer]:
+                  - img [ref=e1693]
+                - button "Set as cover" [ref=e1696] [cursor=pointer]:
+                  - img [ref=e1697]
+                - button "Tags" [ref=e1699] [cursor=pointer]:
+                  - img [ref=e1700]
+              - generic [ref=e1703]:
+                - img "vozlich-7938.jpg" [ref=e1704]
+                - button [ref=e1705]:
+                  - img [ref=e1706]
+                - button [ref=e1713] [cursor=pointer]:
+                  - img [ref=e1714]
+                - button "Set as cover" [ref=e1717] [cursor=pointer]:
+                  - img [ref=e1718]
+                - button "Tags" [ref=e1720] [cursor=pointer]:
+                  - img [ref=e1721]
+              - generic [ref=e1724]:
+                - img "vozlich-7882.jpg" [ref=e1725]
+                - button [ref=e1726]:
+                  - img [ref=e1727]
+                - button [ref=e1734] [cursor=pointer]:
+                  - img [ref=e1735]
+                - button "Set as cover" [ref=e1738] [cursor=pointer]:
+                  - img [ref=e1739]
+                - button "Tags" [ref=e1741] [cursor=pointer]:
+                  - img [ref=e1742]
+              - generic [ref=e1745]:
+                - img "vozlich-7942.jpg" [ref=e1746]
+                - button [ref=e1747]:
+                  - img [ref=e1748]
+                - button [ref=e1755] [cursor=pointer]:
+                  - img [ref=e1756]
+                - button "Set as cover" [ref=e1759] [cursor=pointer]:
+                  - img [ref=e1760]
+                - button "Tags" [ref=e1762] [cursor=pointer]:
+                  - img [ref=e1763]
+              - generic [ref=e1766]:
+                - img "vozlich-7954.jpg" [ref=e1767]
+                - button [ref=e1768]:
+                  - img [ref=e1769]
+                - button [ref=e1776] [cursor=pointer]:
+                  - img [ref=e1777]
+                - button "Set as cover" [ref=e1780] [cursor=pointer]:
+                  - img [ref=e1781]
+                - button "Tags" [ref=e1783] [cursor=pointer]:
+                  - img [ref=e1784]
+              - generic [ref=e1787]:
+                - img "vozlich-7985.jpg" [ref=e1788]
+                - button [ref=e1789]:
+                  - img [ref=e1790]
+                - button [ref=e1797] [cursor=pointer]:
+                  - img [ref=e1798]
+                - button "Set as cover" [ref=e1801] [cursor=pointer]:
+                  - img [ref=e1802]
+                - button "Tags" [ref=e1804] [cursor=pointer]:
+                  - img [ref=e1805]
+              - generic [ref=e1808]:
+                - img "vozlich-8040.jpg" [ref=e1809]
+                - button [ref=e1810]:
+                  - img [ref=e1811]
+                - button [ref=e1818] [cursor=pointer]:
+                  - img [ref=e1819]
+                - button "Set as cover" [ref=e1822] [cursor=pointer]:
+                  - img [ref=e1823]
+                - button "Tags" [ref=e1825] [cursor=pointer]:
+                  - img [ref=e1826]
+              - generic [ref=e1829]:
+                - img "vozlich-8044.jpg" [ref=e1830]
+                - button [ref=e1831]:
+                  - img [ref=e1832]
+                - button [ref=e1839] [cursor=pointer]:
+                  - img [ref=e1840]
+                - button "Set as cover" [ref=e1843] [cursor=pointer]:
+                  - img [ref=e1844]
+                - button "Tags" [ref=e1846] [cursor=pointer]:
+                  - img [ref=e1847]
+              - generic [ref=e1850]:
+                - img "vozlich-8081.jpg" [ref=e1851]
+                - button [ref=e1852]:
+                  - img [ref=e1853]
+                - button [ref=e1860] [cursor=pointer]:
+                  - img [ref=e1861]
+                - button "Set as cover" [ref=e1864] [cursor=pointer]:
+                  - img [ref=e1865]
+                - button "Tags" [ref=e1867] [cursor=pointer]:
+                  - img [ref=e1868]
+              - generic [ref=e1871]:
+                - img "vozlich-8102.jpg" [ref=e1872]
+                - button [ref=e1873]:
+                  - img [ref=e1874]
+                - button [ref=e1881] [cursor=pointer]:
+                  - img [ref=e1882]
+                - button "Set as cover" [ref=e1885] [cursor=pointer]:
+                  - img [ref=e1886]
+                - button "Tags" [ref=e1888] [cursor=pointer]:
+                  - img [ref=e1889]
+              - generic [ref=e1892]:
+                - img "vozlich-8115.jpg" [ref=e1893]
+                - button [ref=e1894]:
+                  - img [ref=e1895]
+                - button [ref=e1902] [cursor=pointer]:
+                  - img [ref=e1903]
+                - button "Set as cover" [ref=e1906] [cursor=pointer]:
+                  - img [ref=e1907]
+                - button "Tags" [ref=e1909] [cursor=pointer]:
+                  - img [ref=e1910]
+              - generic [ref=e1913]:
+                - img "vozlich-8185.jpg" [ref=e1914]
+                - button [ref=e1915]:
+                  - img [ref=e1916]
+                - button [ref=e1923] [cursor=pointer]:
+                  - img [ref=e1924]
+                - button "Set as cover" [ref=e1927] [cursor=pointer]:
+                  - img [ref=e1928]
+                - button "Tags" [ref=e1930] [cursor=pointer]:
+                  - img [ref=e1931]
+              - generic [ref=e1934]:
+                - img "vozlich-8214.jpg" [ref=e1935]
+                - button [ref=e1936]:
+                  - img [ref=e1937]
+                - button [ref=e1944] [cursor=pointer]:
+                  - img [ref=e1945]
+                - button "Set as cover" [ref=e1948] [cursor=pointer]:
+                  - img [ref=e1949]
+                - button "Tags" [ref=e1951] [cursor=pointer]:
+                  - img [ref=e1952]
+              - generic [ref=e1955]:
+                - img "vozlich-8224.jpg" [ref=e1956]
+                - button [ref=e1957]:
+                  - img [ref=e1958]
+                - button [ref=e1965] [cursor=pointer]:
+                  - img [ref=e1966]
+                - button "Set as cover" [ref=e1969] [cursor=pointer]:
+                  - img [ref=e1970]
+                - button "Tags" [ref=e1972] [cursor=pointer]:
+                  - img [ref=e1973]
+              - generic [ref=e1976]:
+                - img "vozlich-8286.jpg" [ref=e1977]
+                - button [ref=e1978]:
+                  - img [ref=e1979]
+                - button [ref=e1986] [cursor=pointer]:
+                  - img [ref=e1987]
+                - button "Set as cover" [ref=e1990] [cursor=pointer]:
+                  - img [ref=e1991]
+                - button "Tags" [ref=e1993] [cursor=pointer]:
+                  - img [ref=e1994]
+              - generic [ref=e1997]:
+                - img "vozlich-8311.jpg" [ref=e1998]
+                - button [ref=e1999]:
+                  - img [ref=e2000]
+                - button [ref=e2007] [cursor=pointer]:
+                  - img [ref=e2008]
+                - button "Set as cover" [ref=e2011] [cursor=pointer]:
+                  - img [ref=e2012]
+                - button "Tags" [ref=e2014] [cursor=pointer]:
+                  - img [ref=e2015]
+              - generic [ref=e2018]:
+                - img "vozlich-8326.jpg" [ref=e2019]
+                - button [ref=e2020]:
+                  - img [ref=e2021]
+                - button [ref=e2028] [cursor=pointer]:
+                  - img [ref=e2029]
+                - button "Set as cover" [ref=e2032] [cursor=pointer]:
+                  - img [ref=e2033]
+                - button "Tags" [ref=e2035] [cursor=pointer]:
+                  - img [ref=e2036]
+              - generic [ref=e2039]:
+                - img "vozlich-8367.jpg" [ref=e2040]
+                - button [ref=e2041]:
+                  - img [ref=e2042]
+                - button [ref=e2049] [cursor=pointer]:
+                  - img [ref=e2050]
+                - button "Set as cover" [ref=e2053] [cursor=pointer]:
+                  - img [ref=e2054]
+                - button "Tags" [ref=e2056] [cursor=pointer]:
+                  - img [ref=e2057]
+              - generic [ref=e2060]:
+                - img "vozlich-8390.jpg" [ref=e2061]
+                - button [ref=e2062]:
+                  - img [ref=e2063]
+                - button [ref=e2070] [cursor=pointer]:
+                  - img [ref=e2071]
+                - button "Set as cover" [ref=e2074] [cursor=pointer]:
+                  - img [ref=e2075]
+                - button "Tags" [ref=e2077] [cursor=pointer]:
+                  - img [ref=e2078]
+              - generic [ref=e2081]:
+                - img "vozlich-8419.jpg" [ref=e2082]
+                - button [ref=e2083]:
+                  - img [ref=e2084]
+                - button [ref=e2091] [cursor=pointer]:
+                  - img [ref=e2092]
+                - button "Set as cover" [ref=e2095] [cursor=pointer]:
+                  - img [ref=e2096]
+                - button "Tags" [ref=e2098] [cursor=pointer]:
+                  - img [ref=e2099]
+              - generic [ref=e2102]:
+                - img "vozlich-8432.jpg" [ref=e2103]
+                - button [ref=e2104]:
+                  - img [ref=e2105]
+                - button [ref=e2112] [cursor=pointer]:
+                  - img [ref=e2113]
+                - button "Set as cover" [ref=e2116] [cursor=pointer]:
+                  - img [ref=e2117]
+                - button "Tags" [ref=e2119] [cursor=pointer]:
+                  - img [ref=e2120]
+              - generic [ref=e2123]:
+                - img "vozlich-8459.jpg" [ref=e2124]
+                - button [ref=e2125]:
+                  - img [ref=e2126]
+                - button [ref=e2133] [cursor=pointer]:
+                  - img [ref=e2134]
+                - button "Set as cover" [ref=e2137] [cursor=pointer]:
+                  - img [ref=e2138]
+                - button "Tags" [ref=e2140] [cursor=pointer]:
+                  - img [ref=e2141]
+              - generic [ref=e2144]:
+                - img "vozlich-8469.jpg" [ref=e2145]
+                - button [ref=e2146]:
+                  - img [ref=e2147]
+                - button [ref=e2154] [cursor=pointer]:
+                  - img [ref=e2155]
+                - button "Set as cover" [ref=e2158] [cursor=pointer]:
+                  - img [ref=e2159]
+                - button "Tags" [ref=e2161] [cursor=pointer]:
+                  - img [ref=e2162]
+              - generic [ref=e2165]:
+                - img "vozlich-8478.jpg" [ref=e2166]
+                - button [ref=e2167]:
+                  - img [ref=e2168]
+                - button [ref=e2175] [cursor=pointer]:
+                  - img [ref=e2176]
+                - button "Set as cover" [ref=e2179] [cursor=pointer]:
+                  - img [ref=e2180]
+                - button "Tags" [ref=e2182] [cursor=pointer]:
+                  - img [ref=e2183]
+              - generic [ref=e2186]:
+                - img "vozlich-8514.jpg" [ref=e2187]
+                - button [ref=e2188]:
+                  - img [ref=e2189]
+                - button [ref=e2196] [cursor=pointer]:
+                  - img [ref=e2197]
+                - button "Set as cover" [ref=e2200] [cursor=pointer]:
+                  - img [ref=e2201]
+                - button "Tags" [ref=e2203] [cursor=pointer]:
+                  - img [ref=e2204]
+              - generic [ref=e2207]:
+                - img "vozlich-8565.jpg" [ref=e2208]
+                - button [ref=e2209]:
+                  - img [ref=e2210]
+                - button [ref=e2217] [cursor=pointer]:
+                  - img [ref=e2218]
+                - button "Set as cover" [ref=e2221] [cursor=pointer]:
+                  - img [ref=e2222]
+                - button "Tags" [ref=e2224] [cursor=pointer]:
+                  - img [ref=e2225]
+              - generic [ref=e2228]:
+                - img "vozlich-8573.jpg" [ref=e2229]
+                - button [ref=e2230]:
+                  - img [ref=e2231]
+                - button [ref=e2238] [cursor=pointer]:
+                  - img [ref=e2239]
+                - button "Set as cover" [ref=e2242] [cursor=pointer]:
+                  - img [ref=e2243]
+                - button "Tags" [ref=e2245] [cursor=pointer]:
+                  - img [ref=e2246]
+              - generic [ref=e2249]:
+                - img "vozlich-8591.jpg" [ref=e2250]
+                - button [ref=e2251]:
+                  - img [ref=e2252]
+                - button [ref=e2259] [cursor=pointer]:
+                  - img [ref=e2260]
+                - button "Set as cover" [ref=e2263] [cursor=pointer]:
+                  - img [ref=e2264]
+                - button "Tags" [ref=e2266] [cursor=pointer]:
+                  - img [ref=e2267]
+              - generic [ref=e2270]:
+                - img "vozlich-8609.jpg" [ref=e2271]
+                - button [ref=e2272]:
+                  - img [ref=e2273]
+                - button [ref=e2280] [cursor=pointer]:
+                  - img [ref=e2281]
+                - button "Set as cover" [ref=e2284] [cursor=pointer]:
+                  - img [ref=e2285]
+                - button "Tags" [ref=e2287] [cursor=pointer]:
+                  - img [ref=e2288]
+              - generic [ref=e2291]:
+                - img "vozlich-8640.jpg" [ref=e2292]
+                - button [ref=e2293]:
+                  - img [ref=e2294]
+                - button [ref=e2301] [cursor=pointer]:
+                  - img [ref=e2302]
+                - button "Set as cover" [ref=e2305] [cursor=pointer]:
+                  - img [ref=e2306]
+                - button "Tags" [ref=e2308] [cursor=pointer]:
+                  - img [ref=e2309]
+              - generic [ref=e2312]:
+                - img "vozlich-8642.jpg" [ref=e2313]
+                - button [ref=e2314]:
+                  - img [ref=e2315]
+                - button [ref=e2322] [cursor=pointer]:
+                  - img [ref=e2323]
+                - button "Set as cover" [ref=e2326] [cursor=pointer]:
+                  - img [ref=e2327]
+                - button "Tags" [ref=e2329] [cursor=pointer]:
+                  - img [ref=e2330]
+              - generic [ref=e2333]:
+                - img "vozlich-8657.jpg" [ref=e2334]
+                - button [ref=e2335]:
+                  - img [ref=e2336]
+                - button [ref=e2343] [cursor=pointer]:
+                  - img [ref=e2344]
+                - button "Set as cover" [ref=e2347] [cursor=pointer]:
+                  - img [ref=e2348]
+                - button "Tags" [ref=e2350] [cursor=pointer]:
+                  - img [ref=e2351]
+              - generic [ref=e2354]:
+                - img "vozlich-8678.jpg" [ref=e2355]
+                - button [ref=e2356]:
+                  - img [ref=e2357]
+                - button [ref=e2364] [cursor=pointer]:
+                  - img [ref=e2365]
+                - button "Set as cover" [ref=e2368] [cursor=pointer]:
+                  - img [ref=e2369]
+                - button "Tags" [ref=e2371] [cursor=pointer]:
+                  - img [ref=e2372]
+              - generic [ref=e2375]:
+                - img "vozlich-8687.jpg" [ref=e2376]
+                - button [ref=e2377]:
+                  - img [ref=e2378]
+                - button [ref=e2385] [cursor=pointer]:
+                  - img [ref=e2386]
+                - button "Set as cover" [ref=e2389] [cursor=pointer]:
+                  - img [ref=e2390]
+                - button "Tags" [ref=e2392] [cursor=pointer]:
+                  - img [ref=e2393]
+              - generic [ref=e2396]:
+                - img "vozlich-8727.jpg" [ref=e2397]
+                - button [ref=e2398]:
+                  - img [ref=e2399]
+                - button [ref=e2406] [cursor=pointer]:
+                  - img [ref=e2407]
+                - button "Set as cover" [ref=e2410] [cursor=pointer]:
+                  - img [ref=e2411]
+                - button "Tags" [ref=e2413] [cursor=pointer]:
+                  - img [ref=e2414]
+              - generic [ref=e2417]:
+                - img "vozlich-8738.jpg" [ref=e2418]
+                - button [ref=e2419]:
+                  - img [ref=e2420]
+                - button [ref=e2427] [cursor=pointer]:
+                  - img [ref=e2428]
+                - button "Set as cover" [ref=e2431] [cursor=pointer]:
+                  - img [ref=e2432]
+                - button "Tags" [ref=e2434] [cursor=pointer]:
+                  - img [ref=e2435]
+              - generic [ref=e2438]:
+                - img "vozlich-8759.jpg" [ref=e2439]
+                - button [ref=e2440]:
+                  - img [ref=e2441]
+                - button [ref=e2448] [cursor=pointer]:
+                  - img [ref=e2449]
+                - button "Set as cover" [ref=e2452] [cursor=pointer]:
+                  - img [ref=e2453]
+                - button "Tags" [ref=e2455] [cursor=pointer]:
+                  - img [ref=e2456]
+              - generic [ref=e2459]:
+                - img "vozlich-8766.jpg" [ref=e2460]
+                - button [ref=e2461]:
+                  - img [ref=e2462]
+                - button [ref=e2469] [cursor=pointer]:
+                  - img [ref=e2470]
+                - button "Set as cover" [ref=e2473] [cursor=pointer]:
+                  - img [ref=e2474]
+                - button "Tags" [ref=e2476] [cursor=pointer]:
+                  - img [ref=e2477]
+              - generic [ref=e2480]:
+                - img "vozlich-8807.jpg" [ref=e2481]
+                - button [ref=e2482]:
+                  - img [ref=e2483]
+                - button [ref=e2490] [cursor=pointer]:
+                  - img [ref=e2491]
+                - button "Set as cover" [ref=e2494] [cursor=pointer]:
+                  - img [ref=e2495]
+                - button "Tags" [ref=e2497] [cursor=pointer]:
+                  - img [ref=e2498]
+              - generic [ref=e2501]:
+                - img "vozlich-8796.jpg" [ref=e2502]
+                - button [ref=e2503]:
+                  - img [ref=e2504]
+                - button [ref=e2511] [cursor=pointer]:
+                  - img [ref=e2512]
+                - button "Set as cover" [ref=e2515] [cursor=pointer]:
+                  - img [ref=e2516]
+                - button "Tags" [ref=e2518] [cursor=pointer]:
+                  - img [ref=e2519]
+              - generic [ref=e2522]:
+                - img "vozlich-8816.jpg" [ref=e2523]
+                - button [ref=e2524]:
+                  - img [ref=e2525]
+                - button [ref=e2532] [cursor=pointer]:
+                  - img [ref=e2533]
+                - button "Set as cover" [ref=e2536] [cursor=pointer]:
+                  - img [ref=e2537]
+                - button "Tags" [ref=e2539] [cursor=pointer]:
+                  - img [ref=e2540]
+              - generic [ref=e2543]:
+                - img "vozlich-8831.jpg" [ref=e2544]
+                - button [ref=e2545]:
+                  - img [ref=e2546]
+                - button [ref=e2553] [cursor=pointer]:
+                  - img [ref=e2554]
+                - button "Set as cover" [ref=e2557] [cursor=pointer]:
+                  - img [ref=e2558]
+                - button "Tags" [ref=e2560] [cursor=pointer]:
+                  - img [ref=e2561]
+              - generic [ref=e2564]:
+                - img "vozlich-8847.jpg" [ref=e2565]
+                - button [ref=e2566]:
+                  - img [ref=e2567]
+                - button [ref=e2574] [cursor=pointer]:
+                  - img [ref=e2575]
+                - button "Set as cover" [ref=e2578] [cursor=pointer]:
+                  - img [ref=e2579]
+                - button "Tags" [ref=e2581] [cursor=pointer]:
+                  - img [ref=e2582]
+              - generic [ref=e2585]:
+                - img "vozlich-8856.jpg" [ref=e2586]
+                - button [ref=e2587]:
+                  - img [ref=e2588]
+                - button [ref=e2595] [cursor=pointer]:
+                  - img [ref=e2596]
+                - button "Set as cover" [ref=e2599] [cursor=pointer]:
+                  - img [ref=e2600]
+                - button "Tags" [ref=e2602] [cursor=pointer]:
+                  - img [ref=e2603]
+              - generic [ref=e2606]:
+                - img "vozlich-8876.jpg" [ref=e2607]
+                - button [ref=e2608]:
+                  - img [ref=e2609]
+                - button [ref=e2616] [cursor=pointer]:
+                  - img [ref=e2617]
+                - button "Set as cover" [ref=e2620] [cursor=pointer]:
+                  - img [ref=e2621]
+                - button "Tags" [ref=e2623] [cursor=pointer]:
+                  - img [ref=e2624]
+              - generic [ref=e2627]:
+                - img "vozlich-8908.jpg" [ref=e2628]
+                - button [ref=e2629]:
+                  - img [ref=e2630]
+                - button [ref=e2637] [cursor=pointer]:
+                  - img [ref=e2638]
+                - button "Set as cover" [ref=e2641] [cursor=pointer]:
+                  - img [ref=e2642]
+                - button "Tags" [ref=e2644] [cursor=pointer]:
+                  - img [ref=e2645]
+              - generic [ref=e2648]:
+                - img "vozlich-8889.jpg" [ref=e2649]
+                - button [ref=e2650]:
+                  - img [ref=e2651]
+                - button [ref=e2658] [cursor=pointer]:
+                  - img [ref=e2659]
+                - button "Set as cover" [ref=e2662] [cursor=pointer]:
+                  - img [ref=e2663]
+                - button "Tags" [ref=e2665] [cursor=pointer]:
+                  - img [ref=e2666]
+              - generic [ref=e2669]:
+                - img "vozlich-8946.jpg" [ref=e2670]
+                - button [ref=e2671]:
+                  - img [ref=e2672]
+                - button [ref=e2679] [cursor=pointer]:
+                  - img [ref=e2680]
+                - button "Set as cover" [ref=e2683] [cursor=pointer]:
+                  - img [ref=e2684]
+                - button "Tags" [ref=e2686] [cursor=pointer]:
+                  - img [ref=e2687]
+              - generic [ref=e2690]:
+                - img "vozlich-8974.jpg" [ref=e2691]
+                - button [ref=e2692]:
+                  - img [ref=e2693]
+                - button [ref=e2700] [cursor=pointer]:
+                  - img [ref=e2701]
+                - button "Set as cover" [ref=e2704] [cursor=pointer]:
+                  - img [ref=e2705]
+                - button "Tags" [ref=e2707] [cursor=pointer]:
+                  - img [ref=e2708]
+              - generic [ref=e2711]:
+                - img "vozlich-9029.jpg" [ref=e2712]
+                - button [ref=e2713]:
+                  - img [ref=e2714]
+                - button [ref=e2721] [cursor=pointer]:
+                  - img [ref=e2722]
+                - button "Set as cover" [ref=e2725] [cursor=pointer]:
+                  - img [ref=e2726]
+                - button "Tags" [ref=e2728] [cursor=pointer]:
+                  - img [ref=e2729]
+              - generic [ref=e2732]:
+                - img "vozlich-9050.jpg" [ref=e2733]
+                - button [ref=e2734]:
+                  - img [ref=e2735]
+                - button [ref=e2742] [cursor=pointer]:
+                  - img [ref=e2743]
+                - button "Set as cover" [ref=e2746] [cursor=pointer]:
+                  - img [ref=e2747]
+                - button "Tags" [ref=e2749] [cursor=pointer]:
+                  - img [ref=e2750]
+              - generic [ref=e2753]:
+                - img "vozlich-9048.jpg" [ref=e2754]
+                - button [ref=e2755]:
+                  - img [ref=e2756]
+                - button [ref=e2763] [cursor=pointer]:
+                  - img [ref=e2764]
+                - button "Set as cover" [ref=e2767] [cursor=pointer]:
+                  - img [ref=e2768]
+                - button "Tags" [ref=e2770] [cursor=pointer]:
+                  - img [ref=e2771]
+              - generic [ref=e2774]:
+                - img "vozlich-9083.jpg" [ref=e2775]
+                - button [ref=e2776]:
+                  - img [ref=e2777]
+                - button [ref=e2784] [cursor=pointer]:
+                  - img [ref=e2785]
+                - button "Set as cover" [ref=e2788] [cursor=pointer]:
+                  - img [ref=e2789]
+                - button "Tags" [ref=e2791] [cursor=pointer]:
+                  - img [ref=e2792]
+              - generic [ref=e2795]:
+                - img "vozlich-9071.jpg" [ref=e2796]
+                - button [ref=e2797]:
+                  - img [ref=e2798]
+                - button [ref=e2805] [cursor=pointer]:
+                  - img [ref=e2806]
+                - button "Set as cover" [ref=e2809] [cursor=pointer]:
+                  - img [ref=e2810]
+                - button "Tags" [ref=e2812] [cursor=pointer]:
+                  - img [ref=e2813]
+              - generic [ref=e2816]:
+                - img "vozlich-9089.jpg" [ref=e2817]
+                - button [ref=e2818]:
+                  - img [ref=e2819]
+                - button [ref=e2826] [cursor=pointer]:
+                  - img [ref=e2827]
+                - button "Set as cover" [ref=e2830] [cursor=pointer]:
+                  - img [ref=e2831]
+                - button "Tags" [ref=e2833] [cursor=pointer]:
+                  - img [ref=e2834]
+              - generic [ref=e2837]:
+                - img "vozlich-9147.jpg" [ref=e2838]
+                - button [ref=e2839]:
+                  - img [ref=e2840]
+                - button [ref=e2847] [cursor=pointer]:
+                  - img [ref=e2848]
+                - button "Set as cover" [ref=e2851] [cursor=pointer]:
+                  - img [ref=e2852]
+                - button "Tags" [ref=e2854] [cursor=pointer]:
+                  - img [ref=e2855]
+              - generic [ref=e2858]:
+                - img "vozlich-9119.jpg" [ref=e2859]
+                - button [ref=e2860]:
+                  - img [ref=e2861]
+                - button [ref=e2868] [cursor=pointer]:
+                  - img [ref=e2869]
+                - button "Set as cover" [ref=e2872] [cursor=pointer]:
+                  - img [ref=e2873]
+                - button "Tags" [ref=e2875] [cursor=pointer]:
+                  - img [ref=e2876]
+              - generic [ref=e2879]:
+                - img "vozlich-9177.jpg" [ref=e2880]
+                - button [ref=e2881]:
+                  - img [ref=e2882]
+                - button [ref=e2889] [cursor=pointer]:
+                  - img [ref=e2890]
+                - button "Set as cover" [ref=e2893] [cursor=pointer]:
+                  - img [ref=e2894]
+                - button "Tags" [ref=e2896] [cursor=pointer]:
+                  - img [ref=e2897]
+              - generic [ref=e2900]:
+                - img "vozlich-9183.jpg" [ref=e2901]
+                - button [ref=e2902]:
+                  - img [ref=e2903]
+                - button [ref=e2910] [cursor=pointer]:
+                  - img [ref=e2911]
+                - button "Set as cover" [ref=e2914] [cursor=pointer]:
+                  - img [ref=e2915]
+                - button "Tags" [ref=e2917] [cursor=pointer]:
+                  - img [ref=e2918]
+              - generic [ref=e2921]:
+                - img "vozlich-9247.jpg" [ref=e2922]
+                - button [ref=e2923]:
+                  - img [ref=e2924]
+                - button [ref=e2931] [cursor=pointer]:
+                  - img [ref=e2932]
+                - button "Set as cover" [ref=e2935] [cursor=pointer]:
+                  - img [ref=e2936]
+                - button "Tags" [ref=e2938] [cursor=pointer]:
+                  - img [ref=e2939]
+              - generic [ref=e2942]:
+                - img "vozlich-9310.jpg" [ref=e2943]
+                - button [ref=e2944]:
+                  - img [ref=e2945]
+                - button [ref=e2952] [cursor=pointer]:
+                  - img [ref=e2953]
+                - button "Set as cover" [ref=e2956] [cursor=pointer]:
+                  - img [ref=e2957]
+                - button "Tags" [ref=e2959] [cursor=pointer]:
+                  - img [ref=e2960]
+              - generic [ref=e2963]:
+                - img "vozlich-9313.jpg" [ref=e2964]
+                - button [ref=e2965]:
+                  - img [ref=e2966]
+                - button [ref=e2973] [cursor=pointer]:
+                  - img [ref=e2974]
+                - button "Set as cover" [ref=e2977] [cursor=pointer]:
+                  - img [ref=e2978]
+                - button "Tags" [ref=e2980] [cursor=pointer]:
+                  - img [ref=e2981]
+              - generic [ref=e2984]:
+                - img "vozlich-9501.jpg" [ref=e2985]
+                - button [ref=e2986]:
+                  - img [ref=e2987]
+                - button [ref=e2994] [cursor=pointer]:
+                  - img [ref=e2995]
+                - button "Set as cover" [ref=e2998] [cursor=pointer]:
+                  - img [ref=e2999]
+                - button "Tags" [ref=e3001] [cursor=pointer]:
+                  - img [ref=e3002]
+            - status [ref=e3005]
+  - dialog [ref=e3006]:
+    - paragraph [ref=e3007]: Photo tags
+    - generic [ref=e3009]:
+      - generic [ref=e3010]:
+        - text: portfolio-sport
+        - button [active] [ref=e3011] [cursor=pointer]:
+          - img [ref=e3012]
+      - textbox [ref=e3015]
+    - generic [ref=e3016]:
+      - paragraph [ref=e3017]: Portfolio storitev
+      - generic [ref=e3018]:
+        - button "portfolio-sport" [ref=e3019] [cursor=pointer]
+        - button "portfolio-kultura" [ref=e3020] [cursor=pointer]
+        - button "portfolio-komercialno" [ref=e3021] [cursor=pointer]
+      - paragraph [ref=e3022]: Klikni oznako, da fotografijo dodaš v portfolio storitve.

@@ -49,7 +49,16 @@ class Article extends Model implements HasMedia, AuditableContract
         });
 
         static::updating(function (Article $article) {
-            if ($article->isDirty('title') && ! $article->isDirty('slug')) {
+            if (! $article->isDirty('title') || $article->isDirty('slug')) {
+                return;
+            }
+
+            // Slugs used by WelcomeController to identify system content — never auto-regenerate
+            $originalSlug = $article->getOriginal('slug') ?? '';
+            $isSystem = in_array($originalSlug, ['hero-vsebina', 'o-fotografu'])
+                || str_starts_with($originalSlug, 'storitev-');
+
+            if (! $isSystem) {
                 $article->slug = static::generateUniqueSlug($article->title, $article->id);
             }
         });

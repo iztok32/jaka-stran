@@ -49,6 +49,12 @@ export interface Article {
     gallery: ArticleMedia[];
 }
 
+export interface Tag {
+    id?: number;
+    name: string;
+    slug?: string;
+}
+
 export interface GalleryPhoto {
     id: number;
     url: string;
@@ -56,6 +62,7 @@ export interface GalleryPhoto {
     preview: string;
     name: string;
     order: number;
+    tags?: Tag[];
 }
 
 export interface Gallery {
@@ -67,6 +74,7 @@ export interface Gallery {
     is_public: boolean;
     gallery_date?: string | null;
     cover_photo_id?: number | null;
+    tags: Tag[];
     created_at: string;
     updated_at: string;
     deleted_at?: string | null;

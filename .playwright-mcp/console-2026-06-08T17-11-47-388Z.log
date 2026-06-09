@@ -1,0 +1,2 @@
+[     213ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://jaka-stran.test/portfolio/nonexistent-xyz:0
+[     218ms] [LOG] 🔍 Browser logger active (MCP server detected). Posting to: http://jaka-stran.test/_boost/browser-logs @ http://jaka-stran.test/portfolio/nonexistent-xyz:23

@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Local storage (uploads se hranijo na strežniku, ne v image-u)
+storage/app/public/*
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+
+# Dev tools
+.git/
+.github/
+.phpunit.result.cache
+.idea/
+.vscode/
+
+# Tests
+tests/
+
+# Lokalni docker build files
+docker-compose.override.yml
+
+# Build artifacts (so že v public/build/)
+# NE ignoriramo public/build/ — mora biti v image-u!
