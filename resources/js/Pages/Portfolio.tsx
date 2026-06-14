@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Head, usePage } from '@inertiajs/react'
+import axios from 'axios'
 import { PageProps } from '@/types'
 
 interface Photo {
@@ -85,6 +86,14 @@ export default function Portfolio({ portfolio, watermark }: Props) {
     useEffect(() => {
         document.body.style.overflow = lightboxIdx !== null ? 'hidden' : ''
         return () => { document.body.style.overflow = '' }
+    }, [lightboxIdx])
+
+    // Track photo views when opened in the lightbox
+    useEffect(() => {
+        if (lightboxIdx === null) return
+        const photo = portfolio.photos[lightboxIdx]
+        if (!photo) return
+        axios.post('/track/photo-view', { media_id: photo.id }).catch(() => {})
     }, [lightboxIdx])
 
     const prev = () => setLightboxIdx(i => i === null ? null : (i - 1 + portfolio.photos.length) % portfolio.photos.length)

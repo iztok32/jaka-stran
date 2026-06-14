@@ -502,13 +502,13 @@ export default function GalleriesIndex({ galleries, allTags, portfolioServices }
 
             {/* Create / Edit Sheet */}
             <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-                <SheetContent className="w-full sm:max-w-2xl overflow-y-auto">
-                    <SheetHeader>
+                <SheetContent className="w-full sm:max-w-[95vw] lg:max-w-5xl h-full flex flex-col p-0 gap-0">
+                    <SheetHeader className="px-6 pt-6 pb-2 shrink-0">
                         <SheetTitle>
                             {editingGallery ? t('Edit Gallery') : t('Add Gallery')}
                         </SheetTitle>
                     </SheetHeader>
-                    <div className="mt-4">
+                    <div className="flex-1 min-h-0 px-6 pb-6 flex flex-col">
                         <GalleryForm
                             gallery={editingGallery}
                             allTags={allTags}

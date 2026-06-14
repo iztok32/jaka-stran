@@ -30,5 +30,6 @@
 # IDEs and OS
 .vscode/
 .idea/
+.playwright-mcp/
 .DS_Store
 Thumbs.db

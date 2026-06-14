@@ -4,16 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Gallery;
+use App\Models\PageView;
 use App\Models\PhotographerPhoto;
 use App\Models\Setting;
 use App\Models\Tag;
+use App\Support\Visitor;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class WelcomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        PageView::create([
+            'visitor_id' => Visitor::id($request),
+            'path'       => '/',
+            'type'       => 'home',
+        ]);
+
         // Published galleries for the portfolio grid
         $galleries = Gallery::where('status', 'published')
             ->with(['media', 'tags'])

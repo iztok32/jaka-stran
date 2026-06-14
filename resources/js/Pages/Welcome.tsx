@@ -349,10 +349,18 @@ function Hero({ heroPhotos, stats, heroArticle }: {
 /* ── Gallery section ── */
 function GallerySection({ galleries, allTags }: { galleries: GalleryItem[]; allTags: string[] }) {
     const [activeTag, setActiveTag] = useState('vse')
+    const [search, setSearch] = useState('')
+    const scrollRef = useRef<HTMLDivElement>(null)
 
-    const visibleGalleries = activeTag === 'vse'
-        ? galleries
-        : galleries.filter(g => g.tags.includes(activeTag))
+    const scrollByAmount = (dir: 1 | -1) => {
+        const el = scrollRef.current
+        if (!el) return
+        el.scrollBy({ left: dir * el.clientWidth * 0.8, behavior: 'smooth' })
+    }
+
+    const visibleGalleries = galleries
+        .filter(g => activeTag === 'vse' || g.tags.includes(activeTag))
+        .filter(g => g.title.toLowerCase().includes(search.trim().toLowerCase()))
 
     const formatDate = (d?: string | null) => {
         if (!d) return ''
@@ -398,15 +406,51 @@ function GallerySection({ galleries, allTags }: { galleries: GalleryItem[]; allT
                             </button>
                         )
                     })}
-                    <div style={{ marginLeft: 'auto', flexShrink: 0, display: 'flex', alignItems: 'center', gap: '8px', padding: '14px 24px', borderLeft: '0.5px solid var(--lp-line)', fontSize: '9px', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--lp-text-faint)' }}>
-                        → Scroll
+                    <div style={{ marginLeft: 'auto', flexShrink: 0, display: 'flex', alignItems: 'center', gap: '8px', padding: '0 24px', borderLeft: '0.5px solid var(--lp-line)' }}>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--lp-text-faint)', flexShrink: 0 }}>
+                            <circle cx="11" cy="11" r="8" />
+                            <path d="m21 21-4.3-4.3" />
+                        </svg>
+                        <input
+                            type="text"
+                            value={search}
+                            onChange={e => setSearch(e.target.value)}
+                            placeholder="Iskanje galerij..."
+                            className="lp-gal-search"
+                            style={{
+                                background: 'transparent', border: 'none', outline: 'none',
+                                fontFamily: 'var(--lp-mono)', fontSize: '9px', letterSpacing: '0.12em',
+                                textTransform: 'uppercase', color: 'var(--lp-text)',
+                                width: '210px',
+                            }}
+                        />
                     </div>
                 </div>
             </section>
 
             {/* Horizontal scroll gallery */}
-            <section>
-                <div className="lp-gal-scroll" style={{
+            <section className="lp-gal-wrap" style={{ position: 'relative' }}>
+                <button
+                    type="button"
+                    aria-label="Premakni levo"
+                    className="lp-gal-arrow lp-gal-arrow--prev"
+                    onClick={() => scrollByAmount(-1)}
+                >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                </button>
+                <button
+                    type="button"
+                    aria-label="Premakni desno"
+                    className="lp-gal-arrow lp-gal-arrow--next"
+                    onClick={() => scrollByAmount(1)}
+                >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M9 18l6-6-6-6" />
+                    </svg>
+                </button>
+                <div ref={scrollRef} className="lp-gal-scroll" style={{
                     display: 'flex',
                     overflowX: 'auto',
                     gap: '1px',

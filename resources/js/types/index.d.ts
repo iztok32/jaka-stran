@@ -62,6 +62,7 @@ export interface GalleryPhoto {
     preview: string;
     name: string;
     order: number;
+    description?: string | null;
     tags?: Tag[];
 }
 

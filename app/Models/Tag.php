@@ -43,4 +43,21 @@ class Tag extends Model
             ]);
         }
     }
+
+    public static function addFromNames(array $names, string $pivotTable, string $foreignKey, int $foreignId): void
+    {
+        $tagIds = collect($names)
+            ->filter(fn ($n) => filled(trim($n)))
+            ->map(fn ($n) => static::findOrCreateByName($n)->id)
+            ->unique()
+            ->values()
+            ->all();
+
+        foreach ($tagIds as $tagId) {
+            \Illuminate\Support\Facades\DB::table($pivotTable)->insertOrIgnore([
+                $foreignKey => $foreignId,
+                'tag_id'    => $tagId,
+            ]);
+        }
+    }
 }

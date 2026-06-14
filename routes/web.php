@@ -2,16 +2,15 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 Route::get('/', [\App\Http\Controllers\WelcomeController::class, 'index'])->name('welcome');
 Route::post('/contact', [\App\Http\Controllers\ContactController::class, 'store'])->name('contact.store');
 Route::get('/galerija/{slug}', [\App\Http\Controllers\GalleryController::class, 'show'])->name('gallery.show');
 Route::get('/portfolio/{slug}', [\App\Http\Controllers\PortfolioController::class, 'show'])->name('portfolio.show');
+Route::post('/track/photo-view', [\App\Http\Controllers\TrackingController::class, 'photoView'])->name('track.photo-view');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [\App\Http\Controllers\Core\DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -111,6 +110,9 @@ Route::middleware('auth')->group(function () {
         Route::delete('galleries/{gallery}/photos/{mediaId}', [\App\Http\Controllers\Core\GalleriesController::class, 'deletePhoto'])->name('galleries.photos.delete');
         Route::post('galleries/{gallery}/photos/reorder', [\App\Http\Controllers\Core\GalleriesController::class, 'reorderPhotos'])->name('galleries.photos.reorder');
         Route::post('galleries/{gallery}/photos/{mediaId}/tags', [\App\Http\Controllers\Core\GalleriesController::class, 'syncPhotoTags'])->name('galleries.photos.tags');
+        Route::post('galleries/{gallery}/photos/{mediaId}/description', [\App\Http\Controllers\Core\GalleriesController::class, 'setPhotoDescription'])->name('galleries.photos.description');
+        Route::post('galleries/{gallery}/photos/bulk-tags', [\App\Http\Controllers\Core\GalleriesController::class, 'bulkTagPhotos'])->name('galleries.photos.bulk-tags');
+        Route::post('galleries/{gallery}/photos/bulk-description', [\App\Http\Controllers\Core\GalleriesController::class, 'bulkSetPhotoDescription'])->name('galleries.photos.bulk-description');
         Route::post('galleries/{gallery}/cover', [\App\Http\Controllers\Core\GalleriesController::class, 'setCover'])->name('galleries.cover.set');
     });
     Route::middleware('permission:galleries.delete')->group(function () {

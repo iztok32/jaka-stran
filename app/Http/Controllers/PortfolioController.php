@@ -4,19 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Gallery;
+use App\Models\PageView;
 use App\Models\Setting;
 use App\Models\Tag;
+use App\Support\Visitor;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class PortfolioController extends Controller
 {
-    public function show(string $slug)
+    public function show(Request $request, string $slug)
     {
         $service = Article::where('status', 'published')
             ->where('slug', 'storitev-' . $slug)
             ->firstOrFail();
+
+        PageView::create([
+            'visitor_id'    => Visitor::id($request),
+            'path'          => '/portfolio/' . $slug,
+            'type'          => 'portfolio',
+            'viewable_type' => Article::class,
+            'viewable_id'   => $service->id,
+        ]);
 
         $tag = Tag::where('slug', 'portfolio-' . $slug)->first();
 

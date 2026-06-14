@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Head, usePage } from '@inertiajs/react'
+import axios from 'axios'
 import { PageProps } from '@/types'
 
 interface Photo {
@@ -7,6 +8,8 @@ interface Photo {
     url: string
     preview: string
     thumb: string
+    description?: string | null
+    tags?: string[]
 }
 
 interface GalleryData {
@@ -69,6 +72,21 @@ function WatermarkOverlay({ watermark, size = '25%' }: { watermark: Watermark; s
 export default function GalleryShow({ gallery, watermark }: Props) {
     const { auth } = usePage<Props>().props
     const [lightboxIdx, setLightboxIdx] = useState<number | null>(null)
+    const [search, setSearch] = useState('')
+
+    const photos = useMemo(() => {
+        const q = search.trim().toLowerCase()
+        if (!q) return gallery.photos
+        return gallery.photos.filter(p =>
+            p.description?.toLowerCase().includes(q) ||
+            p.tags?.some(t => t.toLowerCase().includes(q))
+        )
+    }, [gallery.photos, search])
+
+    // Reset lightbox if the active photo gets filtered out
+    useEffect(() => {
+        if (lightboxIdx !== null && lightboxIdx >= photos.length) setLightboxIdx(null)
+    }, [photos.length, lightboxIdx])
 
     // Keyboard: lightbox navigation + block Ctrl+S / Ctrl+U
     useEffect(() => {
@@ -79,16 +97,24 @@ export default function GalleryShow({ gallery, watermark }: Props) {
             }
             if (lightboxIdx === null) return
             if (e.key === 'Escape') setLightboxIdx(null)
-            if (e.key === 'ArrowRight') setLightboxIdx(i => i === null ? null : (i + 1) % gallery.photos.length)
-            if (e.key === 'ArrowLeft')  setLightboxIdx(i => i === null ? null : (i - 1 + gallery.photos.length) % gallery.photos.length)
+            if (e.key === 'ArrowRight') setLightboxIdx(i => i === null ? null : (i + 1) % photos.length)
+            if (e.key === 'ArrowLeft')  setLightboxIdx(i => i === null ? null : (i - 1 + photos.length) % photos.length)
         }
         document.addEventListener('keydown', onKey)
         return () => document.removeEventListener('keydown', onKey)
-    }, [lightboxIdx, gallery.photos.length])
+    }, [lightboxIdx, photos.length])
 
     useEffect(() => {
         document.body.style.overflow = lightboxIdx !== null ? 'hidden' : ''
         return () => { document.body.style.overflow = '' }
+    }, [lightboxIdx])
+
+    // Track photo views when opened in the lightbox
+    useEffect(() => {
+        if (lightboxIdx === null) return
+        const photo = photos[lightboxIdx]
+        if (!photo) return
+        axios.post('/track/photo-view', { media_id: photo.id, gallery_id: gallery.id }).catch(() => {})
     }, [lightboxIdx])
 
     const formatDate = (d?: string | null) => {
@@ -96,8 +122,8 @@ export default function GalleryShow({ gallery, watermark }: Props) {
         return new Date(d).toLocaleDateString('sl-SI', { month: 'long', year: 'numeric' })
     }
 
-    const prev = () => setLightboxIdx(i => i === null ? null : (i - 1 + gallery.photos.length) % gallery.photos.length)
-    const next = () => setLightboxIdx(i => i === null ? null : (i + 1) % gallery.photos.length)
+    const prev = () => setLightboxIdx(i => i === null ? null : (i - 1 + photos.length) % photos.length)
+    const next = () => setLightboxIdx(i => i === null ? null : (i + 1) % photos.length)
 
     return (
         <>
@@ -126,7 +152,7 @@ export default function GalleryShow({ gallery, watermark }: Props) {
                         }}
                             onMouseEnter={e => (e.currentTarget.style.color = 'var(--lp-text)')}
                             onMouseLeave={e => (e.currentTarget.style.color = 'var(--lp-text-dim)')}>
-                            ← Portfolio
+                            ← Galerija
                         </a>
                         {auth?.user
                             ? <a href={route('dashboard')} style={{ fontSize: '9px', letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--lp-text-dim)', textDecoration: 'none' }}>Admin</a>
@@ -162,11 +188,42 @@ export default function GalleryShow({ gallery, watermark }: Props) {
                         </p>
                     )}
                     <div style={{ marginTop: '20px', fontSize: '9px', color: 'var(--lp-text-faint)', letterSpacing: '0.12em' }}>
-                        {gallery.photos.length} fotografij
+                        {search.trim() ? `${photos.length} / ${gallery.photos.length}` : gallery.photos.length} fotografij
+                    </div>
+
+                    {/* Photo search */}
+                    <div style={{
+                        marginTop: '28px', display: 'flex', alignItems: 'center', gap: '10px',
+                        maxWidth: '320px', padding: '0 0 8px', borderBottom: '0.5px solid var(--lp-line)',
+                    }}>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--lp-text-faint)', flexShrink: 0 }}>
+                            <circle cx="11" cy="11" r="8" />
+                            <path d="m21 21-4.3-4.3" />
+                        </svg>
+                        <input
+                            type="text"
+                            value={search}
+                            onChange={e => setSearch(e.target.value)}
+                            placeholder="Iskanje po opisu ali oznakah..."
+                            style={{
+                                background: 'transparent', border: 'none', outline: 'none',
+                                fontFamily: 'var(--lp-mono)', fontSize: '9px', letterSpacing: '0.12em',
+                                textTransform: 'uppercase', color: 'var(--lp-text)',
+                                width: '100%',
+                            }}
+                        />
                     </div>
                 </div>
 
                 {/* Photo masonry grid */}
+                {photos.length === 0 ? (
+                    <div style={{
+                        padding: '80px 60px', textAlign: 'center',
+                        fontSize: '11px', letterSpacing: '0.08em', color: 'var(--lp-text-faint)',
+                    }}>
+                        Ni fotografij, ki bi ustrezale iskanju.
+                    </div>
+                ) : (
                 <div
                     style={{
                         columnCount: 3,
@@ -178,7 +235,7 @@ export default function GalleryShow({ gallery, watermark }: Props) {
                     }}
                     onContextMenu={e => e.preventDefault()}
                 >
-                    {gallery.photos.map((photo, idx) => (
+                    {photos.map((photo, idx) => (
                         <div
                             key={photo.id}
                             onClick={() => setLightboxIdx(idx)}
@@ -220,6 +277,7 @@ export default function GalleryShow({ gallery, watermark }: Props) {
                         </div>
                     ))}
                 </div>
+                )}
 
                 {/* Footer */}
                 <div style={{ borderTop: '0.5px solid var(--lp-line)', padding: '24px 60px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -227,7 +285,7 @@ export default function GalleryShow({ gallery, watermark }: Props) {
                         Jaka Vozlič Photography
                     </div>
                     <a href="/#portfolio" style={{ fontSize: '9px', letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--lp-text-faint)', textDecoration: 'none' }}>
-                        ← Nazaj na portfolio
+                        ← Nazaj na galerijo
                     </a>
                 </div>
 
@@ -250,7 +308,7 @@ export default function GalleryShow({ gallery, watermark }: Props) {
                             onContextMenu={e => e.preventDefault()}
                         >
                             <img
-                                src={gallery.photos[lightboxIdx].preview}
+                                src={photos[lightboxIdx].preview}
                                 draggable={false}
                                 style={{
                                     maxHeight: '92vh', maxWidth: '90vw',
@@ -288,12 +346,22 @@ export default function GalleryShow({ gallery, watermark }: Props) {
                             cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
                         }}>×</button>
 
+                        {photos[lightboxIdx]?.description && (
+                            <div style={{
+                                position: 'absolute', bottom: '44px', left: '50%', transform: 'translateX(-50%)',
+                                maxWidth: '80%', textAlign: 'center',
+                                fontSize: '12px', letterSpacing: '0.04em', color: 'rgba(255,255,255,0.7)',
+                            }}>
+                                {photos[lightboxIdx]?.description}
+                            </div>
+                        )}
+
                         <div style={{
                             position: 'absolute', bottom: '20px', left: '50%', transform: 'translateX(-50%)',
                             fontSize: '9px', letterSpacing: '0.16em', color: 'rgba(255,255,255,0.35)',
                             fontFamily: 'var(--lp-mono)',
                         }}>
-                            {lightboxIdx + 1} / {gallery.photos.length}
+                            {lightboxIdx + 1} / {photos.length}
                         </div>
                     </div>
                 )}

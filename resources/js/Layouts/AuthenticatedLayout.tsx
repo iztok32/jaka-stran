@@ -6,8 +6,10 @@ import { useTranslation } from '@/lib/i18n';
 import {
     Breadcrumb,
     BreadcrumbItem,
+    BreadcrumbLink,
     BreadcrumbList,
     BreadcrumbPage,
+    BreadcrumbSeparator,
 } from '@/Components/ui/breadcrumb';
 import { Separator } from '@/Components/ui/separator';
 import {
@@ -15,7 +17,8 @@ import {
     SidebarProvider,
     SidebarTrigger,
 } from '@/Components/ui/sidebar';
-import { usePage } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
+import { Home } from 'lucide-react';
 import { PropsWithChildren, ReactNode } from 'react';
 import { PageProps } from '@/types';
 
@@ -38,10 +41,26 @@ export default function AuthenticatedLayout({
                         <Breadcrumb>
                             <BreadcrumbList>
                                 <BreadcrumbItem>
-                                    <BreadcrumbPage>
-                                        {header || t('Dashboard')}
-                                    </BreadcrumbPage>
+                                    {header ? (
+                                        <BreadcrumbLink asChild>
+                                            <Link href={route('dashboard')} title={t('Home')}>
+                                                <Home className="size-4" />
+                                            </Link>
+                                        </BreadcrumbLink>
+                                    ) : (
+                                        <BreadcrumbPage>
+                                            <Home className="size-4" />
+                                        </BreadcrumbPage>
+                                    )}
                                 </BreadcrumbItem>
+                                {header && (
+                                    <>
+                                        <BreadcrumbSeparator />
+                                        <BreadcrumbItem>
+                                            <BreadcrumbPage>{header}</BreadcrumbPage>
+                                        </BreadcrumbItem>
+                                    </>
+                                )}
                             </BreadcrumbList>
                         </Breadcrumb>
                     </div>

@@ -202,6 +202,68 @@ class GalleriesController extends Controller
         return response()->json(['tags' => $tags]);
     }
 
+    public function setPhotoDescription(Request $request, Gallery $gallery, int $mediaId)
+    {
+        $validated = $request->validate([
+            'description' => 'nullable|string|max:1000',
+        ]);
+
+        $media = $gallery->media()->where('id', $mediaId)->first();
+        if (! $media) {
+            return response()->json(['error' => 'Photo not found'], 422);
+        }
+
+        $media->setCustomProperty('description', $validated['description'] ?? null);
+        $media->save();
+
+        return response()->json(['description' => $media->getCustomProperty('description')]);
+    }
+
+    public function bulkTagPhotos(Request $request, Gallery $gallery)
+    {
+        $validated = $request->validate([
+            'media_ids'   => 'required|array|min:1',
+            'media_ids.*' => 'required|integer',
+            'tags'        => 'required|string',
+        ]);
+
+        $validIds = $gallery->media()->whereIn('id', $validated['media_ids'])->pluck('id');
+
+        $tagNames = array_filter(array_map('trim', explode(',', $validated['tags'])));
+
+        foreach ($validIds as $mediaId) {
+            Tag::addFromNames($tagNames, 'photo_tag', 'media_id', $mediaId);
+        }
+
+        $tagsByMedia = DB::table('photo_tag')
+            ->join('tags', 'tags.id', '=', 'photo_tag.tag_id')
+            ->whereIn('photo_tag.media_id', $validIds)
+            ->select('photo_tag.media_id', 'tags.id', 'tags.name', 'tags.slug')
+            ->get()
+            ->groupBy('media_id')
+            ->map(fn ($rows) => $rows->map(fn ($t) => ['id' => $t->id, 'name' => $t->name, 'slug' => $t->slug])->values());
+
+        return response()->json(['tags' => $tagsByMedia]);
+    }
+
+    public function bulkSetPhotoDescription(Request $request, Gallery $gallery)
+    {
+        $validated = $request->validate([
+            'media_ids'   => 'required|array|min:1',
+            'media_ids.*' => 'required|integer',
+            'description' => 'nullable|string|max:1000',
+        ]);
+
+        $media = $gallery->media()->whereIn('id', $validated['media_ids'])->get();
+
+        foreach ($media as $m) {
+            $m->setCustomProperty('description', $validated['description'] ?? null);
+            $m->save();
+        }
+
+        return response()->json(['description' => $validated['description'] ?? null]);
+    }
+
     private function parseTagNames(array $validated): ?array
     {
         if (! array_key_exists('tags', $validated)) {
@@ -214,13 +276,14 @@ class GalleriesController extends Controller
     private function formatGallery(Gallery $gallery): array
     {
         $photos = $gallery->getMedia('photos')->map(fn ($m) => [
-            'id'      => $m->id,
-            'url'     => $m->getUrl(),
-            'thumb'   => $m->getUrl('thumb') ?: $m->getUrl(),
-            'preview' => $m->getUrl('preview') ?: $m->getUrl(),
-            'name'    => $m->file_name,
-            'order'   => $m->order_column,
-            'tags'    => [],
+            'id'          => $m->id,
+            'url'         => $m->getUrl(),
+            'thumb'       => $m->getUrl('thumb') ?: $m->getUrl(),
+            'preview'     => $m->getUrl('preview') ?: $m->getUrl(),
+            'name'        => $m->file_name,
+            'order'       => $m->order_column,
+            'description' => $m->getCustomProperty('description'),
+            'tags'        => [],
         ])->sortBy('order')->values();
 
         // Load photo tags in one query
