@@ -88,6 +88,14 @@ export default function GalleryShow({ gallery, watermark }: Props) {
         if (lightboxIdx !== null && lightboxIdx >= photos.length) setLightboxIdx(null)
     }, [photos.length, lightboxIdx])
 
+    // Open the lightbox on a specific photo when linked via ?photo=<id>
+    useEffect(() => {
+        const photoId = Number(new URLSearchParams(window.location.search).get('photo'))
+        if (!photoId) return
+        const idx = gallery.photos.findIndex(p => p.id === photoId)
+        if (idx !== -1) setLightboxIdx(idx)
+    }, [])
+
     // Keyboard: lightbox navigation + block Ctrl+S / Ctrl+U
     useEffect(() => {
         const onKey = (e: KeyboardEvent) => {
@@ -284,9 +292,14 @@ export default function GalleryShow({ gallery, watermark }: Props) {
                     <div style={{ fontFamily: 'var(--lp-serif)', fontStyle: 'italic', fontSize: '14px', color: 'var(--lp-text-dim)' }}>
                         Jaka Vozlič Photography
                     </div>
-                    <a href="/#portfolio" style={{ fontSize: '9px', letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--lp-text-faint)', textDecoration: 'none' }}>
-                        ← Nazaj na galerijo
-                    </a>
+                    <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+                        <a href="/politika-zasebnosti" style={{ fontSize: '9px', letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--lp-text-faint)', textDecoration: 'none' }}>
+                            Politika zasebnosti
+                        </a>
+                        <a href="/#portfolio" style={{ fontSize: '9px', letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--lp-text-faint)', textDecoration: 'none' }}>
+                            ← Nazaj na galerijo
+                        </a>
+                    </div>
                 </div>
 
                 {/* Lightbox */}

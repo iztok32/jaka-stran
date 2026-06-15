@@ -25,6 +25,7 @@ class GalleryController extends Controller
             'type'          => 'gallery',
             'viewable_type' => Gallery::class,
             'viewable_id'   => $gallery->id,
+            ...Visitor::location($request),
         ]);
 
         $photos = $gallery->getMedia('photos')

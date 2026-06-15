@@ -6,7 +6,7 @@ import { Badge } from '@/Components/ui/badge'
 import {
     Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from '@/Components/ui/table'
-import { Eye, Users, MessageSquare, Image as ImageIcon } from 'lucide-react'
+import { Eye, Users, MessageSquare, Image as ImageIcon, Repeat } from 'lucide-react'
 import {
     AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from 'recharts'
@@ -32,6 +32,17 @@ interface TopPhoto {
     views: number
 }
 
+interface TopCountry {
+    country: string
+    country_code: string | null
+    views: number
+}
+
+interface TopPage {
+    path: string
+    views: number
+}
+
 interface RecentInquiry {
     id: number
     name: string
@@ -50,13 +61,24 @@ interface Props {
         inquiries_total: number
         inquiries_30d: number
         inquiries_new: number
+        returning_visitors_30d: number
+        new_visitors_30d: number
     }
     chart: ChartPoint[]
     viewsByType: Record<string, number>
     topGalleries: TopGallery[]
     topPhotos: TopPhoto[]
+    topCountries: TopCountry[]
+    topPages: TopPage[]
     inquiriesByStatus: Record<string, number>
     recentInquiries: RecentInquiry[]
+}
+
+function countryFlag(code: string | null): string {
+    if (!code || code.length !== 2) return '🌐'
+    const A = 0x1f1e6
+    const chars = code.toUpperCase().split('').map(c => A + (c.charCodeAt(0) - 65))
+    return String.fromCodePoint(...chars)
 }
 
 function StatusBadge({ status }: { status: RecentInquiry['status'] }) {
@@ -92,7 +114,7 @@ function formatShortDate(d: string) {
     return date.toLocaleDateString('sl-SI', { day: 'numeric', month: 'numeric' })
 }
 
-export default function Dashboard({ stats, chart, topGalleries, topPhotos, recentInquiries }: Props) {
+export default function Dashboard({ stats, chart, topGalleries, topPhotos, topCountries, topPages, recentInquiries }: Props) {
     const { t } = useTranslation()
 
     return (
@@ -107,9 +129,10 @@ export default function Dashboard({ stats, chart, topGalleries, topPhotos, recen
 
             <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
                 {/* Stat cards */}
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
                     <StatCard icon={Eye} label="Ogledi strani (30 dni)" value={stats.views_30d} sub={`Skupaj: ${stats.views_total}`} />
                     <StatCard icon={Users} label="Unikatni obiskovalci (30 dni)" value={stats.visitors_30d} sub={`Skupaj: ${stats.visitors_total}`} />
+                    <StatCard icon={Repeat} label="Vračajoči obiskovalci (30 dni)" value={stats.returning_visitors_30d} sub={`Novi: ${stats.new_visitors_30d}`} />
                     <StatCard icon={MessageSquare} label="Povpraševanja (30 dni)" value={stats.inquiries_30d} sub={`Skupaj: ${stats.inquiries_total}`} />
                     <StatCard icon={MessageSquare} label="Nova povpraševanja" value={stats.inquiries_new} />
                 </div>
@@ -199,6 +222,56 @@ export default function Dashboard({ stats, chart, topGalleries, topPhotos, recen
                                         </div>
                                     ))}
                                 </div>
+                            )}
+                        </CardContent>
+                    </Card>
+                </div>
+
+                <div className="grid gap-4 lg:grid-cols-2">
+                    {/* Top countries */}
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Od kod prihajajo obiskovalci</CardTitle>
+                            <CardDescription>Zadnjih 30 dni · geografska lokacija po IP</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            {topCountries.length === 0 ? (
+                                <p className="text-sm text-muted-foreground">Ni še podatkov.</p>
+                            ) : (
+                                <ul className="space-y-3">
+                                    {topCountries.map((c, idx) => (
+                                        <li key={`${c.country_code}-${idx}`} className="flex items-center gap-3">
+                                            <span className="text-lg leading-none">{countryFlag(c.country_code)}</span>
+                                            <span className="flex-1 truncate text-sm">{c.country}</span>
+                                            <span className="text-sm font-medium tabular-nums text-muted-foreground">{c.views}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </CardContent>
+                    </Card>
+
+                    {/* Top pages */}
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Najbolj obiskane strani</CardTitle>
+                            <CardDescription>Zadnjih 30 dni · Top 10 po naslovu (path)</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            {topPages.length === 0 ? (
+                                <p className="text-sm text-muted-foreground">Ni še podatkov.</p>
+                            ) : (
+                                <ul className="space-y-3">
+                                    {topPages.map((p, idx) => (
+                                        <li key={p.path} className="flex items-center gap-3">
+                                            <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-muted text-xs font-medium text-muted-foreground">
+                                                {idx + 1}
+                                            </span>
+                                            <span className="flex-1 truncate font-mono text-sm">{p.path}</span>
+                                            <span className="text-sm font-medium tabular-nums text-muted-foreground">{p.views}</span>
+                                        </li>
+                                    ))}
+                                </ul>
                             )}
                         </CardContent>
                     </Card>

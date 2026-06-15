@@ -12,7 +12,7 @@ interface GalleryItem {
     cover?: string | null
     photos_count: number
     tags: string[]
-    photos: { id: number; thumb: string; url: string }[]
+    photos: { id: number; thumb: string; preview: string; url: string; description?: string | null; tags: string[] }[]
 }
 
 interface HeroArticle {
@@ -358,14 +358,51 @@ function GallerySection({ galleries, allTags }: { galleries: GalleryItem[]; allT
         el.scrollBy({ left: dir * el.clientWidth * 0.8, behavior: 'smooth' })
     }
 
+    const searchTerm = search.trim().toLowerCase()
+    const isSearching = searchTerm.length > 0
+
     const visibleGalleries = galleries
         .filter(g => activeTag === 'vse' || g.tags.includes(activeTag))
-        .filter(g => g.title.toLowerCase().includes(search.trim().toLowerCase()))
+
+    // When searching, look across every photo in every gallery and match
+    // on the photo's tags or its description (custom_properties.description).
+    const photoResults = useMemo(() => {
+        if (!isSearching) return []
+        const results: { gallery: GalleryItem; photo: GalleryItem['photos'][number] }[] = []
+        galleries.forEach(g => {
+            g.photos.forEach(p => {
+                const tagMatch = p.tags.some(t => t.toLowerCase().includes(searchTerm))
+                const descMatch = !!p.description?.toLowerCase().includes(searchTerm)
+                if (tagMatch || descMatch) results.push({ gallery: g, photo: p })
+            })
+        })
+        return results
+    }, [galleries, search])
 
     const formatDate = (d?: string | null) => {
         if (!d) return ''
         return new Date(d).toLocaleDateString('sl-SI', { month: 'long', year: 'numeric' })
     }
+
+    // Cards to render: search results (one per matching photo) when searching,
+    // otherwise the tag-filtered galleries.
+    const displayItems = isSearching
+        ? photoResults.map(({ gallery, photo }) => ({
+            key: `photo-${photo.id}`,
+            href: `/galerija/${gallery.slug}?photo=${photo.id}`,
+            cover: photo.preview || photo.url,
+            title: gallery.title,
+            subtitle: photo.tags.length
+                ? photo.tags.join(' · ')
+                : (photo.description ?? '').slice(0, 60),
+        }))
+        : visibleGalleries.map(g => ({
+            key: g.id,
+            href: `/galerija/${g.slug}`,
+            cover: g.cover,
+            title: g.title,
+            subtitle: [g.tags[0], formatDate(g.gallery_date)].filter(Boolean).join(' · '),
+        }))
 
     const gradients = [
         'linear-gradient(150deg,#1c1410 0%,#2e1e10 100%)',
@@ -415,7 +452,7 @@ function GallerySection({ galleries, allTags }: { galleries: GalleryItem[]; allT
                             type="text"
                             value={search}
                             onChange={e => setSearch(e.target.value)}
-                            placeholder="Iskanje galerij..."
+                            placeholder="Iskanje fotografij..."
                             className="lp-gal-search"
                             style={{
                                 background: 'transparent', border: 'none', outline: 'none',
@@ -459,13 +496,21 @@ function GallerySection({ galleries, allTags }: { galleries: GalleryItem[]; allT
                     scrollbarWidth: 'none',
                     msOverflowStyle: 'none' as any,
                 }}>
-                    {visibleGalleries.map((g, idx) => {
+                    {displayItems.length === 0 ? (
+                        <div style={{
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            width: '100%', fontFamily: 'var(--lp-mono)', fontSize: '10px',
+                            letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--lp-text-faint)',
+                        }}>
+                            Ni najdenih fotografij
+                        </div>
+                    ) : displayItems.map((item, idx) => {
                         const isFirst = idx === 0
                         const cardWidth = isFirst ? `calc(${H} * 1.35)` : `calc(${H} * 0.65)`
                         return (
                             <a
-                                key={g.id}
-                                href={`/galerija/${g.slug}`}
+                                key={item.key}
+                                href={item.href}
                                 className="lp-gal-item"
                                 style={{
                                     position: 'relative', overflow: 'hidden',
@@ -475,16 +520,18 @@ function GallerySection({ galleries, allTags }: { galleries: GalleryItem[]; allT
                                 }}
                             >
                                 <div className="lp-gal-bg" style={{
-                                    backgroundImage: g.cover ? `url(${g.cover})` : gradients[idx % gradients.length],
+                                    backgroundImage: item.cover ? `url(${item.cover})` : gradients[idx % gradients.length],
                                     backgroundSize: 'cover', backgroundPosition: 'center',
                                     width: '100%', height: '100%',
                                 }} />
                                 <div className="lp-gal-overlay" style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '24px' }}>
                                     <div className="lp-gal-info">
-                                        <div style={{ fontFamily: 'var(--lp-serif)', fontStyle: 'italic', fontSize: isFirst ? '22px' : '16px', fontWeight: 300, color: 'rgba(255,255,255,0.92)', lineHeight: 1.2 }}>{g.title}</div>
-                                        <div style={{ fontSize: '8px', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', marginTop: '6px' }}>
-                                            {[g.tags[0], formatDate(g.gallery_date)].filter(Boolean).join(' · ')}
-                                        </div>
+                                        <div style={{ fontFamily: 'var(--lp-serif)', fontStyle: 'italic', fontSize: isFirst ? '22px' : '16px', fontWeight: 300, color: 'rgba(255,255,255,0.92)', lineHeight: 1.2 }}>{item.title}</div>
+                                        {item.subtitle && (
+                                            <div style={{ fontSize: '8px', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', marginTop: '6px' }}>
+                                                {item.subtitle}
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                                 <div className="lp-gal-num" style={{ position: 'absolute', top: '14px', right: '14px', fontSize: '8px', letterSpacing: '0.1em', color: 'rgba(255,255,255,0.2)' }}>
@@ -765,8 +812,11 @@ function Footer({ socialLinks }: { socialLinks: SocialLinks }) {
             <div style={{ fontFamily: 'var(--lp-serif)', fontStyle: 'italic', fontSize: '15px', color: 'var(--lp-text-dim)' }}>
                 Jaka Vozlič Photography
             </div>
-            <div style={{ fontSize: '9px', letterSpacing: '0.1em', color: 'var(--lp-text-faint)' }}>
-                © {new Date().getFullYear()} Jaka Vozlič. Vse pravice pridržane.
+            <div style={{ fontSize: '9px', letterSpacing: '0.1em', color: 'var(--lp-text-faint)', display: 'flex', alignItems: 'center', gap: '16px' }}>
+                <span>© {new Date().getFullYear()} Jaka Vozlič. Vse pravice pridržane.</span>
+                <a href="/politika-zasebnosti" style={{ color: 'var(--lp-text-faint)', textDecoration: 'underline' }}>
+                    Politika zasebnosti
+                </a>
             </div>
             {links.length > 0 && (
                 <div style={{ display: 'flex', gap: '24px' }}>

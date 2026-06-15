@@ -25,4 +25,22 @@ class Visitor
 
         return $id;
     }
+
+    /**
+     * Resolve the country for the current request's IP. Returns nulls for
+     * local/private IPs or when the lookup falls back to the default location.
+     */
+    public static function location(Request $request): array
+    {
+        $location = geoip()->getLocation($request->ip());
+
+        if ($location->default) {
+            return ['country' => null, 'country_code' => null];
+        }
+
+        return [
+            'country' => $location->country,
+            'country_code' => $location->iso_code,
+        ];
+    }
 }

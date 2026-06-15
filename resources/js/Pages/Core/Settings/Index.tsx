@@ -12,6 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Input } from '@/Components/ui/input'
 import { ImagePlus, Instagram, Loader2, Mail, Save, Trash2, User, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { apiFetch } from '@/lib/api'
 
 interface Settings {
     watermark_image: string | null
@@ -52,19 +53,14 @@ function WatermarkUpload({
     const [isDragOver, setIsDragOver] = useState(false)
     const inputRef                  = useRef<HTMLInputElement>(null)
 
-    const getCsrf = () =>
-        document.querySelector<HTMLMetaElement>('meta[name="csrf-token"]')?.content ?? ''
-
     const uploadFile = async (file: File) => {
         if (!canEdit) return
         setUploading(true)
         const formData = new FormData()
         formData.append('image', file)
         try {
-            await fetch(route('settings.watermark.store'), {
+            await apiFetch(route('settings.watermark.store'), {
                 method: 'POST',
-                headers: { 'X-CSRF-TOKEN': getCsrf() },
-                credentials: 'same-origin',
                 body: formData,
             })
             setPreview(URL.createObjectURL(file))
@@ -76,10 +72,8 @@ function WatermarkUpload({
 
     const handleDelete = async () => {
         if (!canEdit) return
-        await fetch(route('settings.watermark.delete'), {
+        await apiFetch(route('settings.watermark.delete'), {
             method: 'DELETE',
-            headers: { 'X-CSRF-TOKEN': getCsrf() },
-            credentials: 'same-origin',
         })
         setPreview(null)
         router.reload({ only: ['settings'] })
@@ -281,19 +275,14 @@ function PhotographerPhotos({ photos: initialPhotos, canEdit }: {
     const [isDragOver, setIsDragOver] = useState(false)
     const inputRef = useRef<HTMLInputElement>(null)
 
-    const getCsrf = () =>
-        document.querySelector<HTMLMetaElement>('meta[name="csrf-token"]')?.content ?? ''
-
     const uploadFiles = useCallback(async (files: File[]) => {
         if (!canEdit || uploading) return
         setUploading(true)
         const formData = new FormData()
         files.forEach(f => formData.append('photos[]', f))
         try {
-            const res = await fetch(route('settings.photographer-photos.store'), {
+            const res = await apiFetch(route('settings.photographer-photos.store'), {
                 method: 'POST',
-                headers: { 'X-CSRF-TOKEN': getCsrf() },
-                credentials: 'same-origin',
                 body: formData,
             })
             if (res.ok) {
@@ -313,20 +302,17 @@ function PhotographerPhotos({ photos: initialPhotos, canEdit }: {
             usage: p.usage === newUsage && p.id !== photoId ? null :
                    p.id === photoId ? newUsage : p.usage,
         })))
-        await fetch(route('settings.photographer-photos.usage', photoId), {
+        await apiFetch(route('settings.photographer-photos.usage', photoId), {
             method: 'PATCH',
-            headers: { 'X-CSRF-TOKEN': getCsrf(), 'Content-Type': 'application/json' },
-            credentials: 'same-origin',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ usage: newUsage }),
         })
     }
 
     const handleDelete = async (photoId: number, filename: string) => {
         setPhotos(prev => prev.filter(p => p.id !== photoId))
-        await fetch(route('settings.photographer-photos.delete', photoId), {
+        await apiFetch(route('settings.photographer-photos.delete', photoId), {
             method: 'DELETE',
-            headers: { 'X-CSRF-TOKEN': getCsrf() },
-            credentials: 'same-origin',
         })
     }
 

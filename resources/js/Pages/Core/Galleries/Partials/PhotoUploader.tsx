@@ -15,6 +15,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/Components/ui/popover
 import TagInput from '@/Components/TagInput'
 import { Button } from '@/Components/ui/button'
 import { Textarea } from '@/Components/ui/textarea'
+import { apiFetch } from '@/lib/api'
 
 interface PendingPhoto {
     id: string
@@ -58,17 +59,13 @@ function PhotoTagPopover({
     const [description, setDescription]       = useState(photo.description ?? '')
     const [savingDescription, setSavingDescription] = useState(false)
 
-    const getCsrf = () =>
-        document.querySelector<HTMLMetaElement>('meta[name="csrf-token"]')?.content ?? ''
-
     const save = async (newTags: string[]) => {
         setTags(newTags)
         setSaving(true)
         try {
-            const res = await fetch(route('galleries.photos.tags', { gallery: galleryId, mediaId: photo.id }), {
+            const res = await apiFetch(route('galleries.photos.tags', { gallery: galleryId, mediaId: photo.id }), {
                 method: 'POST',
-                headers: { 'X-CSRF-TOKEN': getCsrf(), 'Content-Type': 'application/json' },
-                credentials: 'same-origin',
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ tags: newTags.join(',') }),
             })
             if (res.ok) {
@@ -83,10 +80,9 @@ function PhotoTagPopover({
     const saveDescription = async () => {
         setSavingDescription(true)
         try {
-            const res = await fetch(route('galleries.photos.description', { gallery: galleryId, mediaId: photo.id }), {
+            const res = await apiFetch(route('galleries.photos.description', { gallery: galleryId, mediaId: photo.id }), {
                 method: 'POST',
-                headers: { 'X-CSRF-TOKEN': getCsrf(), 'Content-Type': 'application/json' },
-                credentials: 'same-origin',
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ description }),
             })
             if (res.ok) {
@@ -345,12 +341,8 @@ export default function PhotoUploader({
         useSensor(TouchSensor, { activationConstraint: { delay: 150, tolerance: 5 } })
     )
 
-    const getCsrf = () =>
-        document.querySelector<HTMLMetaElement>('meta[name="csrf-token"]')?.content ?? ''
-
     const uploadFiles = useCallback(async (files: File[]) => {
         if (!canEdit) return
-        const csrfToken = getCsrf()
         const newPending: PendingPhoto[] = files.map(file => ({
             id: Math.random().toString(36).slice(2), file,
             previewUrl: URL.createObjectURL(file), uploading: true,
@@ -361,9 +353,8 @@ export default function PhotoUploader({
             const formData = new FormData()
             formData.append('photos[]', pendingItem.file)
             try {
-                const res = await fetch(route('galleries.photos.upload', galleryId), {
-                    method: 'POST', headers: { 'X-CSRF-TOKEN': csrfToken },
-                    credentials: 'same-origin', body: formData,
+                const res = await apiFetch(route('galleries.photos.upload', galleryId), {
+                    method: 'POST', body: formData,
                 })
                 if (!res.ok) throw new Error()
                 const data = await res.json() as { photos: GalleryPhoto[] }
@@ -388,10 +379,9 @@ export default function PhotoUploader({
     }
 
     const handleDeletePhoto = async (mediaId: number) => {
-        const csrfToken = getCsrf()
         try {
-            await fetch(route('galleries.photos.delete', { gallery: galleryId, mediaId }), {
-                method: 'DELETE', headers: { 'X-CSRF-TOKEN': csrfToken }, credentials: 'same-origin',
+            await apiFetch(route('galleries.photos.delete', { gallery: galleryId, mediaId }), {
+                method: 'DELETE',
             })
             onPhotosChange(photos.filter(p => p.id !== mediaId))
             if (coverId === mediaId) onCoverChange(null)
@@ -401,12 +391,10 @@ export default function PhotoUploader({
     const handleSetCover = async (mediaId: number) => {
         if (!canEdit) return
         const newCoverId = coverId === mediaId ? null : mediaId
-        const csrfToken = getCsrf()
         try {
-            await fetch(route('galleries.cover.set', galleryId), {
+            await apiFetch(route('galleries.cover.set', galleryId), {
                 method: 'POST',
-                headers: { 'X-CSRF-TOKEN': csrfToken, 'Content-Type': 'application/json' },
-                credentials: 'same-origin',
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ media_id: newCoverId }),
             })
             onCoverChange(newCoverId)
@@ -441,10 +429,9 @@ export default function PhotoUploader({
         if (selectedIds.size === 0 || bulkTags.length === 0) return
         setBulkSavingTags(true)
         try {
-            const res = await fetch(route('galleries.photos.bulk-tags', galleryId), {
+            const res = await apiFetch(route('galleries.photos.bulk-tags', galleryId), {
                 method: 'POST',
-                headers: { 'X-CSRF-TOKEN': getCsrf(), 'Content-Type': 'application/json' },
-                credentials: 'same-origin',
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ media_ids: Array.from(selectedIds), tags: bulkTags.join(',') }),
             })
             if (res.ok) {
@@ -461,10 +448,9 @@ export default function PhotoUploader({
         if (selectedIds.size === 0) return
         setBulkSavingDescription(true)
         try {
-            const res = await fetch(route('galleries.photos.bulk-description', galleryId), {
+            const res = await apiFetch(route('galleries.photos.bulk-description', galleryId), {
                 method: 'POST',
-                headers: { 'X-CSRF-TOKEN': getCsrf(), 'Content-Type': 'application/json' },
-                credentials: 'same-origin',
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ media_ids: Array.from(selectedIds), description: bulkDescription }),
             })
             if (res.ok) {
@@ -484,11 +470,9 @@ export default function PhotoUploader({
         const newIndex  = photos.findIndex(p => p.id === over.id)
         const reordered = arrayMove(photos, oldIndex, newIndex)
         onPhotosChange(reordered)
-        const csrfToken = getCsrf()
-        await fetch(route('galleries.photos.reorder', galleryId), {
+        await apiFetch(route('galleries.photos.reorder', galleryId), {
             method: 'POST',
-            headers: { 'X-CSRF-TOKEN': csrfToken, 'Content-Type': 'application/json' },
-            credentials: 'same-origin',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ order: reordered.map(p => p.id) }),
         })
     }

@@ -27,6 +27,7 @@ class PortfolioController extends Controller
             'type'          => 'portfolio',
             'viewable_type' => Article::class,
             'viewable_id'   => $service->id,
+            ...Visitor::location($request),
         ]);
 
         $tag = Tag::where('slug', 'portfolio-' . $slug)->first();

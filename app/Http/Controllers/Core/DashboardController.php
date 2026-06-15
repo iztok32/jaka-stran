@@ -45,6 +45,32 @@ class DashboardController extends Controller
             ->groupBy('type')
             ->pluck('count', 'type');
 
+        // Returning vs new visitors (last 30 days): a visitor counts as
+        // returning if they were seen on more than one distinct day
+        $returningVisitors30 = PageView::where('created_at', '>=', $since30)
+            ->selectRaw('visitor_id, COUNT(DISTINCT DATE(created_at)) as days')
+            ->groupBy('visitor_id')
+            ->havingRaw('COUNT(DISTINCT DATE(created_at)) > 1')
+            ->get()
+            ->count();
+
+        // Top countries by visits (last 30 days)
+        $topCountries = PageView::where('created_at', '>=', $since30)
+            ->whereNotNull('country')
+            ->selectRaw('country, country_code, COUNT(*) as views')
+            ->groupBy('country', 'country_code')
+            ->orderByDesc('views')
+            ->limit(8)
+            ->get();
+
+        // Top pages by path (last 30 days)
+        $topPages = PageView::where('created_at', '>=', $since30)
+            ->selectRaw('path, COUNT(*) as views')
+            ->groupBy('path')
+            ->orderByDesc('views')
+            ->limit(10)
+            ->get();
+
         // Top galleries by views (last 30 days)
         $topGalleryViews = PageView::where('type', 'gallery')
             ->where('created_at', '>=', $since30)
@@ -117,11 +143,15 @@ class DashboardController extends Controller
                 'inquiries_total' => $inquiriesTotal,
                 'inquiries_30d'   => $inquiries30,
                 'inquiries_new'   => (int) ($inquiriesByStatus['new'] ?? 0),
+                'returning_visitors_30d' => $returningVisitors30,
+                'new_visitors_30d'       => $totalVisitors30 - $returningVisitors30,
             ],
             'chart'              => $chart,
             'viewsByType'        => $viewsByType,
             'topGalleries'       => $topGalleries,
             'topPhotos'          => $topPhotos,
+            'topCountries'       => $topCountries,
+            'topPages'           => $topPages,
             'inquiriesByStatus'  => $inquiriesByStatus,
             'recentInquiries'    => $recentInquiries,
         ]);

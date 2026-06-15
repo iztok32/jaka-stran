@@ -21,6 +21,7 @@ class WelcomeController extends Controller
             'visitor_id' => Visitor::id($request),
             'path'       => '/',
             'type'       => 'home',
+            ...Visitor::location($request),
         ]);
 
         // Published galleries for the portfolio grid
@@ -143,11 +144,30 @@ class WelcomeController extends Controller
     private function formatGallery(Gallery $g): array
     {
         $photos = $g->getMedia('photos')->map(fn ($m) => [
-            'id'      => $m->id,
-            'thumb'   => $m->getUrl('thumb') ?: $m->getUrl(),
-            'preview' => $m->getUrl('preview') ?: $m->getUrl(),
-            'url'     => $m->getUrl(),
+            'id'          => $m->id,
+            'thumb'       => $m->getUrl('thumb') ?: $m->getUrl(),
+            'preview'     => $m->getUrl('preview') ?: $m->getUrl(),
+            'url'         => $m->getUrl(),
+            'description' => $m->getCustomProperty('description'),
+            'tags'        => [],
         ])->sortBy(fn ($m) => $m['id'])->values();
+
+        if ($photos->isNotEmpty()) {
+            $photoTagsMap = DB::table('photo_tag')
+                ->join('tags', 'tags.id', '=', 'photo_tag.tag_id')
+                ->whereIn('photo_tag.media_id', $photos->pluck('id'))
+                ->select('photo_tag.media_id', 'tags.name')
+                ->get()
+                ->groupBy('media_id');
+
+            $photos = $photos->map(function ($photo) use ($photoTagsMap) {
+                $photo['tags'] = ($photoTagsMap[$photo['id']] ?? collect())
+                    ->pluck('name')
+                    ->values()
+                    ->all();
+                return $photo;
+            });
+        }
 
         $coverPhotoId = $g->cover_photo_id;
         $coverPhoto   = $coverPhotoId

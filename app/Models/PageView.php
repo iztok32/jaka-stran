@@ -11,6 +11,8 @@ class PageView extends Model
     protected $fillable = [
         'visitor_id',
         'path',
+        'country',
+        'country_code',
         'type',
         'viewable_type',
         'viewable_id',

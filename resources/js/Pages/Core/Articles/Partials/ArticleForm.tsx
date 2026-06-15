@@ -12,6 +12,7 @@ import { TipTapEditor } from '@/Components/TipTapEditor'
 import { X, Image as ImageIcon, Globe, Lock } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { cn } from '@/lib/utils'
+import { apiFetch } from '@/lib/api'
 
 interface ArticleFormProps {
     article?: Article | null
@@ -84,11 +85,8 @@ export default function ArticleForm({ article, onSuccess }: ArticleFormProps) {
         const fd = new FormData()
         fd.append('file', file)
         fd.append('collection', 'gallery')
-        const csrfToken = document.querySelector<HTMLMetaElement>('meta[name="csrf-token"]')?.content ?? ''
-        const res = await fetch(route('articles.media.upload', article.id), {
+        const res = await apiFetch(route('articles.media.upload', article.id), {
             method: 'POST',
-            headers: { 'X-CSRF-TOKEN': csrfToken },
-            credentials: 'same-origin',
             body: fd,
         })
         if (!res.ok) return ''

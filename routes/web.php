@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [\App\Http\Controllers\WelcomeController::class, 'index'])->name('welcome');
+Route::get('/politika-zasebnosti', fn () => \Inertia\Inertia::render('PrivacyPolicy'))->name('privacy-policy');
 Route::post('/contact', [\App\Http\Controllers\ContactController::class, 'store'])->name('contact.store');
 Route::get('/galerija/{slug}', [\App\Http\Controllers\GalleryController::class, 'show'])->name('gallery.show');
 Route::get('/portfolio/{slug}', [\App\Http\Controllers\PortfolioController::class, 'show'])->name('portfolio.show');
